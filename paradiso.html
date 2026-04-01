@@ -7,23 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --void: #080604;
-    --ink: #0f0b05;
-    --ink-mid: #181208;
-    --ink-light: #241a08;
-    --gold: #c8941a;
-    --gold-mid: #e0aa28;
-    --gold-bright: #f5c842;
-    --gold-glow: #ffd050;
-    --amber: #d4820a;
-    --amber-light: #e8a030;
-    --rose-gold: #c47030;
-    --white-light: #fff8d0;
-    --shadow: rgba(8,6,4,0.6);
-    --text-body: #c8a458;
-    --text-mid: #ddb660;
-    --text-faint: #a07828;
-    --text-fainter: #7a5c20;
+    --void: #0c0804;
+    --ink: #170e04;
+    --ink-mid: #1e1508;
+    --ink-light: #2a1c0a;
+    --gold: #d4a820;
+    --gold-mid: #e8be38;
+    --gold-bright: #f8d048;
+    --gold-glow: #ffe868;
+    --amber: #e08a18;
+    --amber-light: #f0a828;
+    --cream: #f8e8b0;
+    --white-light: #fff8e0;
+    --shadow: rgba(12,8,4,0.65);
+    --text-body: #dcc270;
+    --text-mid: #ecd888;
+    --text-faint: #b89038;
+    --text-fainter: #8c6e28;
     --blue-heaven: #4a72a8;
   }
 
@@ -32,9 +32,9 @@
   body {
     background-color: var(--ink);
     background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(245,200,66,0.10) 0%, transparent 55%),
-      radial-gradient(ellipse at 100% 50%, rgba(200,148,26,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 0% 100%, rgba(180,130,20,0.05) 0%, transparent 50%);
+      radial-gradient(ellipse at 50% 0%, rgba(255,210,80,0.13) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 50%, rgba(220,160,40,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, rgba(200,150,30,0.06) 0%, transparent 50%);
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--text-body);
     min-height: 100vh;
@@ -42,7 +42,7 @@
 
   /* ── SITE NAV ── */
   .site-nav {
-    background: rgba(12,9,4,0.98);
+    background: rgba(18,12,4,0.98);
     border-bottom: 1px solid rgba(176,125,16,0.18);
     padding: 0 24px;
     display: flex;
@@ -89,7 +89,7 @@
     border-bottom: 1px solid rgba(176,125,16,0.25);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, rgba(20,15,5,0.85) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(28,18,5,0.85) 0%, transparent 100%);
   }
 
   header::before {
@@ -156,7 +156,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10,8,3,0.95);
+    background: rgba(16,10,3,0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(176,125,16,0.2);
     box-shadow: 0 2px 16px rgba(0,0,0,0.5);
@@ -283,7 +283,7 @@
     border-radius: 5px;
     overflow: hidden;
     border: 1px solid rgba(176,125,16,0.14);
-    background: rgba(20,15,5,0.75);
+    background: rgba(30,20,6,0.75);
     transition: border-color 0.25s, box-shadow 0.25s;
   }
 

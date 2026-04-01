@@ -7,19 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1410;
-    --parchment: #f2ead8;
-    --parchment-dark: #e8dcc4;
-    --parchment-mid: #ede4cc;
-    --gold: #b8860b;
-    --gold-light: #d4a843;
-    --gold-bright: #e8c060;
+    --ink: #070d06;
+    --forest: #0e1a0b;
+    --parchment: #b0d285;
+    --parchment-dark: #88b060;
+    --parchment-mid: #9cc075;
+    --gold: #3a6025;
+    --gold-light: #5a9038;
+    --gold-bright: #76aa50;
     --crimson: #8b1a1a;
     --crimson-light: #c0392b;
     --blue-deep: #1a2744;
     --blue-mid: #2c3e6e;
-    --slate: #4a4035;
-    --shadow: rgba(26,20,16,0.18);
+    --slate: #1a2e14;
+    --shadow: rgba(7,13,6,0.5);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,8 +28,8 @@
   body {
     background-color: var(--ink);
     background-image:
-      radial-gradient(ellipse at 20% 0%, #2c1f0e 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, #1a2030 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 0%, #142510 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, #0a1808 0%, transparent 60%);
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--parchment);
     min-height: 100vh;
@@ -37,7 +38,7 @@
   /* ── SITE NAV ── */
   .site-nav {
     background: rgba(10,8,6,0.98);
-    border-bottom: 1px solid rgba(184,134,11,0.12);
+    border-bottom: 1px solid rgba(56,100,35,0.12);
     padding: 0 24px;
     display: flex;
     align-items: center;
@@ -57,11 +58,11 @@
     border-bottom: 2px solid transparent;
   }
 
-  .site-nav a.home { color: #483820; }
-  .site-nav a.home:hover { color: #b8a080; }
+  .site-nav a.home { color: #2a4020; }
+  .site-nav a.home:hover { color: #7aaa52; }
 
   .site-nav .sep {
-    color: #2a2010;
+    color: #1a2e14;
     font-size: 10px;
     padding: 0 2px;
   }
@@ -69,18 +70,18 @@
   .site-nav a.inferno { color: #5c2020; }
   .site-nav a.inferno:hover { color: #c0392b; }
 
-  .site-nav a.purgatorio { color: #8b6400; }
+  .site-nav a.purgatorio { color: #3a7025; }
   .site-nav a.purgatorio:hover,
-  .site-nav a.purgatorio.active { color: #e8c060; border-bottom-color: #b8860b; }
+  .site-nav a.purgatorio.active { color: #88c850; border-bottom-color: #3a6025; }
 
-  .site-nav a.paradiso { color: #483820; }
-  .site-nav a.paradiso:hover { color: #e0aa28; }
+  .site-nav a.paradiso { color: #2a4020; }
+  .site-nav a.paradiso:hover { color: #c8a840; }
 
   /* ── HEADER ── */
   header {
     text-align: center;
     padding: 72px 24px 56px;
-    border-bottom: 1px solid rgba(184,134,11,0.3);
+    border-bottom: 1px solid rgba(56,100,35,0.3);
     position: relative;
     overflow: hidden;
   }
@@ -89,7 +90,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(184,134,11,0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(56,100,35,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -109,14 +110,14 @@
     color: var(--gold-bright);
     line-height: 1.15;
     margin-bottom: 12px;
-    text-shadow: 0 2px 20px rgba(184,134,11,0.4);
+    text-shadow: 0 2px 20px rgba(56,100,35,0.4);
     letter-spacing: 0.04em;
   }
 
   .subtitle {
     font-family: 'Cinzel', serif;
     font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-    color: rgba(242,234,216,0.65);
+    color: rgba(175,210,135,0.65);
     letter-spacing: 0.15em;
     font-weight: 400;
     margin-bottom: 28px;
@@ -127,7 +128,7 @@
     margin: 0 auto;
     font-style: italic;
     font-size: 1.05rem;
-    color: rgba(242,234,216,0.7);
+    color: rgba(175,210,135,0.7);
     line-height: 1.7;
     border-left: 2px solid var(--gold);
     padding-left: 20px;
@@ -139,9 +140,9 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(20,14,8,0.94);
+    background: rgba(7,14,5,0.94);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(184,134,11,0.25);
+    border-bottom: 1px solid rgba(56,100,35,0.25);
     padding: 0 24px;
     display: flex;
     gap: 0;
@@ -154,7 +155,7 @@
     font-size: 10.5px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(232,192,96,0.7);
+    color: rgba(130,185,90,0.7);
     text-decoration: none;
     padding: 14px 18px;
     transition: color 0.2s, border-color 0.2s;
@@ -209,14 +210,14 @@
   .part-cantos {
     font-family: 'Cinzel', serif;
     font-size: 11px;
-    color: rgba(232,192,96,0.5);
+    color: rgba(130,185,90,0.5);
     letter-spacing: 0.25em;
   }
 
   .part-intro {
     font-size: 1.05rem;
     line-height: 1.85;
-    color: rgba(242,234,216,0.75);
+    color: rgba(175,210,135,0.75);
     font-style: italic;
     max-width: 620px;
     margin: 16px auto 0;
@@ -231,11 +232,11 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    border: 1px solid rgba(184,134,11,0.45);
+    border: 1px solid rgba(56,100,35,0.45);
     padding: 3px 12px;
     margin-bottom: 28px;
     border-radius: 2px;
-    background: rgba(184,134,11,0.06);
+    background: rgba(56,100,35,0.06);
   }
 
   .terrace-section {
@@ -254,7 +255,7 @@
   .terrace-sin {
     font-style: italic;
     font-size: 0.9rem;
-    color: rgba(242,234,216,0.5);
+    color: rgba(175,210,135,0.5);
     margin-bottom: 32px;
   }
 
@@ -263,13 +264,13 @@
     margin-bottom: 2px;
     border-radius: 4px;
     overflow: hidden;
-    border: 1px solid rgba(184,134,11,0.12);
-    background: rgba(255,255,255,0.024);
+    border: 1px solid rgba(56,100,35,0.12);
+    background: rgba(20,40,14,0.18);
     transition: border-color 0.25s;
   }
 
   .canto:hover {
-    border-color: rgba(184,134,11,0.28);
+    border-color: rgba(56,100,35,0.28);
   }
 
   .canto-header {
@@ -320,7 +321,7 @@
   .canto-hook {
     font-size: 0.97rem;
     font-style: italic;
-    color: rgba(242,234,216,0.58);
+    color: rgba(175,210,135,0.58);
     line-height: 1.5;
   }
 
@@ -345,7 +346,7 @@
   .canto-body p {
     font-size: 1.05rem;
     line-height: 1.9;
-    color: rgba(242,234,216,0.82);
+    color: rgba(175,210,135,0.82);
     margin-bottom: 14px;
   }
 
@@ -354,8 +355,8 @@
   .canto-body .characters {
     margin-top: 18px;
     padding: 14px 18px;
-    background: rgba(184,134,11,0.06);
-    border-left: 2px solid rgba(184,134,11,0.4);
+    background: rgba(56,100,35,0.06);
+    border-left: 2px solid rgba(56,100,35,0.4);
     border-radius: 0 3px 3px 0;
   }
 
@@ -371,7 +372,7 @@
 
   .canto-body .characters span {
     font-size: 0.95rem;
-    color: rgba(242,234,216,0.65);
+    color: rgba(175,210,135,0.65);
     font-style: italic;
   }
 
@@ -380,7 +381,7 @@
     width: 22px;
     height: 22px;
     margin-top: 4px;
-    border: 1px solid rgba(184,134,11,0.3);
+    border: 1px solid rgba(56,100,35,0.3);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -391,13 +392,13 @@
     cursor: pointer;
   }
 
-  .canto.open .toggle-icon { transform: rotate(45deg); background: rgba(184,134,11,0.1); }
+  .canto.open .toggle-icon { transform: rotate(45deg); background: rgba(56,100,35,0.1); }
 
   /* Divider */
   .ornamental-divider {
     text-align: center;
     padding: 20px 0;
-    color: rgba(184,134,11,0.35);
+    color: rgba(56,100,35,0.35);
     font-size: 18px;
     letter-spacing: 12px;
   }
@@ -406,11 +407,11 @@
   footer {
     text-align: center;
     padding: 40px 24px;
-    border-top: 1px solid rgba(184,134,11,0.2);
+    border-top: 1px solid rgba(56,100,35,0.2);
     font-family: 'Cinzel', serif;
     font-size: 10px;
     letter-spacing: 0.3em;
-    color: rgba(242,234,216,0.3);
+    color: rgba(175,210,135,0.3);
     text-transform: uppercase;
   }
 
@@ -427,14 +428,14 @@
     text-transform: uppercase;
     color: var(--gold);
     background: transparent;
-    border: 1px solid rgba(184,134,11,0.3);
+    border: 1px solid rgba(56,100,35,0.3);
     padding: 7px 16px;
     cursor: pointer;
     border-radius: 2px;
     transition: background 0.2s, color 0.2s;
   }
 
-  .expand-btn:hover { background: rgba(184,134,11,0.12); }
+  .expand-btn:hover { background: rgba(56,100,35,0.12); }
 
   @media (max-width: 600px) {
     .canto-header { padding: 20px 18px 16px; gap: 14px; }
@@ -464,7 +465,7 @@
   <blockquote class="epigraph">
     To run over better waters the little vessel of my genius now hoists its sails,<br>
     leaving behind it a sea so cruel.<br>
-    <span style="display:block; margin-top:8px; font-size:0.88rem; color:rgba(242,234,216,0.45); font-style:normal;">— Dante Alighieri, Purgatorio I, 1–3</span>
+    <span style="display:block; margin-top:8px; font-size:0.88rem; color:rgba(175,210,135,0.45); font-style:normal;">— Dante Alighieri, Purgatorio I, 1–3</span>
   </blockquote>
 </header>
 
@@ -1256,7 +1257,7 @@
 
 <footer>
   Dante Alighieri · La Divina Commedia · Purgatorio · c. 1308–1320 &nbsp;·&nbsp; Commentary prepared for study
-  <a href="index.html" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,192,96,0.5);text-decoration:none;margin-top:10px;display:inline-block;">Return to the full Comedy</a>
+  <a href="index.html" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(130,185,90,0.5);text-decoration:none;margin-top:10px;display:inline-block;">Return to the full Comedy</a>
 </footer>
 
 <script>
