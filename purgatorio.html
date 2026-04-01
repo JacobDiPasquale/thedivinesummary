@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dante's Purgatorio — Canto by Canto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --parchment: #f2ead8;
+    --parchment-dark: #e8dcc4;
+    --parchment-mid: #ede4cc;
+    --gold: #b8860b;
+    --gold-light: #d4a843;
+    --gold-bright: #e8c060;
+    --crimson: #8b1a1a;
+    --crimson-light: #c0392b;
+    --blue-deep: #1a2744;
+    --blue-mid: #2c3e6e;
+    --slate: #4a4035;
+    --shadow: rgba(26,20,16,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--ink);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, #2c1f0e 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, #1a2030 0%, transparent 60%);
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--parchment);
+    min-height: 100vh;
+  }
+
+  /* ── SITE NAV ── */
+  .site-nav {
+    background: rgba(10,8,6,0.98);
+    border-bottom: 1px solid rgba(184,134,11,0.12);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .site-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 11px 16px;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .site-nav a.home { color: #483820; }
+  .site-nav a.home:hover { color: #b8a080; }
+
+  .site-nav .sep {
+    color: #2a2010;
+    font-size: 10px;
+    padding: 0 2px;
+  }
+
+  .site-nav a.inferno { color: #5c2020; }
+  .site-nav a.inferno:hover { color: #c0392b; }
+
+  .site-nav a.purgatorio { color: #8b6400; }
+  .site-nav a.purgatorio:hover,
+  .site-nav a.purgatorio.active { color: #e8c060; border-bottom-color: #b8860b; }
+
+  .site-nav a.paradiso { color: #483820; }
+  .site-nav a.paradiso:hover { color: #e0aa28; }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 72px 24px 56px;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,134,11,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .overline {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.85;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    color: var(--gold-bright);
+    line-height: 1.15;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(184,134,11,0.4);
+    letter-spacing: 0.04em;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    color: rgba(242,234,216,0.65);
+    letter-spacing: 0.15em;
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+
+  .epigraph {
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(242,234,216,0.7);
+    line-height: 1.7;
+    border-left: 2px solid var(--gold);
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(20,14,8,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,134,11,0.25);
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(232,192,96,0.7);
+    text-decoration: none;
+    padding: 14px 18px;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--gold-bright);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── PART HEADERS ── */
+  .part-header {
+    text-align: center;
+    padding: 64px 0 32px;
+    position: relative;
+  }
+
+  .part-header::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 24px auto 0;
+  }
+
+  .part-number {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+
+  .part-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold-bright);
+    margin-bottom: 8px;
+  }
+
+  .part-cantos {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: rgba(232,192,96,0.5);
+    letter-spacing: 0.25em;
+  }
+
+  .part-intro {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(242,234,216,0.75);
+    font-style: italic;
+    max-width: 620px;
+    margin: 16px auto 0;
+    text-align: center;
+  }
+
+  /* ── TERRACE LABEL ── */
+  .terrace-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(184,134,11,0.45);
+    padding: 3px 12px;
+    margin-bottom: 28px;
+    border-radius: 2px;
+    background: rgba(184,134,11,0.06);
+  }
+
+  .terrace-section {
+    padding-top: 48px;
+    text-align: center;
+  }
+
+  .terrace-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+
+  .terrace-sin {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: rgba(242,234,216,0.5);
+    margin-bottom: 32px;
+  }
+
+  /* ── CANTO CARD ── */
+  .canto {
+    margin-bottom: 2px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(184,134,11,0.12);
+    background: rgba(255,255,255,0.024);
+    transition: border-color 0.25s;
+  }
+
+  .canto:hover {
+    border-color: rgba(184,134,11,0.28);
+  }
+
+  .canto-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 32px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .canto-number {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.35;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 48px;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+
+  .canto:hover .canto-number { opacity: 0.6; }
+
+  .canto-meta {
+    flex: 1;
+  }
+
+  .canto-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+
+  .canto-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.12rem;
+    color: var(--gold-bright);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .canto-hook {
+    font-size: 0.97rem;
+    font-style: italic;
+    color: rgba(242,234,216,0.58);
+    line-height: 1.5;
+  }
+
+  .canto-body {
+    padding: 0 32px 0 104px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  }
+
+  .canto.open .canto-body {
+    max-height: 3000px;
+    padding-bottom: 32px;
+  }
+
+  /* Always visible mode — no accordion, just flowing */
+  .canto-body.always-open {
+    max-height: none;
+    padding-bottom: 32px;
+  }
+
+  .canto-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: rgba(242,234,216,0.82);
+    margin-bottom: 14px;
+  }
+
+  .canto-body p:last-child { margin-bottom: 0; }
+
+  .canto-body .characters {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: rgba(184,134,11,0.06);
+    border-left: 2px solid rgba(184,134,11,0.4);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .canto-body .characters strong {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .canto-body .characters span {
+    font-size: 0.95rem;
+    color: rgba(242,234,216,0.65);
+    font-style: italic;
+  }
+
+  .toggle-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 4px;
+    border: 1px solid rgba(184,134,11,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 14px;
+    transition: transform 0.3s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .canto.open .toggle-icon { transform: rotate(45deg); background: rgba(184,134,11,0.1); }
+
+  /* Divider */
+  .ornamental-divider {
+    text-align: center;
+    padding: 20px 0;
+    color: rgba(184,134,11,0.35);
+    font-size: 18px;
+    letter-spacing: 12px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid rgba(184,134,11,0.2);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(242,234,216,0.3);
+    text-transform: uppercase;
+  }
+
+  /* Expand all button */
+  .expand-bar {
+    text-align: right;
+    padding: 12px 0 20px;
+  }
+
+  .expand-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(184,134,11,0.3);
+    padding: 7px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .expand-btn:hover { background: rgba(184,134,11,0.12); }
+
+  @media (max-width: 600px) {
+    .canto-header { padding: 20px 18px 16px; gap: 14px; }
+    .canto-body { padding: 0 18px 0 18px; }
+    .canto.open .canto-body { padding-bottom: 20px; }
+    .canto-number { font-size: 1.5rem; min-width: 36px; }
+    nav a { padding: 12px 10px; font-size: 9.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="site-nav">
+  <a class="home" href="index.html">La Divina Commedia</a>
+  <span class="sep">·</span>
+  <a class="inferno" href="inferno.html">Inferno</a>
+  <span class="sep">·</span>
+  <a class="purgatorio active" href="purgatorio.html">Purgatorio</a>
+  <span class="sep">·</span>
+  <a class="paradiso" href="paradiso.html">Paradiso</a>
+</div>
+
+
+<header>
+  <p class="overline">La Divina Commedia · Secondo Canticle</p>
+  <h1>Purgatorio</h1>
+  <p class="subtitle">A Canto by Canto Commentary</p>
+  <blockquote class="epigraph">
+    To run over better waters the little vessel of my genius now hoists its sails,<br>
+    leaving behind it a sea so cruel.<br>
+    <span style="display:block; margin-top:8px; font-size:0.88rem; color:rgba(242,234,216,0.45); font-style:normal;">— Dante Alighieri, Purgatorio I, 1–3</span>
+  </blockquote>
+</header>
+
+<nav>
+  <a href="#ante">Ante-Purgatory</a>
+  <a href="#gate">The Gate</a>
+  <a href="#pride">Pride</a>
+  <a href="#envy">Envy</a>
+  <a href="#wrath">Wrath</a>
+  <a href="#sloth">Sloth</a>
+  <a href="#avarice">Avarice</a>
+  <a href="#gluttony">Gluttony</a>
+  <a href="#lust">Lust</a>
+  <a href="#paradise">Earthly Paradise</a>
+</nav>
+
+<main>
+
+<div class="expand-bar">
+  <button class="expand-btn" onclick="toggleAll()">Expand All Cantos</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PART I · ANTE-PURGATORY
+════════════════════════════════════════════════ -->
+<section id="ante">
+  <div class="part-header">
+    <p class="part-number">Part One</p>
+    <h2 class="part-title">Ante-Purgatory</h2>
+    <p class="part-cantos">Cantos I – IX</p>
+    <p class="part-intro">The shores and lower slopes of the mountain, where souls linger before they may begin the climb proper — the excommunicated, the negligent, those who died repenting too late.</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">I</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto One</p>
+        <h3 class="canto-title">Dawn on the Shore — Cato the Guardian</h3>
+        <p class="canto-hook">Dante and Virgil emerge from Hell into the southern sea, and an old man bars their way.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The second canticle opens with one of the most celebrated invocations in the entire <em>Comedy</em>: Dante calls upon the Muses, and in particular Calliope, goddess of epic poetry, to aid him in singing of a realm he has never before treated. The metaphor is nautical — his genius is a vessel that must sail better waters than the cruel sea of Hell he has just crossed. The emotional register shifts immediately: the oppressive dark of the Inferno gives way to a trembling sweetness of sapphire sky, the orient just beginning to pearl before the dawn.</p>
+      <p>Four stars never seen except by the first humans in Eden blaze in the southern sky — an allegory of the four cardinal virtues (Prudence, Justice, Fortitude, Temperance) that Purgatory exists to restore. The two poets have arrived at the base of Mount Purgatory, an island in the southern hemisphere directly antipodal to Jerusalem. Dante's face still bears the grime of Hell.</p>
+      <p>A stern old man appears — Cato of Utica, the Roman Stoic who chose suicide over surrender to Caesar, whose death made him the symbol of freedom and moral rectitude for the ancient world. His sudden appearance is surprising: historically, Cato was a pagan and a suicide. Dante's choice of him as Purgatory's warden is a bold theological provocation, suggesting that a kind of natural virtue, fully committed, may merit proximity to salvation, if not salvation itself. Virgil explains their journey and invokes the name of Cato's dead wife Marcia — Cato sharply dismisses sentiment. They may proceed.</p>
+      <p>Virgil is directed to wash Dante's face clean of the smoke and tears of Hell with the dew from the nearby grass, and to gird Dante with a humble reed plucked from the shore. When Virgil bends to gather the reed, another springs up immediately in its place — a first quiet miracle signaling that Purgatory, unlike Hell, is a realm of regeneration and growth.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Cato of Utica</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">II</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Two</p>
+        <h3 class="canto-title">The Angel Boatman — Casella's Song</h3>
+        <p class="canto-hook">A luminous vessel carries souls to the mountain's shore, and an old friend sings — but the journey cannot wait.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The sun rises. Dante and Virgil, still on the shore, see a white light moving impossibly fast across the sea — too bright, too swift for any natural ship. As it nears, the wings of an angel become visible, vast and radiant, serving as sail and oar at once. This is the angel boatman, servant of God, who ferries souls from the mouth of the Tiber (where the righteous dead gather) to the base of Mount Purgatory. The contrast with Charon's grim ferry across the Acheron is deliberate and total.</p>
+      <p>The souls disembark, singing the 114th Psalm: <em>In exitu Israel de Aegypto</em> — "When Israel came out of Egypt." The choice is deeply Dantean: the Exodus from Egypt is the paradigm of liberation, of a people leaving the house of bondage for the promised land. Dante himself, in his famous letter to Can Grande, cites this very psalm as the key to understanding the allegory of the whole <em>Comedy</em>. The souls are not prisoners like the damned; they arrive singing.</p>
+      <p>Among the new arrivals, Dante recognizes his old friend Casella, a Florentine musician who had set some of Dante's early poems — most likely his canzone <em>Amor che nella mente mi ragiona</em> — to music. The reunion is warm and moving. Dante tries twice to embrace Casella, and twice his arms close on air — the shades have no substance. He asks Casella to sing, and Casella obliges, performing the very canzone. The souls gather around, enchanted, forgetting their climb.</p>
+      <p>Cato's voice breaks the spell. He storms at the lingering souls with harsh reproach: why do they tarry? Why has this song made them forget their task? The souls scatter toward the mountain like startled pigeons, and Dante and Virgil follow. The moment captures one of Purgatorio's central tensions: the legitimate beauty of earthly art, friendship, and music versus the urgency of the soul's work of purgation. Pleasure must not become a new delay.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Angel Boatman, Casella, Cato (again)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">III</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Three</p>
+        <h3 class="canto-title">Virgil's Limits — Manfred of Sicily</h3>
+        <p class="canto-hook">Virgil meditates on the inscrutability of God's ways, and a handsome king reveals that mercy outlasts excommunication.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>As they move toward the mountain, Dante notices something strange: he casts a shadow but Virgil does not. This startles him — Virgil gently explains the nature of shades: they can suffer sensation (heat, cold, weight) but cast no shadow and leave no footprint. Dante is moved with pity that Virgil, so great, must exist in this reduced form. Virgil counsels against grief and offers a meditation on the limits of reason: one who would hope to reason through all divine mystery is a fool, for if mankind could grasp everything, there would have been no need for the Incarnation. Even Aristotle tried and failed to fathom the relation between form and matter. This humility before mystery is Virgil's most human quality — and his deepest limitation.</p>
+      <p>They approach the first slope, steep as a cliff, and encounter a group of souls coming toward them — the <em>excommunicati</em>, those who died under the Church's ban of excommunication. They are not damned; they repented before death. But they must wait in Ante-Purgatory for thirty times as long as they spent in excommunication before they may begin the mountain's climb — unless living prayers shorten their time.</p>
+      <p>From this group steps Manfred, the natural son of Emperor Frederick II, a strikingly handsome figure even now, his brow split by a sword wound and his chest cloven. He was King of Sicily, excommunicated by the papacy and killed at the Battle of Benevento in 1266 — his body, according to historical report, dishonored by the Church. And yet he is saved. He shows Dante his wounds and recounts that in the very last moment of his life he wept and surrendered himself to God. Even sins as grievous as his were swallowed up by that infinite goodness. The Church may condemn; God is larger than the Church's condemnations. Manfred asks Dante to tell his daughter Constance that he is here, waiting — a plea that humanizes him completely.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Manfred of Sicily</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Four</p>
+        <h3 class="canto-title">The Steep Climb — Belacqua</h3>
+        <p class="canto-hook">Dante discovers that time disappears in contemplation, and finds a famously lazy Florentine friend sitting in the shade.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The mountain is ferociously steep — Dante compares it to San Leo, the fortified cliff town in the Marches, and to Noli, clinging to its rock above the Ligurian sea. The path up is a narrow chimney in the rock, and both men must use hands and feet to scale it. Dante is panting and exhausted; Virgil urges him on. When they finally reach a ledge and pause, Dante is astonished to find that the sun has moved significantly — more time has passed than it felt. Virgil explains Purgatory's cosmography: they are in the southern hemisphere, and the sun moves on the opposite side from what a northern-dweller expects. The sun is always to the north here. The mountain grows easier to climb as one ascends — a counterpart to Inferno's worsening descent.</p>
+      <p>On the ledge, they find a group of souls — another class of the negligent, those who delayed repentance until the end of their lives through what might be called spiritual laziness rather than excommunication. Among them, seated in the shade of a rock, arms around his knees, head down, completely relaxed, is a figure Dante recognizes: Belacqua, a Florentine maker of lutes and musical instruments, famously slothful in life. Their exchange is one of Purgatorio's most gently comic moments. Dante is surprised to see him here and not in Hell; Belacqua explains with ironic calm that an angel kept him from the gate — he must sit here until he has waited as long as his earthly life lasted (unless shortened by prayer), because he delayed repentance until the final hour. He is entirely philosophical about it, in his lazy way. The scene is charming but pointed: even outside Hell, habits of procrastination exact their cost.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Belacqua</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">V</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Five</p>
+        <h3 class="canto-title">Those Slain by Violence — Buonconte and La Pia</h3>
+        <p class="canto-hook">Three souls who died sudden, violent deaths tell their stories — one lost on a battlefield, one murdered in silence.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The souls notice that Dante casts a shadow — no shade does — and cluster around to look, astonished. Virgil tells Dante not to slow down for their wonder: he has a mission, and they must not delay. But souls call out to him, and Dante asks Virgil's permission to listen. Virgil consents — but Dante must keep walking. This is a beautiful image of Purgatorio's rhythm: attentiveness to others, yes, but never losing momentum toward the goal.</p>
+      <p>This group is another subset of the late-repentant: those who died suddenly, violently, before they could formally confess and receive the last rites. They repented at the final breath, in extremis, and so are saved — but must wait here. Three speak. First, Jacopo del Cassero of Fano, who ran from his enemies into a marsh and bled to death, too far from anyone who could help. His death was pointless, a political assassination; his regret is that he made a wrong turn that doomed him.</p>
+      <p>The second — and the most poetically remarkable — is Buonconte da Montefeltro. His father Guido (condemned in Hell in the Inferno) sold his soul to the devil with a deathbed gift to Boniface VIII; the son, dying at the Battle of Campaldino in 1289 (the very battle where Dante himself may have fought), whispered "Mary" with his last breath and shed a single tear of contrition. This minimal act of surrender was enough. A devil comes to claim him — crying that one little tear, one murmured name, has stolen him from Hell — and Dante shows us the universe of grace: Heaven's angel carries the soul away while the furious demon can only scatter the corpse in the floodwaters of the Archiano river. One tear. One name. The arithmetic of mercy is not human arithmetic.</p>
+      <p>Third, La Pia de' Tolomei — perhaps the most quietly devastating of the three. She identifies herself in only a few lines: she was born in Siena, undone in the Maremma. She asks Dante to remember her when he rests after the long journey — adding, almost as an afterthought, that "he knows" who had wedded her with his ring, then caused her death. She does not name him, does not condemn him, does not weep. The restraint is everything. In her few words she is more fully human than pages of exposition could make her.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Jacopo del Cassero, Buonconte da Montefeltro, La Pia de' Tolomei</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Six</p>
+        <h3 class="canto-title">Prayer for the Dead — The Lament for Italy</h3>
+        <p class="canto-hook">Dante questions whether prayer can change fate, and breaks into furious polemic against his ravaged homeland.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Souls press around Dante requesting that he pray for them, or carry messages to their living relatives who can pray on their behalf. The intercession of the living accelerates a soul's time in Purgatory — a doctrine of communion between the Church Militant (living) and the Church Suffering (purgatory). Dante draws a brilliant analogy: he is like the winner of a dice game being followed by everyone who wants a piece of his luck.</p>
+      <p>But this raises a genuine theological problem: if God's judgment is final, how can prayer change it? Dante puts the question to Virgil, who acknowledges he cannot resolve it — Beatrice will. This moment is important: Virgil's reason is honest about its own edges. The answer, which Dante will eventually receive, is that God's foreknowledge already accounts for the prayers that will be offered — the prayers are part of the plan, not revisions to it.</p>
+      <p>On the slope they encounter Sordello, the 13th-century troubadour poet from Mantua. When Virgil identifies himself, Sordello — a fellow Mantuan — rushes to embrace him. This moment of civic and literary brotherhood triggers one of the great political tirades of the poem: Dante pivots from the scene of two Mantuans embracing to apostrophize all of Italy in white-hot rage. Italy, once the seat of empire and civilization, is now a ship without a helmsman in the midst of a storm, a house of ill fame, not a nation but a brothel. Her cities are at war with each other. Florence in particular — Dante's own Florence — is subjected to bitter irony: look how fine she is, so clever, so just! Is it not wonderful how her laws, her coinage, her citizens, change every October? The bitterness is at once poetic performance and genuine grief. Dante loved Florence enough to be destroyed by his exile from her.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Sordello</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seven</p>
+        <h3 class="canto-title">The Valley of Negligent Rulers</h3>
+        <p class="canto-hook">Sordello leads them to a flowered valley where the great kings of Europe sit at dusk, powerless and waiting.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Sordello and Virgil recognize each other as Mantuans, though separated by more than a thousand years — Sordello (c. 1200–1269) died after Virgil (70 BC–19 AD). The conversation turns to where Virgil dwells: Limbo, where he is not in torment but cannot ascend. Sordello is struck by reverence. The scene quietly illustrates Purgatorio's expansion of moral community across time — the classical and the medieval in dialogue.</p>
+      <p>The sun is setting. Sordello explains a crucial rule of Purgatory: souls cannot travel upward after sunset. The darkness does not block them physically but spiritually — without the light, the will is weakened and the climb impossible. They must wait for dawn. He leads them instead to the Valley of Negligent Princes, a hidden hollow fragrant with flowers of every color, filled with souls singing the <em>Salve Regina</em> (the hymn to the Virgin Mary) in the twilight.</p>
+      <p>Sordello identifies the gathered rulers of Europe one by one, and his commentary is pointed. Rudolph of Habsburg sits apart, neglectful of Italy that he might have healed. Ottokar of Bohemia is there — a better man than his son Wenceslaus. Philip III of France and Henry of Navarre are side by side — both in their way failures of governance. Henry III of England, a man of simple character, sits with Philip III. Peter III of Aragon is praised lavishly: better than all his contemporaries. The catalogue is simultaneously a lesson in medieval European politics and a meditation on how greatness rarely descends from parent to child — "seldom does human excellence rise through the branches," Sordello observes. The virtue of a father need not pass to his sons.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Sordello; The Valley of Rulers: Rudolph I, Ottokar II, Philip III, Philip I of Navarre, Henry III, Peter III of Aragon, Charles I of Anjou, William of Monferrat</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eight</p>
+        <h3 class="canto-title">The Evening Angels — The Serpent Repelled</h3>
+        <p class="canto-hook">Two angels descend at dusk to guard the valley, and an old serpent tests their vigilance in the quiet dark.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Evening. A soul in the valley begins to sing the <em>Te lucis ante</em>, the Compline hymn sung at nightfall to ask God's protection through the darkness. The other souls join in. The moment is one of the most affecting in all of Purgatorio: great and powerful men of history, reduced to humility, singing vespers prayers in a flower-filled valley, waiting. Dante is seized with nostalgia and longing — the image of evening bells calling men home.</p>
+      <p>Two angels descend from above — their robes green as fresh leaves, the color of hope. They carry blunted, flameless swords. They take their places at opposite ends of the valley to guard it. Sordello explains that as dusk comes, a serpent will appear — the same serpent, perhaps, as in Genesis — and the angels are sent each night to drive it away. The serpent does indeed come, sinuous and daring along the valley floor. One of the angels swoops and drives it off. The nightly reenactment of Eden's temptation, here safely repelled, signals what Purgatory is: paradise being reconstructed, the fall being slowly reversed.</p>
+      <p>Dante speaks with Nino Visconti, a judge of Gallura, an old political friend, who asks after his daughter Giovanna and mourns that his widow has already forgotten him and remarried — the Visconti arms replaced by the Malaspina on her breast. Dante also encounters Conrad Malaspina, who makes a prophecy: within seven years, Dante will experience with his own feet that the Malaspina family's generosity is renowned — a prophecy pointing to Dante's own exile and the hospitality the Malaspina clan will show him.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Sordello, Nino Visconti, Conrad Malaspina</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nine</p>
+        <h3 class="canto-title">The Dream of the Eagle — The Three Steps of the Gate</h3>
+        <p class="canto-hook">Dante is carried to Purgatory's gate in a dream, and an angel guards a door no locksmith has ever made.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante sleeps. In the hour before dawn — the hour when, as ancient belief held, dreams most closely approach the truth — he has a vision. An eagle, golden, with wings outspread, sweeps down and carries him up to the sphere of fire in the sky. He wakes, terrified, to find himself much higher on the mountain than he was, beside Virgil. Virgil explains: while he slept, a lady (later understood to be Lucia, one of Beatrice's three ministering graces) came and carried him to the gate of Purgatory proper. The dream was the experience of the carrying, refracted through sleep into mythological terms — Dante's subconscious rendered it as Ganymede, the beautiful youth snatched up by Jove's eagle to serve the gods. The allegory suggests divine grace operating on the soul even when the soul is passive and unconscious.</p>
+      <p>They reach the gate. Three steps lead up to it, each one a different material and color: the first of white marble, so polished the pilgrim can see his own reflection (the transparency of self-knowledge, of honest confession); the second of dark, cracked, burnt stone — the color of contrition and broken-heartedness; the third of red porphyry, red as blood pulsing from an artery (the love and resolution that animates penance and satisfaction). Upon the red step sits an angel gatekeeper, clothed in grey, holding a naked sword whose blade blazes so bright Dante cannot look at it. The angel draws two letters "P" on Dante's forehead with the sword — one for each of the seven sins (he will receive seven, one for each terrace; later cantos will mention only "the P's"). He inscribes seven P's (<em>peccata</em>, sins) total on Dante's brow, instructing him to wash them off as he climbs. Then the gate swings open with a thunder like iron and rock — and the sounds of voices singing the <em>Te Deum laudamus</em>, the hymn of praise, rise from within.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Angel Gatekeeper (mentioned: Lucia)</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PART II · THE SEVEN TERRACES
+════════════════════════════════════════════════ -->
+<section>
+  <div class="part-header" id="pride">
+    <p class="part-number">Part Two</p>
+    <h2 class="part-title">The Seven Terraces</h2>
+    <p class="part-cantos">Cantos X – XXVII</p>
+    <p class="part-intro">The mountain's body, organized around the seven capital sins. Each terrace offers examples of the opposing virtue (humility against pride, generosity against envy), then examples of the sin punished, then an angel who erases one P from Dante's forehead as he departs.</p>
+  </div>
+
+  <div class="terrace-section">
+    <p class="terrace-badge">First Terrace</p>
+    <h3 class="terrace-title">Pride</h3>
+    <p class="terrace-sin">Superbia — disordered love of self, elevated above love of God and neighbor</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">X</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Ten</p>
+        <h3 class="canto-title">The Marble Reliefs of Humility</h3>
+        <p class="canto-hook">Carvings on the pavement show perfect examples of lowliness — and the proud bear their loads beneath.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The gate closes behind them and they thread a narrow, winding passage through the living rock — so serpentine that Dante cannot tell if he is going left or right. They emerge onto the first terrace: a white marble ledge of striking width and beauty, its inner wall carved with scenes of humility so vivid they seem alive — indeed, more alive than life. Dante is stopped in his tracks.</p>
+      <p>Three carvings are described in exquisite detail. First, the Annunciation: the Angel Gabriel before the Virgin Mary, who speaks the words <em>Ecce ancilla Dei</em> — "Behold the handmaid of the Lord." Mary's response to God's call is the supreme act of human humility, the complete surrender of self to divine will. Second, David dancing before the Ark of the Covenant with all his might — the great king shedding royal dignity to worship in abandon, while his wife Michal watches from a window with contempt. Third, the Emperor Trajan pausing his military march to hear the plea of a weeping widow whose son has been killed. The most powerful man in the world stops his army for one insignificant woman. All three images form a triptych of humility across divine, human, and imperial registers.</p>
+      <p>Then Dante sees the penitents coming: a procession of souls bent almost double under enormous slabs of rock on their backs. They move like corbels — like the carved, hunched stone figures that support a ceiling — their faces pressed to the earth. Some are bent further than others, proportionate to the weight of their pride. Dante is moved to wonder: these were once great people. Now they can barely lift their eyes to see the marble carvings of humility. The irony is architectural: the proud, who inflated themselves, are now literally compressed.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; Penitents bent under stones</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eleven</p>
+        <h3 class="canto-title">The Lord's Prayer — The Vanity of Fame</h3>
+        <p class="canto-hook">Oderisi of Gubbio delivers a meditation on the emptiness of earthly glory, with Dante himself caught in its net.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The bent souls pray the Lord's Prayer together as they inch along. Dante renders their prayer in full, adapted to the condition of souls in purgatory: they ask God's will to be done on earth — for earthly humans who cannot, as the souls in Purgatory now can, always desire it perfectly. The souls pray for others who cannot pray as they can; the prayer enacts the very communion it describes. It is one of the poem's most formally beautiful passages.</p>
+      <p>Dante speaks with Oderisi da Gubbio, once the greatest illuminator of manuscripts in Italy. He is candid: in life, his pride in his own work was immense; now he sees it for what it was. He offers Dante a meditation that is simultaneously one of the most honest and one of the most melancholy passages in the Commedia. Cimabue once reigned in painting — now Giotto has eclipsed him. In poetry, Guido Guinizelli held the glory — now Guido Cavalcanti has taken it from him; and perhaps, Oderisi hints with a sidelong glance, someone else will take it from Cavalcanti in turn. (That someone is Dante himself — but Dante's dramatic discretion is notable.) Earthly fame is a wind that blows from every quarter and changes its name. A thousand years is a blink of eternity. What does it matter?</p>
+      <p>Oderisi then points to another soul bent under a heavier stone than any: Provenzan Salvani of Siena, once the dominant lord of all Tuscany, who humbled himself publicly in the marketplace of Siena (begging on his knees to ransom a friend from Charles of Anjou's captivity) — an act of self-abasement that shortened his time in Ante-Purgatory and allowed him to begin the climb. The lesson: voluntary humility in life is worth more than compulsory humility in death.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Oderisi da Gubbio, Provenzan Salvani</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twelve</p>
+        <h3 class="canto-title">The Pavement of Pride's Fall — The First P Erased</h3>
+        <p class="canto-hook">The ground beneath Dante's feet shows pride destroyed, and an angel's wing lifts the first burden from his brow.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Virgil calls Dante away from the penitents and to the pavement, which is now carved with exempla of pride <em>punished</em> — a counterbalance to the wall's examples of humility rewarded. Dante reads them like walking through an open book. The catalogue is dense with classical and biblical reference: Lucifer falling from Heaven, Briareus the giant hurled down by the gods, Nimrod surveying Babel's collapsed tower, Niobe weeping over her dead children (she had boasted herself greater than Latona), Saul dead on his sword at Gilboa, Arachne transformed to a spider for challenging Minerva, Rehoboam fleeing in his chariot, Eriphyle who sold her husband's life for gold, Sennacherib slain by his sons in the temple, Tomyris with Cyrus's head in her cup, the Trojans slaughtered when their pride fell with their walls. Each image is a memento mori of vanity — carved in stone under the feet of the prideful, so that the bent-over penitents, face-to-floor, must read them with every shuffled step.</p>
+      <p>An angel descends, dazzling white, his face impossible to look at — like a trembling star in summer dawn. He sweeps his wing across Dante's forehead and erases one of the seven P's. The ascent to the next terrace suddenly becomes easier. Dante feels lighter. The angel's beatitude rings out: "Blessed are the poor in spirit" — the first of the beatitudes from the Sermon on the Mount, which Dante assigns to each of the seven terrace transitions. The pattern is now established: examples of virtue, examples of vice punished, angel erasing a P, beatitude from Christ's teaching.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Angel of Humility</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="envy">
+    <p class="terrace-badge">Second Terrace</p>
+    <h3 class="terrace-title">Envy</h3>
+    <p class="terrace-sin">Invidia — sorrow at another's good, desire to diminish what one cannot possess</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirteen</p>
+        <h3 class="canto-title">The Blind Envious — Sapia of Siena</h3>
+        <p class="canto-hook">On a ledge of bare grey stone, the envious sit with their eyes sewn shut — they sinned through looking, and so are denied sight.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The second terrace is bare and colorless — no carvings, no decoration, only ashen stone. The examples of charity (the opposite virtue) are heard rather than seen: disembodied voices flying through the air. The first voice cites the wedding at Cana, where Mary said to the servants, "They have no wine," thinking of others. The second: "I am Orestes" — Pylades and Orestes each crying out to be the one to die so the other might live, the classical paradigm of self-giving friendship. The third voice: "Love those who have done you harm." The examples are carefully chosen to show love that exceeds what envy can conceive of — love that gives, sacrifices, forgives.</p>
+      <p>The souls here sit along the wall, huddled against each other, dressed in haircloth, their eyelids sewn shut with iron wire as falconers sew the eyes of hawks during training. It is an exact and harrowing contrapasso: the envious looked with poisoned eyes at others' goods; now they are denied all sight and must lean on one another in darkness. The very community they couldn't bear — others' prosperity, others' joy — now becomes their only support.</p>
+      <p>Sapia of Siena speaks with Dante. She confesses with disarming honesty: she rejoiced when the Sienese forces were defeated at the battle of Colle (1269) because she hated her own countrymen. When she saw them routed and pursued, she cried out to God: "Now I fear you no more!" Her repentance was genuine but came very late, helped by the prayers of the hermit Pier Pettinaio. She has a wry clarity about herself that is one of Purgatorio's most human portraits: she knew what she was, hated it, and wept. She asks Dante to pray for her when he returns among the living.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Sapia of Siena</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fourteen</p>
+        <h3 class="canto-title">The Corruption of the Arno — Voices of Envy Punished</h3>
+        <p class="canto-hook">Two souls dissect the moral ruin of every town along a river, and invisible voices cry out the punishment of jealousy.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Two souls near Dante speak across him to each other: Guido del Duca of Romagna and Rinieri da Calboli of Forlì. Guido asks Dante who he is and where he's from. Dante enigmatically describes the Arno river without naming it — it begins in a mountain and flows to the sea; who comes from there? Guido picks up the cue and delivers a blistering condemnation of every city along the Arno valley. In the Casentino, people behave like swine (bestial appetite). In Arezzo, mongrel curs snapping. In Florence, wolves. In Pisa, foxes so full of fraud no trap can hold them. The metaphor of humans degenerating into animals resonates with Dante's broader moral vision from the Inferno — sin as a loss of humanity.</p>
+      <p>Rinieri then laments the degeneration of Romagna specifically — his own homeland, once full of great souls and noble lineages, now devoid of virtue. The catalogue of lost families (Traversari, Anastagi, Lizio, Arrigo Mainardi, Pier Traversaro) is an elegiac roster of a world that no longer exists. He also prophesies bitterly that Rinieri's own grandson Fulcieri da Calboli will become a brutal tyrant in Florence.</p>
+      <p>As they leave the terrace, voices thunder through the air — the examples of envy punished: Cain crying "Whoever finds me shall slay me" (Genesis's first murderer, consumed by envy of Abel's acceptance); and Aglauros, daughter of Cecrops of Athens, turned to stone by Mercury for envying her sister Herse's love affair with the god. The examples rush past like arrows and are gone. Dante reflects: why does the world keep hooking its heart on things that cannot be shared? Heaven has room for everyone; envy's logic — that another's gain is my loss — is cosmologically false. Grace is not a finite resource.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Guido del Duca, Rinieri da Calboli</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="wrath">
+    <p class="terrace-badge">Third Terrace</p>
+    <h3 class="terrace-title">Wrath</h3>
+    <p class="terrace-sin">Ira — disordered love turned to destructive rage</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fifteen</p>
+        <h3 class="canto-title">On Shared Goods — Visions of Meekness</h3>
+        <p class="canto-hook">Virgil explains why love multiplied is love expanded, and Dante has his first waking vision of gentleness.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>An angel's light strikes Dante's eyes, blinding him briefly — the Angel of Generosity erases another P and they mount to the third terrace. On the way, Dante presses Virgil with his question from Canto XIV: why do souls here forbid the sharing of goods? Virgil offers the key philosophical distinction of the Purgatorio's middle section. Material goods are finite — if you have more of something, I have less. But spiritual goods — love, wisdom, virtue, joy — are the opposite: the more they are shared, the more they increase. Heaven's joy is not diminished because many share it; it is multiplied. Envy's foundational error is applying the logic of scarcity to a domain of superabundance. To love God is to enter an economy where desire is never zero-sum.</p>
+      <p>On the third terrace, moving through smoke (which will choke the canto to come), Dante suddenly experiences vivid waking visions — a new device Dante introduces here. First he sees Mary at the Temple finding the twelve-year-old Jesus, gently reproaching him: "Son, why have you done this to us?" — her tone loving, not angry. Then a vision of a crowd about to stone a young man, who prays for his killers — Stephen the proto-martyr. Both images are of meekness under provocation, of the refusal to return violence with violence. The contrast with what is being purged on this terrace is exact: these souls once met injury with rage; the medicine is repeated contemplation of its opposite.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Angel of Generosity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Sixteen</p>
+        <h3 class="canto-title">Marco Lombardo — Free Will and the Two Suns</h3>
+        <p class="canto-hook">In blinding smoke, a soul dismantles the excuse of the stars and diagnoses why civilization has collapsed.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The third terrace is thick with acrid, black smoke — the wrathful move through a blindness of their own making, a literalization of rage's effect on vision. Dante cannot see his hand before his face. He clings to Virgil as they hear souls singing the Agnus Dei — "Lamb of God, who takes away the sins of the world, grant them peace." The hymn in the darkness is deeply affecting: these are not the howling damned; they are penitents asking for peace from the very rage that once consumed them.</p>
+      <p>Marco Lombardo emerges from the smoke. He is a famous Lombard courtier of the 13th century, celebrated for his courtesy and wisdom. He engages Dante in one of the most philosophically substantial conversations in the whole poem. Dante puts to him the question: why is the world so corrupt? Is it the stars? Is it fate? Marco answers with controlled force: the fault is not in our stars but in ourselves. God gave humanity free will, and the soul comes into the world knowing only its first joys; it pursues pleasure without direction, like a child, unless guided. For this guiding, God gave two lights: the Pope (to lead souls to God) and the Emperor (to guide civil life). Now — and here is Marco's great diagnostic — these two lights have been merged into one. The Church has seized temporal power, conflating the two roles. With no independent emperor to check it, the Church has grown corrupt; with no Church holding the emperor to spiritual account, civil life has degraded. Italy suffers from a theological administrative error. Dante agrees passionately: this separation of powers is not merely political theory but cosmological necessity.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Marco Lombardo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seventeen</p>
+        <h3 class="canto-title">Visions of Wrath — Virgil's Map of Love</h3>
+        <p class="canto-hook">Dante sees in his mind the destruction that rage has brought, and Virgil unveils the entire structure of Purgatory.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The smoke clears and Dante has three final visions of wrath punished: Procne transformed to a swallow for murdering her son; Haman crucified (in his pride and rage he had plotted genocide against the Jews and was hanged on the very gallows he built for Mordecai); and Amata, wife of King Latinus, who in wrath and grief hanged herself. These come in rapid succession like dreams at the edge of sleep — violent, condensed, emblematic.</p>
+      <p>An angel appears, so radiant that Dante must look away. He erases another P and points them upward. On the staircase between the third and fourth terraces, night falls. They sit. And here Virgil delivers the single most important expository passage of Purgatorio: the comprehensive theory of love on which the entire moral architecture of the mountain rests. All human action, he explains, is motivated by love. Love can err in three ways: by loving what should not be loved (the sins of the upper three terraces: pride, envy, wrath, all involve loving one's own excellence or possession at the expense of others); by loving good things too little (sloth on the fourth terrace); or by loving good things too much (avarice, gluttony, lust on the upper three terraces). Love is thus the root of virtue and vice alike. The correction is not to kill desire but to order it rightly.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Angel of Meekness</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="sloth">
+    <p class="terrace-badge">Fourth Terrace</p>
+    <h3 class="terrace-title">Sloth</h3>
+    <p class="terrace-sin">Acedia — love insufficiently ardent, spiritual torpor toward the good</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eighteen</p>
+        <h3 class="canto-title">Love, Freedom, and the Running Penitents</h3>
+        <p class="canto-hook">Virgil finishes his philosophical lecture, midnight arrives, and then a rush of shouting souls tears through the dark.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The conversation on love continues. Dante presses: if love is always given from without, and the soul naturally follows what attracts it, how can we be responsible for our loves? Virgil responds with the doctrine of free will: the soul has an innate power to judge and assent or withhold assent. This power is what Beatrice calls "free will" (and its exercise constitutes merit or demerit). Reason can look at the first impressions of desire and approve or reject them. We are not compelled by our appetites; we can reflect. This freedom is the foundation of moral responsibility — and the reason that Purgatory exists at all.</p>
+      <p>Dante, lulled by the discourse, drifts into the shallow sleep of thought — his mind is drowsy but still running. The moon rises. Midnight. And then: a sudden thunder of feet and voices. A great throng of souls comes rushing past, running with tremendous speed, crying out examples of zeal and urgency. The first: "Mary made haste to the hill country" (Luke 1 — the Visitation, where Mary ran to Elizabeth after the Annunciation). The second: "Caesar made haste to subdue Spain" — even Caesar, the embodiment of military ambition, serves here as an example of energetic will. The running souls shout these examples as they sprint. Their penance is perpetual motion against their former inertia.</p>
+      <p>One soul briefly slows — the Abbot of San Zeno in Verona, who managed a monastery in the time of Barbarossa. He mentions without lingering (he cannot linger) that Alberto della Scala has corruptly installed his crippled, illegitimate son as abbot there. Another pair of voices trails behind, crying out counter-examples: the Israelites who died in the wilderness because of their faithlessness and sloth, and the Trojans who turned back from following Aeneas. Dante falls asleep. Purgatory's most dynamic terrace — all movement and noise — sends him to rest. The irony is gentle and rich.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Abbot of San Zeno; the rushing penitents</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="avarice">
+    <p class="terrace-badge">Fifth Terrace</p>
+    <h3 class="terrace-title">Avarice & Prodigality</h3>
+    <p class="terrace-sin">Avaritia — excessive love of material goods, the goods of fortune loved too ardently</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nineteen</p>
+        <h3 class="canto-title">The Dream of the Siren — Pope Adrian V</h3>
+        <p class="canto-hook">Dante dreams of a crooked, ugly woman who becomes beautiful in his gaze — and wakes to find a pope flat on the earth.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Before dawn — that prophetic hour again — Dante dreams of a stammering, cross-eyed, lame woman, sallow-skinned, her hands deformed. As he gazes at her, she straightens, blushes, and her voice grows sweet. She reveals herself as the Siren who drew Ulysses from his course, who satisfies all who come to her. She is seduction itself — the glamour of the world's goods, the enchantment of wealth and comfort and sensory pleasure. A second woman, holy and stern, appears and calls to Virgil, who tears the Siren's garment from her belly and the stench that pours forth wakes Dante instantly. The allegory is almost brutal in its clarity: the worldly goods that enchant and corrupt are, in their nature, foul. It is the prolonged gaze — Dante's own looking — that transformed the hag into the Siren. Desire creates the illusion; reason and holiness tear it away.</p>
+      <p>The fifth terrace: flat, bare, treeless. Souls lie face-down on the stone, weeping — motionless, prostrated, their bodies pressed to the earth they once loved too much in place of Heaven. Their faces are down as their hearts were down; they cannot see the sky. They chant a psalm of penitence.</p>
+      <p>Among them lies Pope Adrian V — pope for only thirty-eight days in 1276, who spent his whole life before the papacy in pursuit of worldly power, only to discover on reaching its summit that it was dust. He addresses Dante with striking dignity: do not kneel to him; here, he and Dante are equal — they are both servants of a common Lord. He asks for prayers from his niece Alagia, who alone of his family has not been corrupted. The humbling of the most powerful office in Christendom to a face in the dust is one of Dante's most controlled acts of satire.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Pope Adrian V</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty</p>
+        <h3 class="canto-title">Hugh Capet's Lament — The Great Earthquake</h3>
+        <p class="canto-hook">The founder of France's royal dynasty curses his own descendants, and the whole mountain suddenly shakes.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante and Virgil pick their way carefully among the prostrated souls, avoiding stepping on them. A lone voice rises from the crowd, crying out examples of poverty and generosity — Mary, who laid her child in a manger; Fabricius, the Roman consul who refused all bribes; St. Nicholas, who secretly gave gold dowries to poor girls so they need not sell themselves. The voice belongs to Hugh Capet, founder of the Capetian dynasty that ruled France — speaking in the pre-dawn hour when souls are most fervent.</p>
+      <p>Hugh Capet is one of Purgatorio's longest and most sustained political passages. He identifies himself as the root of a poisonous tree whose fruit has spread rot across Christendom. He then catalogues his dynasty's crimes with the methodical bitterness of a man who has had centuries to think about them: Charles of Anjou poisoning Thomas Aquinas (alleged); Charles of Valois marching into Florence under the guise of peace and destroying it; Charles II of Anjou selling his daughter for money. And then — reaching contemporary history — Philip IV of France, "the new Pilate," arresting Pope Boniface VIII at Anagni in 1303, dishonoring his anointed person. The new Pilate raises his hand against Christ's vicar. These crimes are spoken not with political detachment but with the anguish of an ancestor watching his line corrupt everything he once built.</p>
+      <p>Then the mountain shakes — a tremendous earthquake throughout Purgatory. All the souls cry out Gloria in excelsis Deo — "Glory to God in the highest." Dante is terrified and clings to Virgil. The earthquake lasts until the Gloria fades. The cause is mysterious and will be explained in the next canto.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Hugh Capet</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-One</p>
+        <h3 class="canto-title">Statius — The Release of a Soul</h3>
+        <p class="canto-hook">A newly freed soul joins them, explains the mountain's earthquake, and dissolves into tears when he learns who walks beside him.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>A soul joins them on the staircase — recently freed from the fifth terrace, ascending the mountain with them toward its summit. He addresses them graciously. Virgil asks him to explain both the earthquake and the Gloria that followed it. The soul explains: Purgatory cannot be disturbed by earthly weather — nothing below the Gate is subject to the natural forces of wind and rain. The mountain shudders only when a soul completes its purgation and rises free, and then all the souls rejoice with the <em>Gloria</em>. The soul knows this because it has just happened to him: he has completed his purgation after more than five centuries on the mountain, and it was his own release that caused the earthquake. The jubilation was all of Purgatory rejoicing at one soul's freedom — as heaven rejoices over one repentant sinner.</p>
+      <p>The soul reveals himself: Publius Papinius Statius, the 1st-century Roman epic poet, author of the <em>Thebaid</em> and the unfinished <em>Achilleid</em>. He was on the terrace of avarice — not for greed but for prodigality (the opposite sin). He praises Virgil in extravagant terms: it was the <em>Aeneid</em> that nursed him as a poet, the text he studied until he could recite every page. Without the <em>Aeneid</em>, he would not have been worth a drachma. He says he would have gladly added a year to his time in Purgatory for the privilege of living in Virgil's era. Virgil, trying to suppress a smile, signals Dante to remain silent — he should not reveal who it is walking beside them. Dante suppresses his laughter, then catches Statius's glance and cannot hold it. Statius sees his expression and demands the truth. Virgil reveals himself. Statius bends to embrace his knees — and Virgil stops him: do not, we are both shadows.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Two</p>
+        <h3 class="canto-title">Statius's Conversion — The Tree of Temperance</h3>
+        <p class="canto-hook">Statius explains how Virgil made him both a poet and a Christian, and they arrive at a tree that pours water upward.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Three poets now travel together — an extraordinary literary gathering. Virgil asks Statius how avarice (or prodigality) found a place in a soul so full of wisdom. Statius answers that in life he was prodigal — not avaricious. He spent extravagantly, without restraint. But more surprising is his next revelation: he was a Christian. Virgil's Fourth Eclogue — the famous "Messianic Eclogue" that medieval readers interpreted as a prophecy of Christ's coming — opened the door. Reading it, Statius became sympathetic to Christianity; when the persecution of Christians began under Domitian, he converted secretly, living as a hidden Christian for four years before his death. He was baptized but lacked the courage to confess it openly — that cowardice, he says with a rueful smile, kept him in Ante-Purgatory for more than four centuries longer than he needed to be.</p>
+      <p>Dante's use of Statius here is one of the poem's most audacious inventions. Historically, there is no evidence Statius was a Christian. Dante imagines it whole. The move allows him to show Christianity's truth as anticipated in the greatest pagan poetry and to suggest that classical literature, rightly read, points toward the Gospel. Virgil, who wrote the prophecy without understanding it, is the unwitting instrument of another man's conversion and salvation — the sower who never sees the harvest.</p>
+      <p>They arrive at the sixth terrace. A tree stands in the path, unusual in shape: its branches grow wider toward the bottom, making it impossible to climb. Water pours downward from higher rocks, soaking the leaves. Voices from within the tree cite examples of temperance: Mary's discreet response at Cana, the Roman women of legend who drank only water, Daniel who refused the king's food, the Golden Age when acorns satisfied and water was nectar, John the Baptist who lived on locusts and honey in the desert.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="gluttony">
+    <p class="terrace-badge">Sixth Terrace</p>
+    <h3 class="terrace-title">Gluttony</h3>
+    <p class="terrace-sin">Gula — excessive appetite, the body's pleasures loved too much</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Three</p>
+        <h3 class="canto-title">Forese Donati — The Hollowed Gluttons</h3>
+        <p class="canto-hook">A dearest friend appears, so thinned by hunger he is barely recognizable, and mourns the immodesty of Florence's women.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Moving along the sixth terrace, Dante hears a voice singing the 51st Psalm — <em>Miserere mei</em> — "Have mercy on me, O Lord." A crowd of souls passes. They are gaunt to the point of horror: their faces so hollow that eye sockets show OMO — the Latin word for "man," the letters O-M-O formed by the eye sockets and nose of the human skull, reminding them and all who see them of their essential humanity and mortality. Their flesh has been burned away; they look like men made of wax near flame. They are famished and parched — perpetually tempted by the hanging fruit and the water of the tree they must pass — and cannot reach it. The fruit withdraws whenever they approach; the water spills down the cliff face, always just out of reach. Tantalus revisited, with Christian precision.</p>
+      <p>Among them Dante recognizes — barely — Forese Donati, his dear friend and poetic sparring partner in life. He and Dante had once exchanged a series of ribald sonnets (the <em>tenzone</em>), insulting each other with cheerful vulgarity. Now Forese is barely recognizable beneath his emaciation. The reunion is moving and wry in equal measure. Forese explains that his wife Nella's tears and prayers have already brought him from Ante-Purgatory to here — her prayer accelerated his climb, which would have taken far longer. He praises his wife warmly. Then, unprompted, he launches into a denunciation of Florentine women who go half-naked in the streets, brazen and shameless — a prophecy that before long they will be forbidden by divine punishment to bare themselves so carelessly. The tenderness of the marital praise and the sharpness of the civic satire sit side by side, which is very Dante.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, Forese Donati</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Four</p>
+        <h3 class="canto-title">Bonagiunta and the Sweet New Style</h3>
+        <p class="canto-hook">A poet asks Dante to name his poetic secret, and Dante gives the most concentrated definition of his own art.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Forese identifies for Dante the other souls on the terrace: Pope Martin IV (who loved eels drowned in Vernaccia wine), Ubaldino della Pila, Boniface of Fiesole, Marchese of Forli. The gallery of the gluttonous includes popes and courtiers — appetite does not respect rank. Forese then asks where Dante's sister Piccarda is: in Paradise, already crowned. And Forese prophecies the death of his own brother Corso Donati: a beast will drag him down the valley and shatter his body on the stones — Corso, the powerful and corrupt Florentine politician, will die a brutal death at the hands of his enemies.</p>
+      <p>Bonagiunta da Lucca, a 13th-century poet, whispers to Dante: are you the one who brought out the new poems that begin "Ladies who have understanding of love"? The question refers to Dante's own canzone from the <em>Vita Nuova</em> — his first manifesto of the <em>dolce stil novo</em>, the sweet new style. Dante's answer is one of the most celebrated statements of poetics in Italian literature: "I am one who, when Love breathes within me, takes note, and to whatever he dictates within, I go setting it down." The definition of the sweet new style is pure responsiveness — the poet is not the master of the poem but its secretary. Love speaks; the poet transcribes. Bonagiunta understands: <em>this</em> is the difference between the new poetry and all that came before it.</p>
+      <p>Another tree — more examples of gluttony punished: the Centaurs corrupted by wine at Perithous's wedding, the Hebrews who drank carelessly and were dismissed by Gideon from the battle. The angel erases the P for gluttony, and the Beatitude rings: "Blessed are those who hunger and thirst for righteousness." The pun is perfect: the gluttons are literally hungry; the beatitude converts physical hunger into its true referent.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, Forese Donati, Bonagiunta da Lucca</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terrace-section" id="lust">
+    <p class="terrace-badge">Seventh Terrace</p>
+    <h3 class="terrace-title">Lust</h3>
+    <p class="terrace-sin">Luxuria — the disordered excess of love's bodily fire</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Five</p>
+        <h3 class="canto-title">The Philosophy of the Shadow Body</h3>
+        <p class="canto-hook">Statius delivers a medical and metaphysical lecture on how the soul, without a body, can still hunger and burn.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante wants to ask how shades can grow thin on the sixth terrace — if they have no physical bodies, they have no flesh to waste. Virgil grants him permission and turns the question to Statius, who delivers the longest sustained philosophical passage in Purgatorio: a theory of embryology and soul-formation drawn from Aristotle, Avicenna, and Christian theology. The key point is this: when the soul departs the body at death, it impresses itself upon the surrounding air the way heat shapes the air around it, forming what Dante calls the "shadow body" — an aerial form that can feel, suffer, laugh, and weep even without flesh. This is how Dante and Statius can see shades growing thin: the aerial body mirrors what the soul would experience in flesh.</p>
+      <p>The seventh terrace: a wall of fire that stretches across the entire path. There is no going around it. Through the fire, angels can be heard singing. Voices cry out examples of chastity: "I know not man" — Mary's words to Gabriel. Then "Diana kept the woods pure" — the chaste huntress goddess driving away any who violated her grove's purity. And the names of wives and husbands who were faithful within marriage. The fire burns; the voices call; and Dante and his companions have not yet entered.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Six</p>
+        <h3 class="canto-title">Guinizelli and Arnaut Daniel</h3>
+        <p class="canto-hook">Two crowds of souls greet each other in the fire, and the greatest poets of love in two languages speak.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Souls move through the wall of fire in two streams — some going one way, some another, like ants meeting on the road and touching antennae. When the two groups pass, they greet each other with brief, burning kisses and cry out their sins. Those going one direction shout "Sodom and Gomorrah" — the sin of same-sex lust, for which those ancient cities were destroyed. Those going the other direction shout the name of Pasiphae — the queen who in myth coupled with the bull and gave birth to the Minotaur — the emblem of heterosexual excess. Both groups are in the fire; both are being purged; both, equally, once allowed the fire of desire to consume what it should have illuminated. The fire is the same for all — the substance differs only in direction.</p>
+      <p>The souls marvel at Dante's shadow and press around to look. One speaks — Guido Guinizelli of Bologna, the poet Dante called his "father" in the sweet new style, whose love lyrics shaped everything Dante wrote. The encounter is reverent and tender. Dante tells him he holds Guinizelli's poems dearer than any. Guinizelli is moved but points to another soul nearby: if you want to see the master, look there — that man was a better craftsman of the mother tongue than all the others. He points to Arnaut Daniel, the 12th-century Provençal troubadour, perhaps the greatest master of technically demanding lyric in the tradition before Dante. Arnaut speaks — uniquely in the whole <em>Comedy</em> — in his own Occitan language, not Italian. He asks Dante to remember his suffering; he weeps and goes back into the fire. The use of Occitan, untranslated, in an Italian poem is itself a tribute: Dante allows Daniel to speak in his own tongue, a gesture of pure literary generosity.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, Guido Guinizelli, Arnaut Daniel</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Seven</p>
+        <h3 class="canto-title">Through the Fire — Virgil's Farewell</h3>
+        <p class="canto-hook">Dante must walk through a wall of flame, and on the other side, his guide of thirty-three cantos speaks his last words.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The Angel of Chastity stands before the wall of fire and tells them: no one may pass to what lies beyond without first going through the flames. Dante is terrified — he has seen fire in Hell as an instrument of punishment. He stands rigid, staring at the fire, forgetting all he has learned. Virgil coaxes: think of Beatrice, who waits on the other side. At the name Beatrice, Dante begins to move. He closes his eyes and crosses through. The fire is intensely hot — more than he could have imagined. He wants nothing more than to leap into boiling glass to escape it. But he makes it through, and on the other side an angel sings the beatitude: "Blessed are the pure in heart."</p>
+      <p>The sun sets again. They sleep on the staircase. Dante dreams of Leah, who weaves and gathers flowers, while Rachel sits and gazes at herself in a mirror all day. Leah is the active life; Rachel the contemplative. Both are good; both are paths. Dante's life has been action; Beatrice (who in the allegory corresponds to Rachel's contemplation of the divine) awaits him.</p>
+      <p>Morning. Virgil's final speech is among the most beautiful in the poem. He tells Dante: my art and instruction have brought you as far as they can. I can show you no more. From here, your own will is your guide — it is now straight, healthy, and free. To act against it would be error; to follow it is wisdom. I crown and miter you over yourself. The great pagan guide of reason and classical wisdom, who shepherded Dante through Hell and up the mountain of purgation, steps back. Dante's will is now his own. He is ready. Virgil says nothing more after this. When Beatrice appears in the next canto, Dante turns to say something to Virgil — and he is gone.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, The Angel of Chastity</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PART III · THE EARTHLY PARADISE
+════════════════════════════════════════════════ -->
+<section id="paradise">
+  <div class="part-header">
+    <p class="part-number">Part Three</p>
+    <h2 class="part-title">The Earthly Paradise</h2>
+    <p class="part-cantos">Cantos XXVIII – XXXIII</p>
+    <p class="part-intro">The summit of the mountain: Eden as it was before the Fall, now a garden where the purified soul stands at the threshold of Heaven. Here Virgil departs, and Beatrice arrives. The canticle ends in flight toward the stars.</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Eight</p>
+        <h3 class="canto-title">The Earthly Paradise — Matelda</h3>
+        <p class="canto-hook">A forest of eternal spring, a river no one can cross, and a singing woman who walks among the flowers.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante enters the Earthly Paradise — the Garden of Eden, recovered. The forest is dense and alive, its canopy so perfect it filters the air to a green-gold warmth. It is unlike any earthly forest: no storm comes here, no weather disturbs it; the leaves and branches move only from within, stirred by a sweet, mild breeze that follows its own constant law. Dante is enchanted — this is the primeval forest, the original home, the world as it was before the Fall. His slow, rapt walk through it is one of the most sensually beautiful passages in the poem.</p>
+      <p>He comes to a stream — small, dark as shadow — that he cannot cross. On the other bank, a woman gathers flowers and sings; she turns to look at him. She is Matelda (whose exact historical identity is debated — perhaps the Countess Matilda of Tuscany). She smiles at him — the smile of a woman in love; Dante compares her to Persephone before Hades stole her from the meadow of flowers. He asks why she is here and why the stream exists.</p>
+      <p>Matelda explains: the Garden is moved by a celestial wind that blows from the Primum Mobile, which does not reach below but circulates in the forest at the summit. The seeds it carries fall to earth and produce the botanical diversity of the world below. The stream has two branches: Lethe, which erases the memory of sin, and Eunoe, which restores the memory of every good deed done. To drink Lethe is to lose the burden of guilt; to drink Eunoe is to be restored in one's best self. She says that perhaps the ancient poets who wrote of the Golden Age and of Parnassus and the Elysian fields had a dim, distorted memory of this very place — Paradise as the archetype behind every myth of a happy land.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, Matelda</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Nine</p>
+        <h3 class="canto-title">The Processional of Scripture</h3>
+        <p class="canto-hook">A blaze of light moves through the forest — a triumph of the Church and Word of God that overwhelms the senses.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Matelda, still on the far bank, turns and walks upstream. Dante follows on his side. Suddenly a great light floods the forest — so bright Dante wonders if it is lightning. Then music. A sweet melody runs through the luminous air, and in the blaze Dante sees a great procession moving through the trees. It is the Processional of Scripture — a allegorical pageant of the Bible and the Church so densely symbolic that Dante pauses to warn readers: do not expect clear, simple narration here. He writes under the Muses' dictation, and his pen must transcribe it faithfully.</p>
+      <p>Seven golden candlesticks lead the way, leaving seven bands of color in the air behind them like a rainbow — the seven gifts of the Holy Spirit. Behind them, dressed in white, walk twenty-four elders (the books of the Hebrew Bible, the Old Testament) two by two, crowned with lilies, singing praise to Mary. Then four living creatures (drawn from Ezekiel and Revelation — the symbols of the four evangelists: man, lion, ox, eagle) accompany a gleaming two-wheeled chariot drawn by a Gryphon — the creature half lion, half eagle, its eagle parts all gold, its lion parts white and red — a precise figure of Christ, the union of divine and human natures. The gryphon's eagle wings vanish upward beyond sight: divinity exceeds what the eye can follow.</p>
+      <p>Behind the chariot, more procession: three women dancing at the right wheel (Charity in red, Faith in white, Hope in green — the theological virtues), four more at the left (the four cardinal virtues). Two elders follow (Luke-Acts and Paul's letters), then four more (the other epistles), then one elder, sleeping, with a keen face (Revelation). This is the whole of the Christian canon, embodied, in motion, moving through Eden. Dante is overcome. The procession halts. Lightning fills the air. Beatrice is about to appear.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Statius, Matelda; The Processional: The Elders, The Four Living Creatures, The Gryphon Chariot</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty</p>
+        <h3 class="canto-title">Beatrice Appears — Virgil Vanishes</h3>
+        <p class="canto-hook">The woman Dante has spent a lifetime reaching finally stands before him — and she is not pleased.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The elders cry out three times: "Come, bride, from Lebanon!" and then "Blessed is he who comes" — the words of the Hosannas spoken to Christ entering Jerusalem, now applied to Beatrice's approach. A hundred angels scatter flowers. From within the cloud of flowers, clothed in the three colors of faith (white veil, green cloak, crimson dress), appears a woman. Dante knows her, though ten years have passed since her death, before she fully reveals her face. His heart pounds. He turns to say to Virgil: look — I have never felt such trembling — and Virgil is gone. Vanished. Without a word. The guide of the Inferno and all of Purgatorio has simply ceased to be present.</p>
+      <p>Dante weeps. He is bereft. And Beatrice speaks — sternly, calling him by name (the only time in the entire poem Dante uses his own name): "Dante, do not weep because Virgil is gone. Do not weep yet — for another sword is coming." She rebukes him immediately: how did he dare to climb the mountain? Does he not know what she prepared for him? And then she names his failures. After her death, when he could no longer see her face, he turned away. He chased lesser beauties. He followed false goods and false images of the good. He wasted the promise that had been placed in him. She speaks not with cruelty but with the grief of a love that was betrayed — and with the authority of one who saw clearly what he was and what he became and what it cost.</p>
+      <p>Dante, facing her, cannot speak. He looks down. His shame is total. Beatrice's rebuke is not a judicial sentence but a return to truth — she is restoring him to the reality of what he has been. Angels, watching, weep with Dante, moved by pity for his shame.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Matelda, Statius (Virgil has departed)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-One</p>
+        <h3 class="canto-title">Dante's Confession — The River Lethe</h3>
+        <p class="canto-hook">Beatrice forces a full confession, and Dante is submerged in forgetting before he can look upon her face unveiled.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice presses Dante to speak. She wants his confession — not for punishment but for healing, for acknowledgment. He struggles. His voice barely emerges. He admits: yes, the present goods, with their false pleasures, turned him away when her face was hidden. He wept as he confessed it. Beatrice accepts the admission but presses further: why did he not, having fallen once, resolve to rise? What other beautiful things, what other promises, kept him? Dante bows his head; his chin drops to his chest. He cannot answer. There is nothing to say. Her question is unanswerable because the answer is simply: weakness, distraction, the gravitational pull of lesser things. Grief overcomes him and he faints.</p>
+      <p>He comes back to consciousness to find Matelda drawing him through the Lethe — the river of forgetting. He is submerged in its sweet waters, and the memories of sin — not the facts of what he did, but the taste and weight of guilt — are washed away. He is brought to the other bank and presented to Beatrice, who stands surrounded by the four cardinal virtues. She tells him: open your eyes; look at what we have brought you to. He raises his eyes and sees, reflected in her eyes, the Gryphon — alternating between its two natures, divine and human. He is seeing Christ reflected in Beatrice's eyes. Beatrice unveils her face — the sun is not more dazzling. The light defeats him again. He cannot look directly.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Matelda</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Two</p>
+        <h3 class="canto-title">The Tree of Empire — The Allegory of Church History</h3>
+        <p class="canto-hook">The chariot is tied to a withered tree that bursts into bloom, and then — in a dark dream — is corrupted beyond recognition.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante's eyes are so fixed on Beatrice that when the procession turns and moves away, he is pulled along like a child clutching a mother's hand, incapable of independent motion. The procession moves to a vast, bare, dead tree — a tree stripped of all leaves and flowers. Dante recognizes it as the tree of Knowledge of Good and Evil from which Adam ate: it is bare because of Adam's transgression. The Gryphon ties the chariot's shaft to it. As the Gryphon makes contact with the dead tree, it bursts into color — flowers and new green leaves spring from every branch, the color "less than rose and more than violet." The restoration of the tree by Christ (the Gryphon) is the Redemption figured botanically. The souls sing a hymn Dante cannot follow — too new for mortal ears.</p>
+      <p>Dante sleeps. When he wakes, Matelda, Statius, and Beatrice are with him; the vast procession is gone. Beatrice sits on the root of the tree guarding the chariot. What follows is a rapid, dark allegorical sequence that depicts the trials of the Church. An eagle strikes the chariot twice (the Roman persecutions of Christians). A fox leaps into the chariot (heresy, driven out by Beatrice). The eagle descends again and leaves feathers in the chariot's floor (the Donation of Constantine, the Church's disastrous acquisition of temporal wealth). A dragon bursts from below and tears away part of the chariot's bed (schism). The chariot sprouts feathers and is transformed — seven heads appear on it (the seven deadly sins), and a whore rides it while a giant beside her beats and kisses her, then drags the whole corrupt vehicle into the forest when the whore's eyes meet Dante's. The allegory is of the Church's progressive corruption: persecution, heresy, imperial endowment, schism, and finally the corrupt papal court (the whore) dominated by the French crown (the giant). It is Dante's most compressed and furious political vision.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Matelda, Statius</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Three</p>
+        <h3 class="canto-title">The Prophecy of DXV — The River Eunoe — Flight to the Stars</h3>
+        <p class="canto-hook">Beatrice speaks a prophecy no one can fully decode, Dante drinks the water of memory, and the canticle ends in readiness for Heaven.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice and the seven virtues sing a lament — <em>Deus, venerunt gentes</em>, Psalm 79, the lamentation over Jerusalem's ruin applied to the Church's desolation. Beatrice then speaks directly to Dante: she gives a prophecy, deliberately obscure even to Dante himself. A DXV — a 515 — will come, sent by God, to slay the whore and the giant. The number in Roman numerals, rearranged, gives DVX — a leader, a dux. Many interpreters have understood this as Dante's hope for a political deliverer, perhaps an emperor, who will restore order to the Church and Empire. But Beatrice says plainly: don't worry about not understanding it now; just remember it, and report it when you return to living men, even if they cannot understand it. The prophecy is a sealed message for the future.</p>
+      <p>Beatrice rebukes Dante gently for his continued confusion: his mind has been hardened by stony attachments; even her light cannot fully penetrate yet. She tells him she speaks in this obscure style because he must learn to lift his thought to her level, not bring her thought down to his. The difficulty of understanding is itself diagnostic — it reveals how far Dante still has to go, even at the summit of Purgatory.</p>
+      <p>They walk together to the Eunoe. Matelda draws Dante in — as she had drawn him through Lethe — and he drinks of the sweet, life-restoring water that brings back the memory of every good he has done. The experience cannot be expressed; Dante says he is like a plant renewed in new leaves, pure and ready. And with that word — <em>puro</em>, pure — the canticle ends: "pure and ready to mount to the stars." The last word of the Purgatorio, as of the Inferno before it, is <em>stelle</em> — stars. Dante's eyes are always upward. The darkness of the Inferno gave way to the dawn of Purgatory's shore; now Purgatory itself gives way to Heaven. The journey is not done. But Dante is finally, fully ready.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Matelda, Statius</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  Dante Alighieri · La Divina Commedia · Purgatorio · c. 1308–1320 &nbsp;·&nbsp; Commentary prepared for study
+  <a href="index.html" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,192,96,0.5);text-decoration:none;margin-top:10px;display:inline-block;">Return to the full Comedy</a>
+</footer>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.canto').forEach(c => {
+    c.classList.toggle('open', allOpen);
+  });
+  document.querySelector('.expand-btn').textContent = allOpen ? 'Collapse All Cantos' : 'Expand All Cantos';
+}
+</script>
+</body>
+</html>

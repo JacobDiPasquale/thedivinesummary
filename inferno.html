@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dante's Inferno — Canto by Canto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0d0a09;
+    --coal: #151010;
+    --char: #1e1614;
+    --ash: #2a2020;
+    --ash-mid: #362828;
+    --ash-light: #4a3535;
+    --crimson-deep: #6b0f0f;
+    --crimson: #8b1a1a;
+    --crimson-mid: #a82020;
+    --crimson-bright: #c0392b;
+    --ember: #c44a1a;
+    --ember-light: #d4622a;
+    --rust: #7a3520;
+    --blood: #5c1010;
+    --stone: #3d3535;
+    --stone-light: #5a4a4a;
+    --bone: #c8b8a8;
+    --bone-dim: #a09080;
+    --bone-faint: #786860;
+    --bone-fainter: #584848;
+    --text-body: #c0aeaa;
+    --text-mid: #a09090;
+    --text-faint: #7a6868;
+    --shadow: rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--void);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, #1a0808 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 100%, #1a0d08 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 50%, #110808 0%, transparent 45%);
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--text-body);
+    min-height: 100vh;
+  }
+
+  /* ── SITE NAV ── */
+  .site-nav {
+    background: rgba(6,4,4,0.98);
+    border-bottom: 1px solid rgba(139,26,26,0.15);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .site-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 11px 16px;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .site-nav a.home { color: #584848; }
+  .site-nav a.home:hover { color: #a09090; }
+
+  .site-nav .sep {
+    color: #2a1a1a;
+    font-size: 10px;
+    padding: 0 2px;
+  }
+
+  .site-nav a.inferno { color: #8b1a1a; }
+  .site-nav a.inferno:hover, .site-nav a.inferno.active { color: #c0392b; border-bottom-color: #8b1a1a; }
+
+  .site-nav a.purgatorio { color: #584830; }
+  .site-nav a.purgatorio:hover { color: #b8860b; }
+
+  .site-nav a.paradiso { color: #584830; }
+  .site-nav a.paradiso:hover { color: #e0aa28; }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid rgba(139,26,26,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(100,10,10,0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--crimson), transparent);
+  }
+
+  .overline {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    margin-bottom: 22px;
+    opacity: 0.85;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+    color: var(--crimson-bright);
+    line-height: 1.12;
+    margin-bottom: 12px;
+    text-shadow:
+      0 0 40px rgba(180,40,20,0.4),
+      0 2px 8px rgba(0,0,0,0.8);
+    letter-spacing: 0.04em;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 1.8vw, 1.08rem);
+    color: var(--text-faint);
+    letter-spacing: 0.18em;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .epigraph {
+    max-width: 500px;
+    margin: 0 auto;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    border-left: 2px solid var(--crimson);
+    padding-left: 22px;
+    text-align: left;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,6,6,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139,26,26,0.2);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-decoration: none;
+    padding: 14px 14px;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--crimson-bright);
+    border-bottom-color: var(--crimson);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── PART HEADERS ── */
+  .part-header {
+    text-align: center;
+    padding: 64px 0 30px;
+    position: relative;
+  }
+
+  .part-header::after {
+    content: '···';
+    display: block;
+    color: var(--crimson);
+    font-size: 13px;
+    margin: 18px auto 0;
+    opacity: 0.6;
+  }
+
+  .part-number {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
+
+  .part-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--crimson-bright);
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(180,40,20,0.3);
+  }
+
+  .part-cantos {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--bone-fainter);
+    letter-spacing: 0.28em;
+  }
+
+  .part-intro {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-mid);
+    font-style: italic;
+    max-width: 620px;
+    margin: 16px auto 0;
+    text-align: center;
+  }
+
+  /* ── CIRCLE LABEL ── */
+  .circle-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    border: 1px solid rgba(139,26,26,0.45);
+    padding: 3px 14px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    background: rgba(100,10,10,0.12);
+  }
+
+  .circle-section {
+    padding-top: 48px;
+    text-align: center;
+  }
+
+  .circle-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.08rem;
+    color: var(--crimson-mid);
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+
+  .circle-sin {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--bone-fainter);
+    margin-bottom: 32px;
+  }
+
+  /* ── CANTO CARD ── */
+  .canto {
+    margin-bottom: 3px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(80,20,20,0.25);
+    background: rgba(255,255,255,0.018);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .canto:hover {
+    border-color: rgba(139,26,26,0.45);
+    box-shadow: 0 2px 18px rgba(100,10,10,0.18);
+  }
+
+  .canto-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 26px 30px 22px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .canto-number {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--crimson);
+    opacity: 0.35;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 48px;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+
+  .canto:hover .canto-number { opacity: 0.65; }
+
+  .canto-meta { flex: 1; }
+
+  .canto-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    opacity: 0.65;
+    margin-bottom: 4px;
+  }
+
+  .canto-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--crimson-bright);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 12px rgba(180,40,20,0.2);
+  }
+
+  .canto-hook {
+    font-size: 0.97rem;
+    font-style: italic;
+    color: var(--text-faint);
+    line-height: 1.5;
+  }
+
+  .canto-body {
+    padding: 0 30px 0 102px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  }
+
+  .canto.open .canto-body {
+    max-height: 3500px;
+    padding-bottom: 30px;
+  }
+
+  .canto-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-body);
+    margin-bottom: 14px;
+  }
+
+  .canto-body p:last-child { margin-bottom: 0; }
+
+  .canto-body .characters {
+    margin-top: 18px;
+    padding: 13px 18px;
+    background: rgba(100,10,10,0.1);
+    border-left: 2px solid rgba(139,26,26,0.5);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .canto-body .characters strong {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .canto-body .characters span {
+    font-size: 0.95rem;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .toggle-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 4px;
+    border: 1px solid rgba(139,26,26,0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--crimson-mid);
+    font-size: 14px;
+    transition: transform 0.3s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .canto.open .toggle-icon {
+    transform: rotate(45deg);
+    background: rgba(100,10,10,0.18);
+  }
+
+  .expand-bar {
+    text-align: right;
+    padding: 14px 0 20px;
+  }
+
+  .expand-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--crimson-mid);
+    background: transparent;
+    border: 1px solid rgba(139,26,26,0.35);
+    padding: 7px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .expand-btn:hover {
+    background: rgba(100,10,10,0.2);
+    border-color: var(--crimson);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid rgba(139,26,26,0.2);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--bone-fainter);
+    text-transform: uppercase;
+  }
+
+  footer a {
+    color: var(--crimson);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--crimson-bright); }
+
+  @media (max-width: 600px) {
+    .canto-header { padding: 18px 16px 14px; gap: 12px; }
+    .canto-body { padding: 0 16px; }
+    .canto.open .canto-body { padding-bottom: 18px; }
+    .canto-number { font-size: 1.5rem; min-width: 34px; }
+    nav a { padding: 12px 8px; font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-nav">
+  <a class="home" href="index.html">La Divina Commedia</a>
+  <span class="sep">·</span>
+  <a class="inferno active" href="inferno.html">Inferno</a>
+  <span class="sep">·</span>
+  <a class="purgatorio" href="purgatorio.html">Purgatorio</a>
+  <span class="sep">·</span>
+  <a class="paradiso" href="paradiso.html">Paradiso</a>
+</div>
+
+<header>
+  <p class="overline">La Divina Commedia · Primo Canticle</p>
+  <h1>Inferno</h1>
+  <p class="subtitle">A Canto by Canto Commentary</p>
+  <blockquote class="epigraph">
+    Midway upon the journey of our life<br>
+    I found myself within a forest dark,<br>
+    for the straightforward pathway had been lost.<br>
+    <span style="display:block; margin-top:10px; font-size:0.88rem; color:var(--bone-fainter); font-style:normal;">— Dante Alighieri, Inferno I, 1–3</span>
+  </blockquote>
+</header>
+
+<nav>
+  <a href="#prologue">Prologue</a>
+  <a href="#antehell">Ante-Hell</a>
+  <a href="#c1">Circle I</a>
+  <a href="#c2">Circle II</a>
+  <a href="#c3">Circle III</a>
+  <a href="#c4">Circle IV</a>
+  <a href="#c5">Circle V</a>
+  <a href="#c6">Circle VI</a>
+  <a href="#c7">Circle VII</a>
+  <a href="#c8">Malebolge</a>
+  <a href="#c9">Cocytus</a>
+</nav>
+
+<main>
+
+<div class="expand-bar">
+  <button class="expand-btn" onclick="toggleAll()">Expand All Cantos</button>
+</div>
+
+<!-- PROLOGUE · CANTOS I–II -->
+<section id="prologue">
+  <div class="part-header">
+    <p class="part-number">Prologue</p>
+    <h2 class="part-title">The Dark Wood</h2>
+    <p class="part-cantos">Cantos I – II</p>
+    <p class="part-intro">Before Hell proper, Dante loses his way, is rescued by Virgil, and doubts his own worthiness for the journey — until Virgil reveals who sent him.</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">I</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto One</p>
+        <h3 class="canto-title">The Dark Wood — The Three Beasts — Virgil</h3>
+        <p class="canto-hook">A man wakes in darkness at the middle of his life, is driven back by three beasts, and a shade offers to guide him another way.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The poem begins at the precise midpoint of human life — Dante is thirty-five years old, the year is 1300, and the date is Good Friday. He finds himself in a dark wood: not a forest he entered deliberately but a lostness he woke into, a disorientation so total he cannot say how he arrived. The image is one of the most powerful in Western poetry precisely because it requires no interpretation — everyone has woken in a dark wood at some point. The wood is dense, bitter, harsh; recalling it is as bad as death itself. But something good came of it, and that is why he must tell it.</p>
+      <p>He sees a hill above him, its shoulder clothed in light — the sun rising over it, casting warmth down on the darkness where he stands. He begins to climb. But as the path rises, three beasts block his way: first a spotted leopard (incontinence — the sins of appetite that will inhabit Hell's upper circles); then a lion, great and fierce, whose head held high makes the air itself tremble (violence — the sins of the middle circles); and finally a wolf, lean and famished with every desire, who has driven many to misery and will drive more (fraud — the sins of the deep circles). The wolf drives Dante back down toward the dark wood, hopeless.</p>
+      <p>Then a figure appears in the darkness — dimmed by long silence, as if its voice had gone faint from disuse. It is the shade of Virgil, the great Roman poet who died thirteen hundred years before. He has come to guide Dante through Hell and up the mountain of Purgatory; from there another guide will take him further. Dante clings to Virgil as a student to a master. They set out together toward the gates of Hell as night falls.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">II</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Two</p>
+        <h3 class="canto-title">Dante's Doubt — Beatrice's Commission</h3>
+        <p class="canto-hook">On the threshold of the journey, Dante falters — and Virgil tells him who sent him, and why.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Day fades. The second canto opens in the last light before the descent into true darkness. Dante invokes Memory and the High Genius and the Muses. Then he stops. A cold creeps through him. He is not Aeneas, whose descent to the underworld served the founding of Rome and ultimately of the Church. He is not Paul, who was caught up to paradise to bring back knowledge for the strengthening of faith. Who is he? A man of no particular significance. Why should he, of all people, make this journey? His fear is not cowardice but honest self-assessment: to go on such an errand without being worthy of it is hubris; the fear is right.</p>
+      <p>Virgil rebukes him firmly but compassionately — calling his fear a cowardice dressed as prudence — and then tells him the full story of his commission. Beatrice herself came to Virgil in Limbo. She descended from her seat in Heaven — moved by the three blessed women: the Virgin Mary, who took pity on Dante lost in the world; Lucia, who carried the message to Beatrice; and Beatrice herself, who descended to act. Beatrice spoke to Virgil with the voice of an angel, her eyes bright with tears, asking him to go to Dante before it was too late, to guide and protect him. She invoked Virgil's own great art. She said: I am Beatrice; I come from the place to which I wish to return; Love moved me and moves me to speak.</p>
+      <p>The revelation changes everything. Dante was afraid because he thought himself alone, attempting something he had no right to attempt. Now he knows he is commissioned — carried on the prayers and love of Heaven itself. His fear dissolves. He is ready. The descent begins.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; mentioned: Beatrice, Lucia, the Virgin Mary</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTE-HELL · CANTO III -->
+<section id="antehell">
+  <div class="circle-section">
+    <p class="circle-badge">Ante-Hell</p>
+    <h3 class="circle-title">The Vestibule of Hell</h3>
+    <p class="circle-sin">The Neutrals — those who took no side in the great moral conflict of existence</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">III</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Three</p>
+        <h3 class="canto-title">The Gate of Hell — The Neutrals — Charon</h3>
+        <p class="canto-hook">The inscription above the gate, the miserable souls who chose nothing, and the ferryman of the dead.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Above the gate of Hell, cut into the stone, are nine lines of inscription ending in the most famous phrase Dante ever wrote: <em>Lasciate ogne speranza, voi ch'intrate</em> — "Abandon all hope, you who enter." The inscription is theological before it is frightening: it identifies Hell as the product of divine Power, Wisdom, and Love — the Trinity acting together in the act of creation. Hell is not a mistake, not an afterthought, not a failure of mercy. It is the permanent structure that Love itself requires when freedom is exercised absolutely against Love. It was made before anything else created; it will last forever. Abandon hope — not because God has abandoned you but because hope, the orientation toward a future that might be different, is simply no longer possible here. The present is all there is, and it is permanent.</p>
+      <p>Inside the gate, before the river Acheron, is a great plain filled with souls running endlessly and crying. Wasps and hornets sting them, and worms drink the blood and tears that fall from their wounds. These are the Neutrals — the souls who, in life, took no side. They were neither good nor evil; they committed to nothing; they lived for themselves alone. Hell will not have them; Heaven will not have them; they are rejected by both. Their punishment is to run ceaselessly after a blank banner that goes nowhere and means nothing — a perfect image of a life without commitment. Dante recognizes at least one of them and does not name him: some scholars believe it is Pope Celestine V, who abdicated the papacy and thus (in Dante's view) made way for Boniface VIII, the great villain of the Inferno.</p>
+      <p>At the river Acheron, Charon the ferryman appears — white-haired, ancient, eyes of wheel of fire — driving the dead toward his boat with his oar. He refuses to take Dante (who still lives) until Virgil invokes the will of God. An earthquake shakes the ground; a red light blazes; Dante faints. He wakes on the other side of the river.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Charon; The Neutrals (one unnamed)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE I · LIMBO -->
+<section id="c1">
+  <div class="circle-section">
+    <p class="circle-badge">First Circle</p>
+    <h3 class="circle-title">Limbo</h3>
+    <p class="circle-sin">The virtuous unbaptized — those who lived well but without the faith that saves</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Four</p>
+        <h3 class="canto-title">Limbo — The Great Pagans</h3>
+        <p class="canto-hook">The first circle holds the wisest and most virtuous of the ancient world — not in torment, but in the permanent grief of what they lack.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Thunder wakes Dante. He is at the edge of the first circle, and its sound is sighing — the sighs of those who suffer no pain but live in a longing that never resolves. Virgil's own face has gone pale. He explains: he himself lives here. These are the souls who did not sin, who lived honorably and justly, but who were not baptized — they had no faith, or lived before faith was possible to have. They are missing not righteousness but the doorway. The distinction is exact and anguishing: it is entirely possible to be good, to be wise, to be just, and still be separated from God — not as punishment for what you chose but as consequence of what you never had the opportunity to receive.</p>
+      <p>A great light blazes in the darkness: Christ's Harrowing of Hell, long past. Virgil tells Dante of it — the great souls taken out: Adam, Abel, Noah, Moses, Abraham, David, Israel and Rachel. The rest remain. Dante and Virgil enter a great castle with seven walls and seven gates, surrounded by a stream — the image of human wisdom at its highest, walled within itself — and inside, on a green meadow, the greatest figures of the ancient world sit in their dignity. Homer, the poet sovereign, leads them. Then Horace, Ovid, Lucan. They welcome Virgil back; they admit Dante to their company as sixth. Together they walk and speak of things Dante cannot report.</p>
+      <p>Then the great philosophers: Aristotle, the master, surrounded by his philosophical family — Socrates, Plato, Democritus, Diogenes, Anaxagoras, Thales, Heraclitus, Zeno, Empedocles, Dioscorides. Orpheus, Cicero, Linus, Seneca, Euclid, Ptolemy, Hippocrates, Avicenna, Galen, Averroes. Saladin the great Muslim sultan sits alone, dignified. All of them here — the best the world has ever produced — in permanent, unresolved longing for a light they were never given the means to reach.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; Homer, Horace, Ovid, Lucan, Aristotle, Plato, Socrates, Caesar, Hector, Aeneas, Saladin, Averroes, Avicenna, and many others</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE II · LUST -->
+<section id="c2">
+  <div class="circle-section">
+    <p class="circle-badge">Second Circle</p>
+    <h3 class="circle-title">Lust</h3>
+    <p class="circle-sin">Those who let carnal desire master reason — swept forever by a storm they could not master in life</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">V</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Five</p>
+        <h3 class="canto-title">Minos — The Storm — Paolo and Francesca</h3>
+        <p class="canto-hook">The great judge assigns souls to their eternal place, and two lovers caught in adultery tell the story that made them famous forever.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>At the entrance to the second circle stands Minos — not the just king of legend but a monstrous judge, his great tail coiling around his own body. Each soul confesses its sins to him; he wraps his tail around himself as many times as the circle number to which they must descend, then flings them down. He warns Dante not to trust the breadth of the gate. Virgil silences him as before.</p>
+      <p>The punishment of the lustful is the hurricane: a great, howling storm that never ceases, that drives the souls in an endless torrent through the dark air, beating them, turning them, never letting them rest. As desire once drove their reason, so now the wind drives them — there is no foothold, no stopping, no respite. Dante sees famous lovers: Semiramis, Dido, Cleopatra, Helen, Achilles, Paris, Tristan. The catalogue of the great lovers of history is also a catalogue of catastrophe: nearly every name here brought death or destruction on themselves or others.</p>
+      <p>Dante calls to two souls moving together, somewhat lighter than the rest — they come to him as doves come to their nest in fair weather, carried by their desire. They are Paolo Malatesta and Francesca da Rimini, sister-in-law and brother-in-law, killed together by Francesca's husband (Paolo's brother) when he caught them in adultery. Francesca speaks — with a courtly eloquence, a literary grace that is itself part of the indictment. She quotes the troubadour love tradition: Love, which is quickly kindled in a gentle heart, seized this man for the beautiful body taken from me (and the manner still wounds me); Love, which absolves no beloved from loving in return, seized me with delight in him so strongly that, as you see, it does not leave me even now; Love led us to one death. She describes the moment — they were reading of Lancelot and Guinevere; they came to the passage where Lancelot kissed; that day they read no further. Dante faints at the end.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Minos, Francesca da Rimini, Paolo Malatesta; mentioned: Semiramis, Dido, Cleopatra, Helen, Achilles, Paris, Tristan</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE III · GLUTTONY -->
+<section id="c3">
+  <div class="circle-section">
+    <p class="circle-badge">Third Circle</p>
+    <h3 class="circle-title">Gluttony</h3>
+    <p class="circle-sin">Those who made appetite an end in itself — lying in filth, blind to each other, under eternal cold rain</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Six</p>
+        <h3 class="canto-title">Cerberus — Ciacco's Prophecy</h3>
+        <p class="canto-hook">The three-headed hound guards the gluttons in their rain-soaked misery, and a Florentine prophesies his city's ruin.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante recovers from his faint and finds himself in the third circle — a realm of cold, heavy, filthy rain falling without cease. Hail, dark water, snow. The gluttons lie in the mud like animals, wallowing, unable to lift themselves. Cerberus stands over them — three heads, red eyes, oily black beard, great belly, clawed hands — barking, tearing, flaying the spirits that lie before him. Virgil throws clods of earth into his three mouths to silence him and they pass.</p>
+      <p>One shade sits up when they pass, recognizing Dante as a living man. It is Ciacco — a Florentine, a man Dante knew, whose name means "pig" or "hog." He speaks with a surprising lucidity for a soul in this condition: he knows himself, knows why he is here (gluttony), and wants Dante to remember him when he returns to the world. Then, unprompted, he delivers a political prophecy about Florence: the city of division, the city where envy is so strong it overflows, will come to blows. One faction will drive out the other; within three years the tables will turn. He names a "just man" — probably Dante himself — who will not be heard. He points Dante toward Farinata, Tegghiaio, Jacopo Rusticucci, Arrigo, Mosca — proud souls he should know about. Where are they? In the deeper circles, where darker sins go. They pass on. Ciacco falls back into the blind filth.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Cerberus, Ciacco</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE IV · AVARICE -->
+<section id="c4">
+  <div class="circle-section">
+    <p class="circle-badge">Fourth Circle</p>
+    <h3 class="circle-title">Avarice &amp; Prodigality</h3>
+    <p class="circle-sin">Those who hoarded all, and those who squandered all — condemned to crash against each other for eternity</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seven</p>
+        <h3 class="canto-title">Plutus — The Hoarders and Wasters — Fortune</h3>
+        <p class="canto-hook">Two crowds of souls push boulders against each other in endless collision, and Virgil explains the nature of Fortune.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Plutus, the god of wealth, stands at the descent into the fourth circle, uttering a nonsense cry — <em>Pape Satàn, pape Satàn aleppe</em> — which no editor has ever satisfactorily decoded. Virgil silences him with the same formula: this passage is willed on high. They descend into a circle where two great crowds roll enormous weights against each other from opposite sides of the circle, crashing in the middle with a roar, then turning back to push again. They shout at each other: "Why do you hoard?" "Why do you squander?" Two mirror-image sins, equally wrong, equally defined by a disordered relationship to material goods. So many of them are tonsured — priests, cardinals, popes — that Dante notes it bitterly. The Church that should model detachment from wealth is particularly well represented here.</p>
+      <p>Virgil takes the opportunity, as they stand on the bank of the Styx, to deliver a philosophical meditation on Fortune. Fortune is not random; she is a divine intelligence appointed by God to distribute the goods of the world — wealth, power, reputation — according to a plan that exceeds human wisdom. She moves so fast that human foresight cannot catch her; she is blamed by men for what is in fact Providence. The bliss of the avaricious souls is now compressed into their rolling; all the gold under the moon could not give them rest. The sun, he notes, is directly below them now — it is noon, midnight in Hell.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Plutus; the anonymous hoarders and wasters</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE V · WRATH & SULLENNESS -->
+<section id="c5">
+  <div class="circle-section">
+    <p class="circle-badge">Fifth Circle</p>
+    <h3 class="circle-title">Wrath &amp; Sullenness</h3>
+    <p class="circle-sin">The wrathful tear each other on the surface of the Styx; the sullen choke in its muddy depths</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eight</p>
+        <h3 class="canto-title">The Styx — Filippo Argenti — The City of Dis</h3>
+        <p class="canto-hook">Dante refuses pity for a proud Florentine and watches him torn apart, then the gates of a burning city slam shut in their faces.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>A signal fire on the tower ahead; an answering fire from across the Styx. Phlegyas the ferryman comes with a boat — rowing in fury, thinking he carries new sinners. He is corrected. They embark and cross the black marsh of the Styx, its surface seething with the naked souls of the wrathful, who tear and bite and strike each other, screaming. Beneath the surface, Virgil tells Dante, gurgle the sullen — those whose anger turned inward, who poisoned their own lives with a resentful gloom. They are chanting through their muddy throats: we were sullen in the sweet air lit by the sun; now we are sullen in this black mud. It is the exact shape of their sin, made eternal.</p>
+      <p>A soul grabs the side of the boat — Filippo Argenti, a Black Guelf Florentine nobleman whom Dante despised. He demands to know who Dante is. Dante refuses to identify himself: go away with the other dogs. Argenti tries to climb aboard; Dante pushes him away. Then — in one of the poem's most charged moments — Dante says he wishes he could see Argenti plunged into the slime while still alive. Virgil embraces him and praises him for this. The wish is granted: the other souls tear Argenti apart. The satisfaction Dante takes in this is troubling and deliberate — the poem does not sanitize the human experience of righteous anger, which is also always tangled with something less righteous.</p>
+      <p>They reach the base of the City of Dis — the walled city within Hell that begins the lower region. Towers, minarets, the color of blood-iron, glowing red. At the gates stand more than a thousand Fallen Angels who refuse them entry. The gates slam shut. Virgil is rebuffed. He returns to Dante with a pale face, concealing his uncertainty behind false confidence. They wait.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Phlegyas, Filippo Argenti</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nine</p>
+        <h3 class="canto-title">The Furies — The Heavenly Messenger — The Heretics' Plain</h3>
+        <p class="canto-hook">Three monstrous women call for Medusa's head to freeze Dante in stone, and salvation comes from Heaven to open what Hell refused.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Virgil, sensing Dante's fear that he may be abandoned, haltingly refers to someone who "has come before" — his descent to the lowest circle, called by Erichtho's magic long ago, before his death — to reassure Dante that he knows the way. But his confidence is strained. Three Furies appear on the tower: Megaera, Alecto, Tisiphone — women of Hell, their bodies wrapped in green hydras, their hair alive with serpents. They cry for Medusa: bring Medusa, let him look at her and be turned to stone and never return! Virgil spins Dante around and covers his eyes with his own hands — even that might not be enough, so he places his own hands over Dante's. The allegory is stark: there are forces that, if looked at directly and without grace, will destroy the soul — kill its movement toward the good, freeze it in permanent stasis.</p>
+      <p>A sound of crashing water across the Styx — a great disturbance, both banks trembling. A figure walks through the murk, waving the air from before his face, contemptuous of Hell and its atmosphere. Souls flee at his coming; he opens the gate of Dis with a small wand, without effort, without resistance, and delivers a brief, cold speech to the demons: do not try this obstruction again; it has been tried before. He departs without looking at Dante and Virgil. Inside the City of Dis extends a field of open tombs — each one blazing, each one containing a heretic. The lids lie to the side. On the Day of Judgment they will be sealed forever.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; The Three Furies, The Heavenly Messenger</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE VI · HERESY -->
+<section id="c6">
+  <div class="circle-section">
+    <p class="circle-badge">Sixth Circle</p>
+    <h3 class="circle-title">Heresy</h3>
+    <p class="circle-sin">Those who denied the immortality of the soul — interred in burning tombs, their lids not yet sealed</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">X</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Ten</p>
+        <h3 class="canto-title">Farinata degli Uberti — Cavalcante de' Cavalcanti</h3>
+        <p class="canto-hook">A great Ghibelline enemy and a tender father speak to Dante from their burning tomb in the most politically and personally charged scene in the Inferno.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>As they walk among the tombs, a voice calls out — Dante's Tuscan dialect has been heard. A shade rises from a tomb to its waist: Farinata degli Uberti, the great Ghibelline leader of Florence, who twice defeated Dante's own Guelph party and was largely responsible for their exile. He rises as if he held all of Hell in contempt — <em>come avesse l'Inferno a gran dispitto</em>. His bearing is magnificent and unbroken even in damnation. He asks Dante who his ancestors were; Dante tells him; Farinata says he was twice their enemy, drove them out twice. Dante shoots back: they always came back — which is more than the Ghibellines can say.</p>
+      <p>A second shade interrupts — rising from the same tomb, beside Farinata, kneeling. It is Cavalcante de' Cavalcanti, father of Dante's closest friend Guido Cavalcanti. He asks: if my son is such a genius, why is he not here with you? Is he not alive? Does he not deserve this honor? Dante hesitates — he uses the past tense, saying that Guido "had" contempt for this journey. Cavalcante interprets the past tense as a signal that Guido is dead, and collapses back into the tomb in grief. (Guido would in fact die later in 1300 — Dante, in the poem's fiction, cannot yet know this; the misunderstanding is tragic and deliberate.) Farinata continues the conversation as if nothing happened — the indifference of a great man to private grief, or perhaps a disassociation from intimacy. He tells Dante that the Ghibelline exile of the Guelphs will be permanent (wrong, as history shows), and explains the strange limitation of the heretics' knowledge: they can see the distant future perfectly but are blind to the near present. When the Last Judgment seals time, their knowledge will go dark entirely.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Farinata degli Uberti, Cavalcante de' Cavalcanti; mentioned: Frederick II, the Cardinal Ottaviano degli Ubaldini</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eleven</p>
+        <h3 class="canto-title">The Structure of Hell — Aristotle's Ethics</h3>
+        <p class="canto-hook">Pausing behind a tomb because of the stench below, Virgil delivers the complete moral map of Hell.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>They pause at the edge of a cliff above the lower circles — the stench rising from below is so unbearable that they shelter behind the tomb of Pope Anastasius II (accused of heresy). While they wait for their senses to adjust, Virgil delivers a systematic lecture on Hell's moral structure. It is the most important expository passage in the Inferno: everything below is organized.</p>
+      <p>Hell is structured around Aristotle's Nicomachean Ethics. Sin falls into three broad categories: Incontinence (the failure of reason to control appetite — lust, gluttony, avarice, wrath, which occupy the upper circles); Violence (the malicious use of will against others, self, God, or nature — Circle VII); and Fraud (the corruption of the rational faculty itself — Circles VIII and IX). Fraud is worse than violence because humans share violence with the beasts, but the capacity to deceive through reason is specifically human, and its corruption is therefore a deeper betrayal of human nature. Simple fraud (Malebolge) wrongs strangers; treachery (Cocytus) wrongs those who trusted you — and is the deepest sin.</p>
+      <p>Virgil also addresses why usury is in Circle VII with violence: it offends Nature (which produces wealth through human labor and art) and Art (which follows Nature). The usurer extracts wealth from money itself, from the mere passage of time, without working — a violation of the cosmic order of productivity.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twelve</p>
+        <h3 class="canto-title">The Minotaur — The River of Blood — The Violent Against Others</h3>
+        <p class="canto-hook">They descend a shattered cliff past the Minotaur into a river of boiling blood where tyrants and murderers are submerged to varying depths.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The seventh circle is reached by a cliff of shattered rock — broken, Virgil says, when Christ descended into Hell and the earth shook. The Minotaur guards the descent, the beast of Crete born of Pasiphae's monstrous lust, half man and half bull. Virgil taunts it and it charges in mad confusion; they slip past it while it rages. The cliff is difficult, unstable, constantly shifting under Dante's living weight.</p>
+      <p>Below: the Phlegethon, the river of boiling blood. In it, submerged to varying depths according to the severity of their violence, are the violent against neighbors — tyrants and murderers and brigands. Alexander the Great is submerged to his eyebrows; Dionysius of Syracuse; Attila the Scourge of God; Pyrrhus; Sextus Pompey; Rinier Pazzo; Rinier da Corneto (contemporary bandits). The more blood spilled in life, the deeper the immersion. The centaurs — Chiron (their chief), Nessus, Pholus — patrol the bank with bows, shooting any shade that rises above its appointed level. Chiron, seeing that Dante disturbs the bank with his living weight, assigns Nessus to guide them through the ford and back to the other side.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, The Minotaur, Chiron, Nessus, Pholus; Shades: Alexander, Dionysius, Attila, Pyrrhus, Sextus Pompey, Rinier Pazzo, Rinier da Corneto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE VII · VIOLENCE -->
+<section id="c7">
+  <div class="circle-section">
+    <p class="circle-badge">Seventh Circle</p>
+    <h3 class="circle-title">Violence</h3>
+    <p class="circle-sin">Three rings: violence against others (blood river), against self (the wood of suicides), and against God, nature, and art (the burning plain)</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirteen</p>
+        <h3 class="canto-title">The Wood of Suicides — Pier della Vigna</h3>
+        <p class="canto-hook">A dark thorned wood where the suicides have been transformed into trees, and a great minister who killed himself tells his side of the story.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The second ring of the seventh circle is a wild wood — no green leaves, only dark and twisted branches; no smooth boughs, only gnarled and knotted tangles; no fruit, only poisonous thorns. The Harpies nest in it and tear the leaves and cry. This wood is where the suicides reside: they have become trees. Virgil tells Dante to break a branch and see what happens. Dante hesitates, then breaks a small twig. The tree cries out and bleeds black blood, demanding: why do you tear me? Is there no pity in you? A voice emerges from the wound.</p>
+      <p>The tree is Pier della Vigna — the great chancellor and poet of Frederick II's court, who was accused of treason, blinded, and imprisoned, and who killed himself in his cell to escape the dishonor. He insists on his innocence: envy of his closeness to Frederick turned the court against him; the false accusations broke him. His Latin-inflected speech, with its legal precision and rhetorical antitheses, is itself a character portrait — this was a man of letters, a man of words, and words destroyed him. He asks Dante to restore his good name among the living.</p>
+      <p>The contrapasso is exact and terrible: the soul that violated the body God gave it — that refused the vessel of human life — is now trapped in wood, denied the form of a human body for eternity. At the Last Judgment, when all souls are reunited with their bodies, the suicides will receive their flesh back but will not inhabit it: they will hang their own bodies on their thorn-branches like grotesque ornaments. Nearby, the prodigals — who were violent against their own substance — are torn through the wood by black hounds, shredded and scattered.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Pier della Vigna; Jacopo da Sant'Andrea (a prodigal); an unnamed Florentine suicide</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fourteen</p>
+        <h3 class="canto-title">The Burning Plain — Capaneus — The Old Man of Crete</h3>
+        <p class="canto-hook">Flakes of fire rain on the violent against God, and a giant of unbroken defiance refuses to bow even in eternity.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The third ring of violence is a burning plain of sand. Flakes of fire fall from above in a steady, slow rain — like snow in windless mountains, but fire. Three groups occupy this plain: the blasphemers lie on their backs, spread-eagled, fully exposed to the falling fire; the sodomites run in circles, never stopping; the usurers crouch, unable to still their hands from brushing at the fire. The fire falls with equal impartiality on all three.</p>
+      <p>One great figure lies apart, motionless and vast, contemptuous — Capaneus, one of the seven kings who besieged Thebes, who died cursing Jupiter on the walls and curses him still. Nothing God has done or can do will break him. He shouts his defiance upward. Virgil speaks sharply to him: your own rage is your greater punishment; no torture greater than your own fury. Capaneus is unmoved. He is the image of the damned soul at its most absolute: not broken by Hell but unconvertible, his pride so total that even God's justice cannot reach him — can only contain him. His damnation is, in a sense, freely chosen and continuously re-chosen.</p>
+      <p>They reach a red stream of boiling water flowing across the plain, its steam protecting a path above the fire. Virgil explains its origin: the Old Man of Crete, whose body is made of gold (head), silver (shoulders), bronze (waist), iron (legs) — except the right foot, which is clay. From every crack in this figure, except the gold, tears flow and collect as Hell's rivers: Acheron, Styx, Phlegethon, and ultimately Cocytus.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Capaneus</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fifteen</p>
+        <h3 class="canto-title">Brunetto Latini — The Gift and the Wound</h3>
+        <p class="canto-hook">Dante's greatest teacher and mentor runs in the circle of the sodomites and offers his blessing — and his prophecy of exile.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Walking along the embankment above the burning plain, Dante is recognized by a shade who reaches up to clutch his garment. The face is so scorched he can barely see it — but the voice unmistakably belongs to Brunetto Latini, the great Florentine notary, encyclopedist, and rhetorician who was, in every sense that mattered, Dante's intellectual father. The encounter is one of the most emotionally complex in the poem. Dante's instinct is reverence: he wants to sit with this man, not stand over him. But Brunetto explains: if he stops moving, he must lie for a hundred years without brushing the fire, exposed. He runs beside the embankment, looking up at Dante, his face turned backward from its direction of travel — a secondary contrapasso for a sin that inverted nature.</p>
+      <p>Brunetto prophesies Dante's exile — the ingratitude of Florence toward its best citizens is an old pattern; Dante should be honored by their hostility, not broken by it. He is told to follow his star: his destiny is already written. Then Brunetto commends to Dante his own Tesoro — his encyclopedic book, his life's great intellectual work — saying: let my Tesoro live, in which I still live. The pathos is enormous: the man who shaped Dante is here, disfigured, running in Hell. What Dante owes him cannot be repaid or undone. The encounter ends as the group of sodomites approaches and Brunetto runs off with them — quickly, like a man running a race, like a winner, not a loser. The dignity he preserves in Hell is its own kind of grace, or at least its own kind of character.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Brunetto Latini; Priscian, Francesco d'Accorso, Andrea de' Mozzi</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Sixteen</p>
+        <h3 class="canto-title">Three Florentine Soldiers — Geryon Summoned</h3>
+        <p class="canto-hook">Three proud warriors run in the fire and ask news of Florence, and a monster of fraud is summoned from the deep.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Three shades break from a group running on the plain and form a spinning wheel as they speak to Dante — they cannot stop, but they can slow and circle each other. They are Florentine soldiers of the previous generation: Jacopo Rusticucci (whom Ciacco had mentioned), Guido Guerra, and Tegghiaio Aldobrandi — men of virtue and reputation who ended here. They ask urgently about Florence: does courtesy and valor still dwell there, or has it been corrupted? Dante struggles with grief and respect — these are, in his civic imagination, the great men of the city's better days. He tells them the truth: a new people and sudden wealth have brought pride and excess. He cannot stop to speak further; they run on.</p>
+      <p>They reach the edge of the cliff above Circle VIII — the roar of the waterfall below is deafening. Virgil makes Dante untie a cord from around his waist — the cord Dante had thought to catch the leopard with at the beginning — and throws it into the abyss below. Something comes up from the deep in response: Geryon, the monster of fraud, his face honest and benign, his body of multicolored serpent rings, his scorpion tail. He surfaces and lands on the cliff like a boat, waiting. This is how they will descend to Malebolge.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Jacopo Rusticucci, Guido Guerra, Tegghiaio Aldobrandi; Geryon</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seventeen</p>
+        <h3 class="canto-title">The Usurers — The Flight on Geryon</h3>
+        <p class="canto-hook">Contemptible men crouch over their money-pouches even in Hell, and then Geryon carries them through the air into the dark.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Virgil describes Geryon while Dante goes to look at the usurers who crouch on the burning sand at the cliff's edge — unable even here to stop fingering the purses hanging from their necks, each one blazoned with a heraldic device identifying their family. They are barely human: they squint at Dante and then turn back to their purses, unable to hold attention to anything else. Dante recognizes the Gianfigliazzi and Obriachi devices; he won't name the Paduan among them who jeers and sticks out his tongue. The contrapasso is economic: they made their wealth from money without working; here they work endlessly for nothing, tending pouches that are empty of everything except the emblem of their earthly identity.</p>
+      <p>Dante climbs onto Geryon's back, behind Virgil. The descent is one of the most viscerally terrifying passages in the poem: Geryon wheels and descends in great circles into the darkness, and Dante, riding the neck of a monster into the abyss, feels what Phaethon felt when he lost the reins of the sun's chariot, what Icarus felt as the wax softened. The air roars. The void yawns below. He can only close his eyes and hold on. They land. Geryon launches himself away the moment they step off, like an arrow leaving a bow.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Geryon; the Usurers (Gianfigliazzi, Obriachi, an unnamed Paduan)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE VIII · MALEBOLGE -->
+<section id="c8">
+  <div class="circle-section">
+    <p class="circle-badge">Eighth Circle — Malebolge</p>
+    <h3 class="circle-title">The Evil Ditches</h3>
+    <p class="circle-sin">Ten concentric ditches for ten varieties of fraud against those with no special bond of trust — the fraudulent and the false</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eighteen</p>
+        <h3 class="canto-title">Bolgia 1 &amp; 2 — Panderers, Seducers, Flatterers</h3>
+        <p class="canto-hook">Whips drive the pimps and seducers in an eternal march, and the flatterers choke in human excrement.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Malebolge — the Evil Ditches — is a great stone cone of concentric trenches, each one a bolgia (ditch or pouch) containing a different form of simple fraud. They are connected by stone ridges over which Dante and Virgil walk from one ditch to the next. The architecture is the architecture of fraud: compartmentalized, subdivided, each variety of deceit contained in its own precise category, all nested within the larger structure of the deceptive will.</p>
+      <p>First bolgia: two columns of shades march in opposite directions, whipped from behind by horned demons. One column contains panderers — those who used others' bodies for their own profit; the other contains seducers — those who turned the bodies and souls of others into instruments of their own desire. Dante recognizes Venedico Caccianemico, a Bolognese lord who sold his sister's honor for political advantage. Jason the Argonaut strides through, magnificent and contemptuous despite the whip — he who seduced Hypsipyle and abandoned her, who seduced Medea and destroyed her. The greats of ancient seduction walk with the small corruption of Dante's contemporaries.</p>
+      <p>Second bolgia: the flatterers are submerged in human excrement, writhing, slapping themselves. Alessio Interminei of Lucca — a man famous in life for his flatteries — is recognized, his head covered with filth. Thais the courtesan from Terence, who told her lover his gift was "wonderful, absolutely wonderful!" when it was ordinary. The contrapasso speaks for itself: those who larded their speech with ordure now live in it.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; Venedico Caccianemico, Jason (Bolgia 1); Alessio Interminei, Thais (Bolgia 2)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nineteen</p>
+        <h3 class="canto-title">Bolgia 3 — The Simoniacs — Pope Nicholas III</h3>
+        <p class="canto-hook">Popes are planted headfirst in holes in the rock, their feet on fire, and one delivers a speech that illuminates everything wrong with the Church.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The third bolgia: holes drilled into the rock, each one containing a shade planted headfirst, its legs protruding and its feet on fire. The soles of the feet burn with concentrated, dancing flame. The image is of baptismal fonts inverted — the sacred space of initiation corrupted into a place of punishment. These are simoniacs — those who bought or sold ecclesiastical offices, who put a price on the gifts of the Holy Spirit. The name comes from Simon Magus in Acts, who tried to buy the power of the Spirit with money.</p>
+      <p>One shade's feet burn more fiercely than the others. Virgil carries Dante down into the ditch and Dante addresses the shade directly. It assumes he is the shade of Boniface VIII arriving ahead of schedule — a prophecy embedded in the encounter, since Boniface is already condemned though still alive in 1300. The shade reveals himself: Nicholas III, pope from 1277–80, from the Orsini family. He had used the papacy to enrich his family; he was followed in this sin by Boniface (already below him, awaiting his turn) and will be followed in turn by Clement V, who will push Nicholas even deeper as the column of corrupt popes fills up.</p>
+      <p>Dante delivers an extended rebuke — to the astonished silence of Virgil — invoking the Apocalypse's great whore who sits on waters and commits fornication with the kings of the earth. The Church has made gold and silver her gods; it was not money but the keys and the pastoral staff that Christ gave Peter. Dante, who at Canto X barely flinched at Farinata's contempt, here becomes the prosecutor himself. It is among the most explicit anti-papal passages in the poem.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Pope Nicholas III; mentioned: Pope Boniface VIII, Pope Clement V, Simon Magus</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty</p>
+        <h3 class="canto-title">Bolgia 4 — The Diviners and Soothsayers</h3>
+        <p class="canto-hook">Those who claimed to see the future now walk forever with their heads wrenched backward, weeping into the cracks of their own buttocks.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The fourth bolgia: the diviners and soothsayers walk in silence, weeping, their heads twisted completely backward on their necks — their faces looking toward their backs, unable to see forward. They must walk backward to go forward. Those who claimed to see the future are denied sight of the present. The image is exact and grotesque: the body itself becomes a living negation of the sin's pretension. Dante weeps at the sight — and Virgil rebukes him sharply: is pity alive here? Compassion for the condemned is a form of impiety, a second-guessing of divine justice. The rebuke is one of the harder moments in the poem and has troubled readers ever since: does Virgil mean it, or is this itself a kind of infernal distortion of right feeling?</p>
+      <p>Virgil catalogs them: Amphiaraus the seer of Thebes, who was swallowed by the earth; Tiresias, who was changed to a woman and back; Aruns the Etruscan haruspex; the prophetess Manto, whose story Virgil uses to give an extended account of the founding of Mantua — his own city — with particular emphasis that it was founded without augury, as if to distance his native city from the sin of divination. Eurypylus, Michael Scot the wizard, Guido Bonatti, Asdente the cobbler. Virgil urges haste: the moon is already setting, and they have work to do.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; Amphiaraus, Tiresias, Aruns, Manto, Eurypylus, Michael Scot, Guido Bonatti, Asdente</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-One</p>
+        <h3 class="canto-title">Bolgia 5 — The Barrators — The Malebranche</h3>
+        <p class="canto-hook">A demon arrives with a corrupt magistrate on his shoulder, and the devils of the ditch offer an escort Dante should not trust.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The fifth bolgia: a lake of boiling pitch, black and opaque. The barrators (corrupt public officials who sold their offices and decisions) are submerged in it, invisible, surfacing only to be hooked back under by the demons — the Malebranche, the Evil Claws — who patrol the banks with grappling hooks. A demon comes flying across the cliff, a sinner of Lucca draped over his shoulder like a workman carrying a beam, and flings the shade into the pitch. Other demons leap for the soul with their hooks; Virgil tells Dante to hide behind a rock and goes ahead to negotiate.</p>
+      <p>The leader of this squad of Malebranche — Malacoda, Evil Tail — learns from Virgil that they are on a divinely commissioned journey and cannot be obstructed. He calls off his demons and offers an escort to the next bridge, which he claims is intact (it is not — the bridges were broken in the earthquake of the Crucifixion). The squad of ten demons lines up with comic military ceremony: their chief gives the signal by breaking wind like a trumpet blast. The scene is deliberately grotesque and comic — a parody of military order, of civic authority, of bureaucratic process, with flatulence as the commanding gesture. Dante is appropriately terrified.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Malacoda; the Malebranche squad: Alichino, Calcabrina, Cagnazzo, Barbariccia, Libicocco, Draghignazzo, Ciriatto, Graffiacane, Farfarello, Rubicante</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Two</p>
+        <h3 class="canto-title">Ciampolo — The Demons' Brawl</h3>
+        <p class="canto-hook">A barrator from Navarre tricks his demon guards, two of them fall into the pitch, and Dante and Virgil flee in the confusion.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The Malebranche escort proceeds along the ditch-bank. Dante watches the pitch: whales surfacing; dolphins arching; occasional souls poking their backsides up like frogs in a ditch. One soul surfaces too long and is hooked by Graffiacane. The demons tear at him. Virgil asks: do you know anyone else in the pitch? The soul is Ciampolo of Navarre — a minor official who sold royal favors. He names Fra Gomita of Sardinia (who had let prisoners escape for bribes, a master fraud) and Michele Zanche, governor of Logodoro.</p>
+      <p>Ciampolo proposes a trick: if the demons back off, he can call up others from the pitch. They back off. He plunges back in. Alichino dives in after him; Calcabrina dives at Alichino in fury at being tricked; they both end up floundering in the pitch together, unable to fly free of it. The other demons rush to help with their hooks. Dante and Virgil slip away during the confusion — Virgil grabs Dante and slides down a cliff like a mother rescuing a child from a burning house, running along the sixth bank. The comedy is full and Aristophanic: Hell's bureaucratic order has dissolved into slapstick.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Ciampolo of Navarre; Fra Gomita, Michele Zanche; the Malebranche in disarray</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Three</p>
+        <h3 class="canto-title">Bolgia 6 — The Hypocrites — Caiaphas Crucified</h3>
+        <p class="canto-hook">The hypocrites walk in gilded lead cloaks that crush them, and the high priest who condemned Christ lies crucified on the ground for all of them to walk over.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>They arrive in the sixth bolgia just ahead of the pursuing Malebranche, who cannot enter — each bolgia is governed by its own law, and the demons of the fifth have no authority here. Dante and Virgil slide down into it and find a group of souls walking slowly, weeping, exhausted. They wear cloaks — beautiful on the outside, gilded and gleaming, with hoods pulled low, like Cluniac monks — but lined inside with lead so heavy that the cloaks of Frederick II (said to have executed traitors by covering them in lead and melting it on their bodies) were lightweight by comparison. Hypocrites: beautiful on the outside, crushing within.</p>
+      <p>On the floor of the ditch, three stakes driven through him, pinning him to the ground, lies Caiaphas — the high priest who told the council that it was expedient for one man to die for the people (John 11:50), the political calculation that sent Christ to the cross. He lies crucified in the road and every hypocrite must walk over him as they pass. Father-in-law Annas lies nearby. It is the most concentrated image of contrapasso in the poem: the man who used religious authority to authorize a judicial murder now is the road beneath the feet of all who wore religious authority as a false surface over political ambition. Virgil asks about the route; the Malebranche lied — the bridge ahead is broken. He is briefly shamed, then collects himself and they climb on.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Catalano dei Malavolti, Loderingo degli Andalò (the Jovial Friars), Caiaphas, Annas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Four</p>
+        <h3 class="canto-title">Bolgia 7 — The Thieves — The Serpent Transformations Begin</h3>
+        <p class="canto-hook">Serpents entwine the thieves and transform them through violent and grotesque metamorphoses — punished in the very image of what theft does to identity.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The climb from the broken bridge is genuinely difficult — a strenuous physical ascent that leaves Dante panting and Virgil urging him on. The work is deliberate: even in Hell, motion requires effort, and lethargy is a sin that extends into the act of witness. They reach the seventh bolgia and look down into a ditch writhing with serpents of every kind — the memory of Libya's famous snake population, which Lucan catalogued, pales beside this. Naked shades run through the snakes, their hands bound behind their backs by serpents that knot through their loins. A snake bites one shade in the neck; it catches fire and burns to ash; then the ash reconstitutes itself into the same shade. A man whose identity is perpetually destroyed and reconstituted: his self is stolen from him as he stole from others.</p>
+      <p>Dante recognizes a Pistoian, Vanni Fucci — a man of blood and rage, a thief of the sacristy of San Zeno. He is deeply ashamed to be seen here and reluctant to speak — a proud and violent man brought low. He gives his name and his crime (theft of treasure from Pistoia's cathedral) with bitter brevity. Then, to wound Dante, he delivers a political prophecy against the White Guelphs (Dante's faction): they will be driven from Florence. He makes an obscene gesture at God and is immediately attacked by serpents. The exchange is precise: Vanni Fucci stole sacred things; now his identity itself is endlessly stolen and restored.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Vanni Fucci</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Five</p>
+        <h3 class="canto-title">The Metamorphoses — Cacus — The Five Florentines</h3>
+        <p class="canto-hook">The most elaborate and grotesque transformations in the poem: thieves and serpents merge, exchange forms, and dissolve into each other.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Vanni Fucci's obscene gesture at God is answered by snakes coiling over his mouth. Then Cacus appears — the centaur-son of Vulcan who stole Hercules's cattle by dragging them backward into his cave, so their tracks would mislead — a dragon on his back, fire-breathing, serpents covering his shoulders. He is different from the centaurs of the Phlegethon: he belongs here, among the fraudulent thieves, for his theft was deceptive as well as violent.</p>
+      <p>Five Florentine thieves are named and their metamorphoses described with a technical virtuosity Dante explicitly claims surpasses Ovid and Lucan. A six-legged serpent leaps onto one shade and fuses with it — its legs encircling the man's legs, its forefeet seizing his arms, its mouth covering his mouth, while its tail splits his feet. The two substances melt into each other and a single new creature emerges, neither man nor serpent. Then the reverse: a human form and a serpent exchange natures entirely, the serpent becoming human and the human becoming a serpent, their eyes changing color as they exchange essences. Theft's deepest nature is appropriation of the other's being; the punishment is the literal, physical enactment of that appropriation.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Cacus; Five Florentine Thieves: Cianfa Donati, Agnello Brunelleschi, Buoso degli Abati, Puccio Sciancato, Francesco de' Cavalcanti</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Six</p>
+        <h3 class="canto-title">Bolgia 8 — Ulysses — The Last Voyage</h3>
+        <p class="canto-hook">The greatest speech in the Inferno: Ulysses tells of the voyage he made beyond all human boundaries — and what waited at the end.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The eighth bolgia: from above, it blazes with flame — every flame a soul, a tongue of fire concealing the evil counselors within. As fireflies in summer fill a valley, so the flames fill the ditch below. One great flame, cloven at its tip, moves toward them. It contains two souls: Ulysses and Diomedes, together in punishment for the counsels they shared in life — the Trojan Horse, the theft of the Palladium, the ruse that drew Achilles from Deidamia. Virgil speaks to the flame, not Dante: the souls within are Greek and would disdain Italian speech.</p>
+      <p>The larger horn of the flame — Ulysses — speaks. He describes his last voyage: after Circe, after Ithaca, he could not stay. His love for Penelope, his duty to his son — neither was strong enough against the desire to know the world beyond. He gathered a small company of his oldest companions and they sailed west, then south, past the pillars of Hercules — which Hercules had set as the boundary of the known world, warning human beings not to pass — and out into the open ocean. For five months they sailed south, toward the stars of the other hemisphere, until they saw a mountain rising from the sea — immense, dark, distant: Mount Purgatory, as we know, though Ulysses does not. Before they could reach it, a whirlwind came from the mountain and spun the ship three times, then sank it. The sea closed over them.</p>
+      <p>The speech is the poem's most famous set piece: a story of heroic transgression, of the refusal to accept the limits of the human, of knowledge pursued past the boundary that wisdom sets. Dante admires it enormously — and condemns it. Ulysses is not in Hell for his curiosity but for his counsel: he persuaded good men to their deaths in the service of his own desire to know. The flame speaks and is silent.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Ulysses, Diomedes</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Seven</p>
+        <h3 class="canto-title">Guido da Montefeltro — The Counsel of the Pope</h3>
+        <p class="canto-hook">A warrior-turned-friar was promised absolution before the sin — and a devil explains why that doesn't work.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Another flame approaches, roaring and crackling. It is from a Lombard — it speaks in the Romagnol dialect. Guido da Montefeltro: a great Ghibelline military captain, famous for cunning rather than force, who late in life became a Franciscan friar in genuine repentance. But then Pope Boniface VIII came to him with a problem: he needed to destroy the Colonna family's stronghold at Palestrina, and needed a counsel of fraud to do it. Guido refused. Boniface told him: I give you absolution in advance; now counsel me. And Guido — believing the papal power capable of pre-forgiving sin — gave the counsel: promise much, keep little.</p>
+      <p>The counsel worked. Boniface promised the Colonnas safety, then destroyed Palestrina utterly. And Guido died shortly after, expecting the Franciscan habit he had worn as a friar to save him. But a black cherub appeared at his deathbed to claim him — Francis of Assisi could not carry him off because a man cannot repent and will a sin simultaneously. The absolution was void: it is logically impossible to intend to sin and to repent of it at the same moment. The devil's logic is impeccable: "perhaps you did not think I was a logician." Guido is here not for his military career but for trusting that a pope could sell him a ticket to sin.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Guido da Montefeltro; Pope Boniface VIII (mentioned)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Eight</p>
+        <h3 class="canto-title">Bolgia 9 — The Sowers of Discord — Bertran de Born</h3>
+        <p class="canto-hook">The sowers of schism are split and sliced — their bodies opened as they opened societies — and the greatest image in the Inferno carries his own severed head like a lantern.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The ninth bolgia: Dante says no war, no shipwreck, no butchery of history has produced the carnage he sees here. A demon with a sword slices open each soul as it passes; they walk the circuit of the ditch, healing as they go, and are sliced again at each revolution. Their wounds correspond exactly to the divisions they sowed in life: those who divided religions are split from chin to belly; those who divided families have their faces split; those who set son against father have their limbs severed.</p>
+      <p>Mahomet walks with his chest open from chin to groin, his intestines hanging between his legs. He calls out to warn contemporary schismatics that Fra Dolcino, the heretic reformer, is coming soon. Ali, his son-in-law, walks with his face split from forehead to chin. Pier da Medicina, with his throat slashed. Curio, who counseled Caesar to cross the Rubicon. Mosca de' Lamberti — who counseled the killing that began the Guelph-Ghibelline feud in Florence, saying "the thing done has an end" — his arms cut off, stumps raised, blood dripping onto his face. Dante curses him and Mosca walks on in his misery.</p>
+      <p>Then the greatest image: a figure with no head walks toward them carrying his severed head by the hair, swinging it like a lantern. The head looks up at them and speaks: I am Bertran de Born, the troubadour-knight who set Henry the Young King against his father Henry II of England. I divided what God had joined; therefore I am divided from my source. <em>Così s'osserva in me lo contrapasso</em> — "Thus the contrapasso is observed in me." It is the only time Dante uses the word contrapasso in the poem.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Mahomet, Ali, Pier da Medicina, Curio, Mosca de' Lamberti, Bertran de Born</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Nine</p>
+        <h3 class="canto-title">Bolgia 10 — The Falsifiers Begin — Griffolino and Capocchio</h3>
+        <p class="canto-hook">Dante lingers too long at the sight of the mutilated dead, and the alchemists lie diseased and scratching in the last ditch.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante lingers looking for a kinsman among the mutilated of the ninth bolgia — Geri del Bello, his father's cousin, murdered and unavenged. Virgil tells him he glimpsed Geri shaking his fist at Dante as they passed. Dante is moved: the blood-debt is unresolved and Geri knows it. Virgil gently urges him on. The tenth and final bolgia of Malebolge: the falsifiers, divided into four categories across Cantos XXIX and XXX. Here first are the alchemists — falsifiers of metals — who lie heaped across each other in the ditch, scratching themselves raw with their nails, unable to stop. Leprosy, scabs, mange: the itching is permanent, the relief never comes.</p>
+      <p>Griffolino d'Arezzo laughs as he tells his story: he once told the Bishop of Siena's son that he could teach the boy to fly; when the boy found he couldn't, he told his father, who had Griffolino burned as a sorcerer. The real alchemy he practiced for profit Griffolino doesn't mention — his companion Capocchio fills it in: he was a genuine alchemist who could imitate metals perfectly. He and Dante knew each other in Florence; Capocchio reminds him of this, calling Dante a fine observer of nature — his transmutations in poetry were, after all, a kind of alchemy too.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Griffolino d'Arezzo, Capocchio; Geri del Bello (glimpsed)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty</p>
+        <h3 class="canto-title">The Impersonators — Counterfeiters — Master Adam's Lament</h3>
+        <p class="canto-hook">The mad shades who falsified persons and coin run through the ditch, and two souls argue each other into a hell within Hell — with Virgil's rebuke at the end.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Two shades come running wild through the ditch like rabid animals — Gianni Schicchi (who impersonated a dead man in his will to claim a prize mule) and Myrrha (who disguised herself to commit incest with her father). They bite and tear at other shades as they run. Near them, a bloated figure like a lute lies motionless — Master Adam of Brescia, counterfeiter of Florentine florins (he alloyed the gold with tin), burned alive for it, now condemned to lie unable to move, racked with thirst, his legs heavy with the dropsy of his bloated body. He cannot even move to drink from the streams he can hear nearby. He identifies the two Greek shadows lying feverish beside him: Sinon, who lied the Trojans into accepting the wooden horse; and the unnamed wife of Potiphar, who falsely accused Joseph.</p>
+      <p>Sinon and Master Adam trade insults — one burned, one feverish, both accusing each other of their respective crimes, getting louder and uglier. Dante watches, fascinated. Virgil turns on him with unprecedented sharpness: if you want to listen to quarrels like this much longer, I will quarrel with you. Dante is immediately ashamed; he tells Virgil his shame should be its own pardon. Virgil relents: do not grieve at that — but remember this moment. Even in Hell, the pull of corrupt spectacle is strong, and the witness who lingers in it too long begins to be corrupted by it.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Gianni Schicchi, Myrrha, Master Adam of Brescia, Sinon of Troy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIRCLE IX · COCYTUS -->
+<section id="c9">
+  <div class="circle-section">
+    <p class="circle-badge">Ninth Circle — Cocytus</p>
+    <h3 class="circle-title">The Frozen Lake</h3>
+    <p class="circle-sin">Treachery in its four degrees — the deepest and coldest place in all creation, where the complete withdrawal of love becomes ice</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-One</p>
+        <h3 class="canto-title">The Giants — Nimrod — Antaeus</h3>
+        <p class="canto-hook">Enormous figures stand in the pit around the frozen lake like towers in fog, and the last of them gently sets Dante and Virgil down into the deepest circle.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>From above the pit of Cocytus, through fog, enormous shapes emerge — at first Dante mistakes them for towers. They are the giants, planted to their navels in the pit-wall like pillars: vast, terrible, and mostly senseless. The largest is Nimrod, who built Babel and garbled human speech; he stands with a great horn slung around his neck and shouts a phrase that no one can decipher — Dante's irony, that the garbler of language now speaks only nonsense. Ephialtes, who challenged the Olympian gods, is here in chains, shaking. Briareus, Tityus, Typhon — the classical giants who made war on the gods. Only Antaeus stands unchained: he was not at the battle with the gods, having been born after. Virgil speaks to him with flattery — you who could have won glory at Zama if you had fought — and asks him to lower them into the pit.</p>
+      <p>Antaeus bends down and takes them in his giant hand, gentle now, and sets them on the floor of the frozen lake with the care of someone placing a fragile object. Then he straightens back up, tall as a ship's mast. The image of the giant carefully setting Dante down is oddly touching — even the prisoner of Hell retains something like grace in a purely physical act. And Dante, looking up at the immense figure drawing itself back to its height, compares it to the tower of Garisenda leaning against a passing cloud: the perspective shifts, the giant seems to fall toward him. Vertiginous and precise.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Nimrod, Ephialtes, Antaeus</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Two</p>
+        <h3 class="canto-title">Caina — Antenora — Count Ugolino</h3>
+        <p class="canto-hook">The frozen lake holds traitors in ice to their necks, and a man who gnaws another's skull explains why.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante invokes the Muses of the lowest and hardest poetry: this description requires a roughness that ordinary style cannot provide. The frozen lake of Cocytus is divided into regions. Caina — named for Cain — holds the traitors to kin, frozen to their necks, faces down in the ice, teeth chattering, tears freezing in their eye sockets. Dante nearly steps on a head; it curses him. Two brothers — Napoleone and Alessandro degli Alberti, who killed each other over their inheritance — are frozen face to face. Mordred, Focaccia, Sassol Mascheroni, Camicion de' Pazzi are here.</p>
+      <p>Antenora — named for the Trojan Antenor who betrayed Troy to the Greeks — holds the traitors to their homeland or political party. Moving through, Dante kicks a face in the ice. The shade curses. Dante grabs its hair and pulls, demanding its name — threatening to leave it bald. It refuses. Another shade tells Dante the name: Bocca degli Abati, a Florentine who, at the Battle of Montaperti, cut off the standard-bearer's hand at a crucial moment, routing the Guelphs. His infamy is complete even here.</p>
+      <p>Then Dante sees something extraordinary: one sinner gnawing the skull of another from behind, his teeth working into the bone where the neck meets the head, like bread. He stops and watches. The gnawer lifts his bloody mouth and speaks: he is Count Ugolino della Gherardesca of Pisa; the skull he gnaws is Archbishop Ruggieri, who imprisoned Ugolino and his sons in a tower and starved them to death. The account of what followed will be given in the next canto.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil; Caina: Napoleone and Alessandro degli Alberti, Mordred, Focaccia, Camicion de' Pazzi; Antenora: Bocca degli Abati, Count Ugolino, Archbishop Ruggieri</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Three</p>
+        <h3 class="canto-title">Ugolino's Tower — Fra Alberigo — Souls on Earth</h3>
+        <p class="canto-hook">The most horrifying story in the Inferno: a father watches his children starve to death — and a friar reveals that some living bodies are already empty.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Ugolino lifts his mouth from the skull and wipes it on the hair. His story: he was imprisoned in the Torre della Fame — the Tower of Hunger — with his sons and grandsons. He says nothing of the political treachery that put him there; he speaks only of the moment he heard the tower door being nailed shut, and understood what was happening. He looked at his children's faces. One morning Gaddo stretched out his arms and cried "Father, why don't you help me?" and died. Anselmuccio and the twin boys cried out for food; he bit his own hands in grief; they offered him their bodies to eat — thinking he was biting his hands from hunger, not grief. He refused. Then they died one by one. He describes going blind. And then, fasting having more power than grief, he ate. The horror is exact: the story stops where it stops. Dante does not tell us what Ugolino ate. He doesn't need to. Ugolino returns his mouth to the skull.</p>
+      <p>They move into Ptolomea — traitors to guests, named for Ptolemy who killed his father-in-law at dinner. Here the shades lie on their backs in the ice, faces up, tears freezing in their eyes so they cannot even weep. Fra Alberigo — who ordered his relatives killed at dinner, the signal a servant's cry of "bring the fruit" — is here. His body, he tells Dante, still walks the earth: the soul of one who has committed betrayal as profound as his can be claimed by a demon before the body dies; the demon inhabits the walking body, while the soul descends immediately to Hell. Branca d'Oria is another: his body still eats and drinks and sleeps in Genoa while his soul lies in the ice below.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Count Ugolino; Ptolomea: Fra Alberigo, Branca d'Oria</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Four</p>
+        <h3 class="canto-title">Lucifer — Judecca — The Climb Out</h3>
+        <p class="canto-hook">At the exact center of the universe, the Emperor of the Kingdom of Grief chews the three greatest traitors in history — and then comes the slow, strange climb back out to the stars.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p><em>Vexilla regis prodeunt inferni</em> — "the banners of the king of Hell go forth." Virgil quotes the Good Friday hymn, inverted: the banners of the King of Heaven become the banners of the King of Hell. Through the fog, something vast. The shapes resolve: wings. Enormous, bat-like wings beating in the frozen air, and the beating of those wings is what makes Cocytus freeze — the cold of lovelessness, generated by the perpetual motion of despair. Then the full figure: Lucifer, frozen to his waist in the center of the lake. Three faces on one head: red in front, yellow-white on the right (the color of impotence), black on the left (the color of ignorance). Three mouths, each chewing a sinner. Judas Iscariot in the central mouth — his head inside, legs dangling, his back skinned by Lucifer's claws. Brutus in the right mouth — head out, legs in, twisting silently, saying nothing. Cassius in the left — large and muscular. The three greatest traitors: to Christ, and to Caesar. The structure of the universe's sin is its floor.</p>
+      <p>Virgil tells Dante to hold on. He grabs the fur of Lucifer's flank and begins to climb, timing his handholds to the beat of the wings. They descend — and then, at a certain point, the descent becomes an ascent. The center of the earth has been passed. Clinging to Lucifer's fur, they are now climbing upward through the legs, through a passage in the rock, pulling through a narrow fissure. Lucifer is behind them, upside down as they look back. They emerge — not into Hell but into a natural cave, then a narrow path, then upward. Virgil explains: they passed the center of the earth; everything inverts. Lucifer fell from Heaven into the southern hemisphere; the earth's mass shrank from him in horror and formed the cone of Hell in the north, while in the south the displaced earth rose as Mount Purgatory.</p>
+      <p>They climb out. A hole in the rock shows them the stars. The last word of the Inferno, as of every canticle: <em>stelle</em> — stars. From the deepest pit of lovelessness, the eye turns upward to the light. The climb has been long and the dark absolute. But the stars are there.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Virgil, Lucifer; In Lucifer's mouths: Judas Iscariot, Brutus, Cassius</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Dante Alighieri · La Divina Commedia · Inferno · c. 1304–1308 &nbsp;·&nbsp; Commentary prepared for study
+  &nbsp;·&nbsp; <a href="index.html">Return to the full Comedy</a>
+</footer>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.canto').forEach(c => {
+    c.classList.toggle('open', allOpen);
+  });
+  document.querySelector('.expand-btn').textContent = allOpen ? 'Collapse All Cantos' : 'Expand All Cantos';
+}
+</script>
+</body>
+</html>

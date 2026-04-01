@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dante's Paradiso — Canto by Canto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2a1f0a;
+    --cream: #fdf8ee;
+    --cream-mid: #f9f1d8;
+    --cream-dark: #f3e8c0;
+    --cream-deep: #ecdba0;
+    --gold: #b07d10;
+    --gold-mid: #c8941a;
+    --gold-bright: #e0aa28;
+    --gold-glow: #f5c842;
+    --amber: #d4820a;
+    --amber-light: #e8a030;
+    --rose-gold: #c47030;
+    --white-light: #fffdf5;
+    --shadow: rgba(42,31,10,0.12);
+    --text-body: #3a2a0e;
+    --text-mid: #5c4418;
+    --text-faint: #8a6828;
+    --text-fainter: #b08840;
+    --blue-heaven: #3a5a8c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(240,200,80,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 50%, rgba(220,160,60,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, rgba(200,150,40,0.08) 0%, transparent 50%);
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--text-body);
+    min-height: 100vh;
+  }
+
+  /* ── SITE NAV ── */
+  .site-nav {
+    background: rgba(253,248,238,0.98);
+    border-bottom: 1px solid rgba(176,125,16,0.18);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .site-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 11px 16px;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .site-nav a.home { color: #b09060; }
+  .site-nav a.home:hover { color: #6a5020; }
+
+  .site-nav .sep {
+    color: #d8c898;
+    font-size: 10px;
+    padding: 0 2px;
+  }
+
+  .site-nav a.inferno { color: #c09080; }
+  .site-nav a.inferno:hover { color: #a82020; }
+
+  .site-nav a.purgatorio { color: #b09060; }
+  .site-nav a.purgatorio:hover { color: #7a6010; }
+
+  .site-nav a.paradiso { color: #c8941a; }
+  .site-nav a.paradiso:hover,
+  .site-nav a.paradiso.active { color: #7a5508; border-bottom-color: #c8941a; }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid rgba(176,125,16,0.25);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,245,210,0.9) 0%, transparent 100%);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% -10%, rgba(245,200,66,0.22) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--gold-glow), var(--gold-bright), var(--gold-glow), transparent);
+  }
+
+  .overline {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold-mid);
+    margin-bottom: 22px;
+    opacity: 0.9;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+    color: var(--gold);
+    line-height: 1.12;
+    margin-bottom: 12px;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.9),
+      0 3px 24px rgba(200,148,26,0.28);
+    letter-spacing: 0.05em;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 1.8vw, 1.08rem);
+    color: var(--text-faint);
+    letter-spacing: 0.18em;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .epigraph {
+    max-width: 500px;
+    margin: 0 auto;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    border-left: 2px solid var(--gold-bright);
+    padding-left: 22px;
+    text-align: left;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253,248,238,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(176,125,16,0.2);
+    box-shadow: 0 2px 12px rgba(176,125,16,0.08);
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-decoration: none;
+    padding: 14px 16px;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold-bright);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── PART HEADERS ── */
+  .part-header {
+    text-align: center;
+    padding: 64px 0 30px;
+    position: relative;
+  }
+
+  .part-header::after {
+    content: '✦';
+    display: block;
+    color: var(--gold-bright);
+    font-size: 14px;
+    margin: 20px auto 0;
+    opacity: 0.7;
+  }
+
+  .part-number {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold-mid);
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+
+  .part-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  .part-cantos {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--text-fainter);
+    letter-spacing: 0.28em;
+  }
+
+  .part-intro {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-mid);
+    font-style: italic;
+    max-width: 620px;
+    margin: 16px auto 0;
+    text-align: center;
+  }
+
+  /* ── HEAVEN LABEL ── */
+  .heaven-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(176,125,16,0.4);
+    padding: 3px 14px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    background: rgba(224,170,40,0.08);
+  }
+
+  .heaven-section {
+    padding-top: 48px;
+    text-align: center;
+  }
+
+  .heaven-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.08rem;
+    color: var(--gold-mid);
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+
+  .heaven-sub {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text-fainter);
+    margin-bottom: 32px;
+  }
+
+  /* ── CANTO CARD ── */
+  .canto {
+    margin-bottom: 3px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid rgba(176,125,16,0.14);
+    background: rgba(255,251,240,0.7);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .canto:hover {
+    border-color: rgba(176,125,16,0.32);
+    box-shadow: 0 2px 16px rgba(176,125,16,0.09);
+  }
+
+  .canto-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 26px 30px 22px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .canto-number {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--gold-bright);
+    opacity: 0.45;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 48px;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+
+  .canto:hover .canto-number { opacity: 0.75; }
+
+  .canto-meta { flex: 1; }
+
+  .canto-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-mid);
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .canto-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  }
+
+  .canto-hook {
+    font-size: 0.97rem;
+    font-style: italic;
+    color: var(--text-mid);
+    line-height: 1.5;
+    opacity: 0.82;
+  }
+
+  .canto-body {
+    padding: 0 30px 0 102px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  }
+
+  .canto.open .canto-body {
+    max-height: 3200px;
+    padding-bottom: 30px;
+  }
+
+  .canto-body p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-body);
+    margin-bottom: 14px;
+  }
+
+  .canto-body p:last-child { margin-bottom: 0; }
+
+  .canto-body .characters {
+    margin-top: 18px;
+    padding: 13px 18px;
+    background: rgba(224,170,40,0.07);
+    border-left: 2px solid rgba(176,125,16,0.35);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .canto-body .characters strong {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-mid);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .canto-body .characters span {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    font-style: italic;
+  }
+
+  .toggle-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 4px;
+    border: 1px solid rgba(176,125,16,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-mid);
+    font-size: 14px;
+    transition: transform 0.3s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .canto.open .toggle-icon {
+    transform: rotate(45deg);
+    background: rgba(224,170,40,0.12);
+  }
+
+  /* Expand all button */
+  .expand-bar {
+    text-align: right;
+    padding: 14px 0 20px;
+  }
+
+  .expand-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(176,125,16,0.3);
+    padding: 7px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .expand-btn:hover {
+    background: rgba(224,170,40,0.1);
+    border-color: var(--gold-bright);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid rgba(176,125,16,0.18);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--text-fainter);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .canto-header { padding: 18px 16px 14px; gap: 12px; }
+    .canto-body { padding: 0 16px; }
+    .canto.open .canto-body { padding-bottom: 18px; }
+    .canto-number { font-size: 1.5rem; min-width: 34px; }
+    nav a { padding: 12px 9px; font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+<div class="site-nav">
+  <a class="home" href="index.html">La Divina Commedia</a>
+  <span class="sep">·</span>
+  <a class="inferno" href="inferno.html">Inferno</a>
+  <span class="sep">·</span>
+  <a class="purgatorio" href="purgatorio.html">Purgatorio</a>
+  <span class="sep">·</span>
+  <a class="paradiso active" href="paradiso.html">Paradiso</a>
+</div>
+
+
+<header>
+  <p class="overline">La Divina Commedia · Terzo Canticle</p>
+  <h1>Paradiso</h1>
+  <p class="subtitle">A Canto by Canto Commentary</p>
+  <blockquote class="epigraph">
+    The glory of the One who moves all things<br>
+    penetrates the universe and shines<br>
+    in one part more and in another less.<br>
+    <span style="display:block; margin-top:10px; font-size:0.88rem; color:var(--text-fainter); font-style:normal;">— Dante Alighieri, Paradiso I, 1–3</span>
+  </blockquote>
+</header>
+
+<nav>
+  <a href="#intro">Ascent</a>
+  <a href="#moon">Moon</a>
+  <a href="#mercury">Mercury</a>
+  <a href="#venus">Venus</a>
+  <a href="#sun">Sun</a>
+  <a href="#mars">Mars</a>
+  <a href="#jupiter">Jupiter</a>
+  <a href="#saturn">Saturn</a>
+  <a href="#stars">Fixed Stars</a>
+  <a href="#primum">Primum Mobile</a>
+  <a href="#empyrean">Empyrean</a>
+</nav>
+
+<main>
+
+<div class="expand-bar">
+  <button class="expand-btn" onclick="toggleAll()">Expand All Cantos</button>
+</div>
+
+<!-- ═══════════════════════════════
+     CANTOS I–II · THE ASCENT
+════════════════════════════════ -->
+<section id="intro">
+  <div class="part-header">
+    <p class="part-number">Introduction</p>
+    <h2 class="part-title">The Ascent Begins</h2>
+    <p class="part-cantos">Cantos I – II</p>
+    <p class="part-intro">Dante invokes Apollo himself — no longer the Muses alone — and rises from the Earthly Paradise into the light of the first sphere, warned that what follows exceeds all mortal understanding.</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">I</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto One</p>
+        <h3 class="canto-title">The Invocation — Rising into Light</h3>
+        <p class="canto-hook">Dante calls on Apollo, not the Muses, and finds himself already in Heaven before he understands what has happened.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The final canticle opens with one of the most famous declarations in all of Italian poetry: the glory of God penetrates and illumines the whole universe, shining more in some places and less in others. Dante has been to the summit of that glory and cannot fully bring it back to words — yet here he is, trying. His invocation is to Apollo directly, not merely the Muses. This is a significant escalation: for the Inferno and Purgatorio, the Muses of poetry sufficed; for Paradise, Dante needs the god of light and inspiration himself, the divine source behind all poetic gift. He asks Apollo to fill him as Apollo once filled Marsyas when he drew him from the sheath of his body — a disturbing image of creative inspiration as total surrender of self.</p>
+      <p>Beatrice, standing in the Earthly Paradise, turns her eyes toward the sun with an intensity no mortal could sustain. Dante, following her gaze, looks at the sun as well — an act impossible on earth but possible here at the summit of the purified mountain, where the body is restored to something of its prelapsarian capability. He stares, then looks away at Beatrice, and sees in her eyes the sun reflected and magnified: she is the lens through which divine light becomes bearable. Looking back at the sun, Dante notices it is brighter than usual — the light has increased. Then he hears a harmony, and suddenly realizes he is no longer standing on the mountain. He is rising. He is ascending into Heaven. When it happened, he cannot say; the transition was imperceptible.</p>
+      <p>Beatrice explains with patient precision what is happening. The universe has a center toward which all things naturally tend — the Empyrean, God. Dante's soul, now purified by the ascent through Purgatory, naturally rises toward that center as fire naturally rises toward its sphere. His astonishment that he is ascending should be replaced by astonishment at anything that <em>didn't</em> rise when the obstacle of sin was removed. The natural state of the soul, properly ordered, is upward motion toward God. The fire is not a miracle; the failure to rise would have been the miracle — and the tragedy.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">II</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Two</p>
+        <h3 class="canto-title">Warning to the Reader — The Spots of the Moon</h3>
+        <p class="canto-hook">Dante warns the unprepared reader to turn back, then Beatrice delivers her first theological lecture on light and matter.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante pauses to address the reader directly — in one of the most audacious apostrophes in the poem. He warns those who have followed him in a small boat to turn back now and return to shore. The sea he is sailing is unlike any other. The few who have stretched up toward this bread of angels — the food of understanding the divine — can follow; the others should not try. The image of angelic bread is precise: the intellect's food in Heaven is truth, the truth of God's nature, and to eat it without preparation is not nourishment but confusion.</p>
+      <p>They enter the first sphere, the Moon, as light passes through water without disturbing it — a miracle of interpenetration that Dante cannot explain but simply experiences. His body enters the Moon's substance the way divine nature enters Christ's. He is inside a luminous pearl.</p>
+      <p>The theological question he puts to Beatrice is practical: what causes the dark patches on the moon's surface? He used to think it was variations in density. Beatrice, gently, corrects him. If density alone caused the dark spots, then in a solar eclipse the light would pass through the less dense patches — but it doesn't. The real answer, she explains, is that the divine light descends through the spheres and is differentiated not by material density but by the varying capacity of the spheres to receive and transmit it. Virtue descends from God's unity and is distributed diversely through the heavenly bodies, like joy through a living face where eyes and smile differ in expression though the soul behind them is one. The theological principle matters: what makes one heaven shine more than another is not matter but the degree of participation in divine goodness.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FIRST HEAVEN · THE MOON
+════════════════════════════════ -->
+<section id="moon">
+  <div class="heaven-section">
+    <p class="heaven-badge">First Heaven</p>
+    <h3 class="heaven-title">The Moon · Sphere of the Inconstant</h3>
+    <p class="heaven-sub">Those who, through no fault of their own, could not keep their vows</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">III</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Three</p>
+        <h3 class="canto-title">Piccarda Donati — The Peace of Lowest Heaven</h3>
+        <p class="canto-hook">Dante meets Forese's sister, a nun taken from her convent by force, who explains why the lowest rank in Heaven is perfect joy.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Faces appear in the lunar sphere — so faint and pale that Dante first takes them for reflections, turning to look behind him for the objects they mirror. Beatrice smiles at his error: these are real souls, though their light is dim by Heaven's standards. The mistake is a gentle lesson: Dante must learn to read the new world he is in. What looks like reflection is substance; what looks like shadow is presence.</p>
+      <p>Piccarda Donati steps forward — the sister of Dante's close friend Forese, whom he met on the terrace of the gluttons in Purgatorio. She was a nun, devoted to Clare of Assisi's order, when her brother Corso Donati (the same corrupt politician Forese had condemned) had her forcibly removed from her convent and married off for political purposes. Her vow was broken against her will. She died soon after — some said of grief, others of illness. Here she is, in the lowest place of Heaven.</p>
+      <p>Dante asks: does she not desire a higher station? Her answer is one of the great speeches of the poem, and one of the most important theological statements in the whole Commedia. She smiles — a smile of charity — and says that if she desired to be elsewhere, her will would be out of harmony with the will of God, which is impossible for a soul in this state. The essence of beatitude is to dwell within God's will; to want a different place would be to introduce discord into the harmony of Heaven. Her happiness is complete <em>where she is</em> because her will is perfectly conformed to where God has placed her. "In His will is our peace" — <em>E 'n la sua volontade è nostra pace</em> — is perhaps the single most quoted line from the Paradiso, a compressed summary of the whole canticle's theology.</p>
+      <p>Piccarda also identifies the luminous form beside her: Constance of Sicily, the empress who was also said to have been drawn from a convent to a royal marriage. Two holy women taken from their vows by force — and both at peace.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Piccarda Donati, Constance of Sicily</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Four</p>
+        <h3 class="canto-title">On Vows and Compulsion — The Truth of Plato</h3>
+        <p class="canto-hook">Two doubts press on Dante at once, and Beatrice resolves the question of whether forced vows are binding.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante is caught between two questions pressing with equal force — like a man between two hungers equidistant from two dishes, who starves rather than choose. The first: was Piccarda's place here unjust, since her will never broke? The second: did Plato tell the truth when he claimed souls return after death to the stars from which they came?</p>
+      <p>Beatrice addresses the Platonic question first: the souls do not actually dwell in their respective spheres permanently. They appear here — in the Moon, Mercury, Venus, and so on — as a concession to Dante's finite understanding. His mind needs the visual, spatial form; the truth is that all the blessed dwell together in the Empyrean, but they manifest in the sphere whose quality most closely corresponds to their particular beatitude. Plato's myth of souls returning to stars was therefore not entirely wrong — it pointed at something real, even if his literal astronomy was false.</p>
+      <p>On the question of Piccarda's will: Beatrice distinguishes between absolute will and conditioned will. Piccarda's absolute will — the deepest orientation of her soul — never consented to abandoning her vow. But her conditioned will, the will that operates in the actual circumstances of fear and physical force, did yield. She could have fled, or fought, or died resisting. She did not, and that matters. The distinction is subtle and honest: she is not blamed, but Dante must understand that purity of will is not simply what one wishes in theory; it is also what one does under pressure. The souls in this sphere are not condemned but placed lower precisely because their constancy, however innocent, was not absolute.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">V</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Five</p>
+        <h3 class="canto-title">The Sanctity of Vows — Ascending to Mercury</h3>
+        <p class="canto-hook">Beatrice speaks with blazing intensity on the irreplaceable gravity of the vow, and they rise into a new sphere.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice, so bright now that Dante must look away, explains the vow with a force that suggests she has been thinking about this with the full weight of her theological training. The vow is the most solemn act a human being can perform: it is the offering of free will itself — the greatest gift God gave — back to God. Nothing can fully replace a broken vow because the thing offered was unique and irreplaceable. One can commute a vow only if a greater good is substituted and only with proper ecclesiastical authority. The Church's keys matter here. Dante's contemporaries who treated vows carelessly — who thought any good work could compensate — were grievously wrong. The vow is not a bargain to be renegotiated; it is a self-donation.</p>
+      <p>They ascend. The Moon-sphere recedes below them and the Mercury-sphere opens around them, blazing with a new quality of light. More than a thousand souls come rushing toward them, each one brightening as they approach — their inner joy expressing itself as increased luminosity. One speaks, aflame with eagerness to serve Dante's questions. Dante turns to Beatrice to ask permission to speak — and finds her so radiant that he nearly loses himself in contemplation of her beauty. The pattern is established for the canticle: each sphere, Beatrice becomes more beautiful, more radiant, harder to look at, closer to the divine source.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     SECOND HEAVEN · MERCURY
+════════════════════════════════ -->
+<section id="mercury">
+  <div class="heaven-section">
+    <p class="heaven-badge">Second Heaven</p>
+    <h3 class="heaven-title">Mercury · Sphere of the Ambitious</h3>
+    <p class="heaven-sub">Those who did good works driven partly by desire for honor and fame</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Six</p>
+        <h3 class="canto-title">Justinian — The History of the Roman Eagle</h3>
+        <p class="canto-hook">The Emperor Justinian delivers the most compressed history of Rome ever written, and explains what the Eagle truly means.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The soul who spoke at the end of Canto V reveals himself: Justinian, the 6th-century Byzantine Emperor who codified Roman law into the Corpus Juris Civilis — the foundation of Western legal tradition. He is here in Mercury because his great works, though genuinely righteous, were accompanied by the desire for glory and fame. In the poem's moral economy, even this faint taint of self-seeking places a soul lower in Heaven, not outside it.</p>
+      <p>Justinian then delivers what is, in effect, Dante's entire philosophy of Roman history compressed into a single extraordinary canto. He traces the Roman Eagle from its origin in Aeneas's arrival in Italy through the kings, the republic, and the empire — citing battle after battle, ruler after ruler, in a sustained rhetorical flight. The Eagle is the instrument of divine providence: God chose Rome to be the vehicle through which the whole world would be prepared for the Incarnation. Caesar and Augustus were not merely conquerors; they were the means by which a unified, pacified world was made ready for "the true peace" — Christ's birth under Augustus's census.</p>
+      <p>This gives Justinian a precise framework for judging Dante's contemporaries: both the Ghibellines (who use the Eagle for their own political faction) and the Guelphs (who actively oppose it) are sinning against Providence. The Eagle belongs to no faction; it belongs to God's plan. To claim it for party use, or to obstruct it, is to work against the divine order of history. Justinian also mentions Romeo of Villeneuve, a humble counselor who served Raymond Berenger faithfully and well, was driven out by the envy of courtiers, and died in poverty — a brief portrait of loyal service unrewarded by the world but rewarded by Heaven.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Justinian, Romeo of Villeneuve</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seven</p>
+        <h3 class="canto-title">Why God Chose the Cross</h3>
+        <p class="canto-hook">Beatrice resolves the hardest question of Canto VI: if the Crucifixion was just, how could the destruction of Jerusalem also be just?</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Justinian and the other souls depart, singing — and Dante is left with a doubt he is almost embarrassed to voice, since Beatrice, reading his mind, voices it for him. The question Justinian raised was this: if Rome's punishment of Christ was just (the punishment for the sin of Adam), then how could the destruction of Jerusalem by Titus — the punishment of those who carried out the Crucifixion — also be just? Justice avenging justice seems paradoxical. How can the instrument of legitimate punishment itself be punished?</p>
+      <p>Beatrice's answer is a compressed treatise on Atonement theology. The Incarnation was necessary not because God could not forgive by other means — God's mercy is unlimited — but because no other means would fully restore human dignity. Adam's sin was not merely a transgression; it was a disordering of human nature, a rebellion of the will against the good. Restoration required that human nature itself, from within, make an act of perfect conformity to God's will — which no fallen human could manage. Only if God became human could a human act be infinite in its value. So the Incarnation was the only way to satisfy <em>both</em> justice (the debt must be paid) and mercy (humanity must be restored). On the Cross, the human nature of Christ suffered a just penalty for human sin; the divine Person whose human nature it was made that suffering infinitely valuable. Both aspects are true simultaneously, without contradiction.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     THIRD HEAVEN · VENUS
+════════════════════════════════ -->
+<section id="venus">
+  <div class="heaven-section">
+    <p class="heaven-badge">Third Heaven</p>
+    <h3 class="heaven-title">Venus · Sphere of the Lovers</h3>
+    <p class="heaven-sub">Those whose virtue was marked by the influence of earthly love</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">VIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eight</p>
+        <h3 class="canto-title">Charles Martel — On Providence and Human Diversity</h3>
+        <p class="canto-hook">A prince who died young speaks of the stars' influence, and raises a hard question about why sons differ from their fathers.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The third sphere blazes with a new, warmer light. Souls come spinning in the air like sparks from fire, each one singing — and Dante can see that they come from a greater light, as if pulled toward him out of the deep radiance. One speaks: Charles Martel, the young Angevin prince who was heir to the kingdoms of Naples, Hungary, and Provence, who had visited Florence in 1294 and admired Dante, who died young — too young to inherit anything. He loved Dante's poems in life. Here he greets Dante with great affection, calling to mind Dante's canzone <em>Voi che 'ntendendo</em>.</p>
+      <p>Charles raises a profound question. He and Dante discuss the paradox that human beings inherit different temperaments from the stars — different souls suited for different roles in society: soldiers, priests, lawyers, craftsmen. If sons always inherited their fathers' natures, society would be impossible; it needs variety. But this means a man born a contemplative may be forced into kingship by his birth, or a man born for rule must become a monk. The world's disorder often comes from placing people in roles that suit their heredity rather than their nature. Providence distributes souls and vocations widely; human institutions try to compress them into dynastic lines. The lesson is quietly radical: vocation is not inherited.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Charles Martel</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">IX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nine</p>
+        <h3 class="canto-title">Cunizza and Folco — The Corruption of the Church</h3>
+        <p class="canto-hook">A noblewoman celebrates her own passionate history without shame, and a former troubadour delivers a blistering rebuke to the papacy.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Cunizza da Romano is one of Dante's most surprising souls in Heaven. She was the sister of the tyrant Ezzelino da Romano, famous in her lifetime for a series of passionate love affairs — including with the troubadour Sordello, whom Dante placed as a guide in Purgatorio. She makes no apology for her passionate nature; she attributes it cheerfully to the influence of Venus, and says that the people of the March of Treviso will long remember what she was — though she is at peace with it. In Heaven, the soul's history is seen clearly and without the distortions of guilt or pride; it simply is what it was, and God has judged and redeemed it. Cunizza's earthly loves, for all their inconstancy, were genuine loves — the disorder was in the excess, not the capacity for love itself.</p>
+      <p>Folco of Marseilles is introduced — a 12th-century troubadour of great fame who later became a Cistercian monk and then Bishop of Toulouse, notorious for his role in the Albigensian Crusade. Here, he is identified as a lover like Dido, Phyllis, and Hercules — all overwhelmed by love's fire. He points out Rahab the harlot of Jericho, who hid Joshua's spies and was saved with her household — she is here as the first human soul received into Heaven after the Harrowing, the highest among the souls of Venus. And then Folco turns to the papacy with white-hot anger: Florence, that flower on the Arno, produces the poisonous flower (the florin, the gold coin) that has led both shepherd and flock astray. The cardinals think of nothing but the Decretals; the Gospels and Church Fathers gather dust. The Vatican runs red with blood of the holy men whose sacrifice paved it. Peter and Paul are not pleased.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Cunizza da Romano, Folco of Marseilles, Rahab</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FOURTH HEAVEN · THE SUN
+════════════════════════════════ -->
+<section id="sun">
+  <div class="heaven-section">
+    <p class="heaven-badge">Fourth Heaven</p>
+    <h3 class="heaven-title">The Sun · Sphere of the Wise</h3>
+    <p class="heaven-sub">The great theologians, philosophers, and doctors of the Church</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">X</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Ten</p>
+        <h3 class="canto-title">The First Crown of Souls — Thomas Aquinas</h3>
+        <p class="canto-hook">Twelve blazing lights form a crown around Dante and Beatrice, and Aquinas begins to name them one by one.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante pauses to direct the reader's gaze upward: contemplate the order of creation — the point where the equatorial and zodiacal circles intersect — and understand that this ordered tilt of the universe is what makes life on earth possible: seasons, weather, fruitfulness. This orderliness is the work of the divine mind. Do not miss it. Then: look higher. They have entered the Sun.</p>
+      <p>The Sun is so bright that Dante cannot describe the ascent into it — the light exceeds all metaphor he can reach for. He is surrounded by singing presences, even brighter than the sphere itself, forming a crown around Beatrice and himself as they stand at the center. The dance of spirits is like stars around the pole. They complete one full revolution, then pause to speak.</p>
+      <p>Thomas Aquinas speaks first — the Dominican friar, philosopher, and theologian, the architect of the Summa Theologiae, the greatest systematic mind of medieval Christianity. He introduces himself simply: "I was a lamb of the holy flock that Dominic leads on the road where well one fattens if one does not stray." Then he names the other eleven souls of the crown, beginning with his teacher Albertus Magnus and proceeding through Albert of Cologne, Gratian (the great canonist), Peter Lombard, Solomon (whose wisdom exceeded all kings), Pseudo-Dionysius the Areopagite, Paul Orosius, Boethius (described in his love for the true good, stripped of his body in Cieldauro), Isidore of Seville, Bede, and Richard of St. Victor. Last — and most surprising — he names Siger of Brabant, the Averroist philosopher whose radical Aristotelianism Aquinas had vigorously opposed in life. Here they are, side by side in Heaven, dancing together. The theological controversies of the schools dissolve in the light of what they were all pursuing.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Thomas Aquinas; The First Crown: Albertus Magnus, Gratian, Peter Lombard, Solomon, Pseudo-Dionysius, Orosius, Boethius, Isidore, Bede, Richard of St. Victor, Siger of Brabant</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eleven</p>
+        <h3 class="canto-title">The Life of St. Francis</h3>
+        <p class="canto-hook">The Dominican Aquinas praises the founder of the rival Franciscan order with a biography of ravishing beauty.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Aquinas, anticipating the questions Dante's wonder is generating, resolves two of them. He begins with an extended, luminous life of Francis of Assisi — told by a Dominican, which is one of Dante's structural ironies and theological points: the two great orders that reformed the Church (the Franciscans and the Dominicans) are mirror images, and the best tribute to one founder comes from the other's tradition.</p>
+      <p>Francis was born in Assisi — "between Tupino and Topino's streams" in the Umbrian valley — and his marriage to Lady Poverty is the central image of the biography. Francis courted poverty as a bride, publicly stripping himself of his father's clothes before the Bishop of Assisi, declaring himself a servant of Christ alone. He gathered followers; the rule they lived by was too hard for the world to accept at first, but Pope Innocent III approved it. The Stigmata were received on Mount Alverna — the five wounds of Christ appearing in Francis's own flesh. He died blessing his brothers and Lady Poverty. The biography has the warmth and compression of a master telling a beloved story.</p>
+      <p>Then Aquinas turns: Providence sent two princes — Francis and Dominic — to guide the Church back to its calling. Both were necessary. But now, Aquinas laments, the Dominican flock has strayed. The pasture once so rich has grown sparse because the sheep have wandered. Some of the Dominicans of Dante's day have forgotten their founder's austerity and pursue wealth and reputation. The praise of Francis is thus both a tribute and a reproach — a mirror held up to the order that has forgotten its own discipline.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Thomas Aquinas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twelve</p>
+        <h3 class="canto-title">The Second Crown — Bonaventure Praises Dominic</h3>
+        <p class="canto-hook">A second ring of twelve blazing souls forms around the first, and a Franciscan returns Aquinas's compliment.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>As the first crown finishes its dance, a second ring of twelve souls forms around it, matching it — two rainbows inside each other, motion and song doubling in intensity. The doubling is the visual and musical argument: wisdom and holiness are not exhausted by any single tradition; they multiply and respond to each other.</p>
+      <p>A voice from the new ring speaks: Bonaventure, the Franciscan theologian and Cardinal, who mirrors Aquinas's gesture exactly. Where the Dominican praised Francis, the Franciscan praises Dominic. Dominic of Castile was born, Bonaventure says, in a garden of the faith — Caleruega in Spain — and came into the world already given to his purpose: his mother dreamed of a black-and-white dog carrying a torch (the Dominican habit's colors, the torch of preaching). He entered the Church as a servant of servants; he fought for the faith against heresy, not with swords but with words and charity. Dominic is the great champion of apostolic poverty and orthodox preaching — a river that fed the garden of Christianity when it had grown parched.</p>
+      <p>Bonaventure then names the members of his own crown: Illuminato and Augustine (two early Franciscan companions), Hugh of St. Victor, Peter Comestor, Peter of Spain, Nathan the prophet, John Chrysostom, Anselm of Canterbury, Aelius Donatus the grammarian, Rabanus Maurus, and — again, surprisingly — Joachim of Fiore, the mystical prophet whose ideas the mainstream Church regarded with suspicion. Heaven is more capacious than any school.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Bonaventure; Second Crown: Illuminato, Augustine of Assisi, Hugh of St. Victor, Peter Comestor, Peter of Spain, Nathan, John Chrysostom, Anselm, Donatus, Rabanus Maurus, Joachim of Fiore</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirteen</p>
+        <h3 class="canto-title">Aquinas on Solomon's Wisdom</h3>
+        <p class="canto-hook">Aquinas explains why Solomon's wisdom was greater than any, and warns Dante against hasty judgment.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Aquinas returns to an unresolved question: he had implied that Solomon's wisdom surpassed all others. But how can this be, if Adam was created perfect and Christ was the fullness of human wisdom? Aquinas distinguishes carefully. The light of divine wisdom descends from the Trinity through the angels to the spheres to human souls, diminishing at each step. Adam was created with as much intellectual perfection as the fallen world allows; the Virgin Mary is the most perfectly illuminated of all human souls. But Solomon was not being compared to Adam or to Christ; he was being praised as a king, in the specific gift he asked for — prudential wisdom to rule his people justly. In that specific domain, no king before or after has equaled him.</p>
+      <p>Aquinas uses this occasion to deliver one of the most important practical warnings in the Paradiso: do not be hasty in judging. A man who thinks he sees the truth may be looking at only a part of it; the mind that races to conclusions often misses what patient inquiry would reveal. Aquinas himself lists examples of reversals that should instill humility — ideas held certain that were overturned, heresies that seemed obviously wrong and turned out to contain truth, and vice versa. "Let not Lady Bertha and Messer Martin think they see into divine counsel," he warns — the common people who judge too quickly about who is saved and who is damned. The lesson is epistemological and moral at once: in this life, be slow to conclude.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Thomas Aquinas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fourteen</p>
+        <h3 class="canto-title">On the Resurrection Body — Rising to Mars</h3>
+        <p class="canto-hook">Solomon speaks of the body's glory after the Resurrection, and Dante rises into a sphere blazing with the color of blood.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice puts to the two crowns a question that she reads from Dante's desire: will the souls' light persist after the Last Judgment and the Resurrection, when they are reunited with their glorified bodies? If so, will the reunited body-soul be able to endure the increased brightness? The question is tender and precise — it asks whether the body matters in eternity.</p>
+      <p>Solomon speaks — the only one of the wise to address this question. His answer is a hymn to resurrection. Yes, the light will persist and increase. When the body is rejoined to the soul at the Last Judgment, the complete person will be more perfect, more glorious, more capable of joy. The glorified body will not diminish the light but amplify it, becoming itself a vessel of radiance — the charcoal that becomes flame. The soul will have organs of joy restored: eyes to see, lips to praise. The full human being, not a disembodied spirit, is what Heaven finally holds. The vision completes what the theology of the Incarnation began: matter and body are not obstacles to holiness but, when perfected, instruments of it.</p>
+      <p>A new glow surrounds the two crowns — perhaps the souls of other blessed rising in joy at Solomon's words. The sweetness of it overcomes Dante. They rise to Mars, blazing red-gold, and in its light Dante sees a great Cross of white light — two arms meeting at the center — and along its arms, stars moving, forming the image of Christ's cross blazing in Heaven. Dante cannot speak its beauty.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Thomas Aquinas, Solomon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FIFTH HEAVEN · MARS
+════════════════════════════════ -->
+<section id="mars">
+  <div class="heaven-section">
+    <p class="heaven-badge">Fifth Heaven</p>
+    <h3 class="heaven-title">Mars · Sphere of the Warriors of Faith</h3>
+    <p class="heaven-sub">Those who fought and died for the faith — crusaders, martyrs, defenders of the Church</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Fifteen</p>
+        <h3 class="canto-title">Cacciaguida — The Old Florence</h3>
+        <p class="canto-hook">Dante's ancestor appears on the Cross of Mars, weeping tears of joy, and speaks of the simple, noble Florence that no longer exists.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>A spirit detaches itself from the great cross and descends along one arm toward Dante — like a flame shooting along a sky. It speaks in Latin from Virgil and the Aeneid, greeting Dante as blood of its blood. Dante does not yet understand who it is. The soul, almost overwhelmed with joy, falls silent — then explains that it has been waiting for this meeting since the beginning of Dante's mortal life, reading it in the great book where nothing changes (the mind of God), longing to speak with him. God gave it this gift.</p>
+      <p>The soul is Cacciaguida — Dante's great-great-grandfather, a Florentine knight of the 12th century who was made a knight by Emperor Conrad III, fought in the Second Crusade, and was martyred in the Holy Land. The meeting is one of the most emotionally central in the poem — Dante's one encounter with a blood ancestor, and one of the few times any soul in the Commedia addresses him with deep personal love and knowledge.</p>
+      <p>Cacciaguida then speaks of old Florence with an ache of nostalgia that is also a polemic. Florence in his day was smaller, simpler, uncorrupted by the new wealth of the merchant class. Women were modest; no one wore jewels that outranked their station. Men were proud of their families in the old way. The city was contained within the old walls; it had not yet swollen with the influx of newcomers who have corrupted its character. He names the old families — the Figuiovanni, the Sacchetti, the Giuochi, the Fifanti — like a man mourning the dead. The Florence Dante was exiled from was already corrupt; the Florence Cacciaguida knew was something else entirely.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Cacciaguida</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Sixteen</p>
+        <h3 class="canto-title">Florence's Ancient Families — The Vanity of Lineage</h3>
+        <p class="canto-hook">Cacciaguida catalogs the noble families of old Florence, most of them extinct or fallen — and Dante is gently mocked for his pride in ancestry.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante, speaking with Cacciaguida, uses the formal "voi" — the honorific plural — for the only time in the poem. Beatrice smiles at this moment of pride in ancestry, as if to say: even here, even now, the old vanities flicker. Dante notices her smile and is briefly sheepish. But the conversation is deeply important to him: this is his family, his blood, his city as it was before his exile destroyed it for him.</p>
+      <p>Cacciaguida gives biographical details: his birth date (under Mars, 1091 or so), his wife from the Po valley, the origin of the name Alighieri from her family. He then catalogs the neighborhoods and families of his Florence — the Mercato Vecchio, Borgo Santi Apostoli, the ancient towers and clans. The names ring out like a toll of lost things: the Ravignani, the Fifanti, the Caponsacchi, the Gualterotti, the Importuni. Some of these families have declined into shame; others are extinct. Cities, like people, are mortal. Florence's corruption and self-destruction were already predictable in the pattern of its families' histories.</p>
+      <p>Cacciaguida particularly blames the mixing of the old city with newcomers brought in from the surrounding countryside — the Cerchi from Acone, the Buondelmonti from Valdigreve — whose arrival disrupted the stable social order. From the Buondelmonti family's quarrel over a broken betrothal came the Guelf-Ghibelline split that ruined Florence. He names the moment: if God had drowned that family before their fatal quarrel, Florence would be at peace. The tone is elegiac, precise, and political all at once.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Cacciaguida</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Seventeen</p>
+        <h3 class="canto-title">The Prophecy of Exile — The Mission of the Poem</h3>
+        <p class="canto-hook">Cacciaguida tells Dante his future without softening it, and commands him to write and speak without fear.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante asks Cacciaguida to speak plainly about the future that has been hinted at darkly throughout his journey. He has heard scattered prophecies — from Farinata, from Ciacco, from Brunetto Latini, from others — but they were always veiled, partial, without clear date or detail. He wants to know. Cacciaguida, who sees past and future spread out before him as clearly as present, complies.</p>
+      <p>The prophecy is direct and devastating. Dante will be exiled from Florence — soon. The blame lies with those in Florence who are already plotting against him: the Blacks, led by Corso Donati and backed by Boniface VIII. He will lose everything he loves most. He will know how bitter it is to climb another man's stairs, how heavy the bread of another's charity. His first refuge will be with the Lombard Scaligeri — the great della Scala family of Verona — whose generosity will precede his asking. Later he will know the court of Cangrande della Scala, the young lord who is already being marked by the stars for greatness.</p>
+      <p>Dante then asks the hardest question: should he keep silent? Should he soften what he has seen on his journey, to avoid making more enemies? Cacciaguida's answer is one of the great moments of the whole Comedy. He says: your vision of the afterlife will sting many living consciences. But if you suppress the truth out of fear, you are like a man who hides fire — the truth will escape another way and your suppression will only diminish your work. The purpose of your journey is precisely this: to write what you have seen, naming names, showing the world to itself. Let those who are stung cry out. When they cry, it is the cry of recognition — which means the medicine has touched the wound. Speak. Write. Do not be afraid.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Cacciaguida</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Eighteen</p>
+        <h3 class="canto-title">The Warriors of Faith — Rising to Jupiter</h3>
+        <p class="canto-hook">Cacciaguida names the great holy warriors in the cross, and Dante is lifted to the sphere of Justice.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice and Cacciaguida exchange a smile — Dante observes it but cannot follow it, as he observes the smile of a woman without hearing the words that prompted it. The vision of divine communication between souls exceeds his grasp; he can only watch its beauty. Cacciaguida then directs Dante's gaze along the arms of the great Cross and names the souls blazing on it as he says each name — each one flashing brighter at the mention of its own glory: Joshua, Judas Maccabeus, Charlemagne, Roland, William of Orange, Renouard the giant, Godfrey of Bouillon (the first Crusader king of Jerusalem), Robert Guiscard the Norman warrior. The warriors of faith — those who fought with the sword for the defense and expansion of Christendom — blaze like the great stars of the cross.</p>
+      <p>The cross blazes and they rise. They enter Jupiter — the largest and brightest natural sphere, blazing silver-white, like silver heated to the point where it begins to show gold. Souls within it form letters — actual Latin letters, spelling out the first verse of the Book of Wisdom: DILIGITE IUSTITIAM QUI IUDICATIS TERRAM — "Love justice, you who judge the earth." The letters form and reform as the souls move; the message is the divine call to every earthly ruler. The final letter, M, transforms into more: the eagle of Rome forms from the souls gathering around it.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Cacciaguida; The Warriors: Joshua, Judas Maccabeus, Charlemagne, Roland, William of Orange, Renouard, Godfrey of Bouillon, Robert Guiscard</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     SIXTH HEAVEN · JUPITER
+════════════════════════════════ -->
+<section id="jupiter">
+  <div class="heaven-section">
+    <p class="heaven-badge">Sixth Heaven</p>
+    <h3 class="heaven-title">Jupiter · Sphere of the Just</h3>
+    <p class="heaven-sub">The righteous rulers who governed with justice — including the pagan Trajan and Ripheus</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Nineteen</p>
+        <h3 class="canto-title">The Eagle Speaks — On Divine Justice and Salvation</h3>
+        <p class="canto-hook">The collective Eagle of the Just speaks as one voice and confronts the hardest theological question in the poem.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The Eagle formed from the souls of the just speaks — and it speaks with a single voice, even though it is composed of thousands of individual souls. The individual voices are to the Eagle what the separate fires in a log are to the single warmth of the fire. The miracle is that many become one without losing their distinctness. This is the image of the Church, of the community of the saved, of love's unifying power.</p>
+      <p>Dante has carried a question through the whole Purgatorio and much of Paradiso: what of the virtuous man born outside Christendom, who never heard of Christ, whose entire life was upright and good — is he damned simply for ignorance? The Eagle addresses this directly and honestly. It affirms: God's justice is beyond human comprehension. To say that an omnipotent, infinitely good God is unjust because His standards exceed human understanding is to make the creature the measure of the Creator — the exact error of pride. The light of divine justice illuminates what human reason cannot reach.</p>
+      <p>But the Eagle does not simply shut down the question. It says: the Kingdom of Heaven is not won by simply professing "Lord, Lord" — and there will be many who cry Christ in the Final Judgment who are further from Him than some who never knew His name. The Persian king Cyrus did more for God's people than some Christian princes. The indictment of corrupt Christian rulers is sharp: the page is full of their wickedness — Albert of Austria, Philip IV of France, Edward of England, Ferdinand of Castile, Charles of Naples, the King of Hungary, the King of Navarre. The roll call of bad rulers is Dante at his most politically unsparing.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, The Eagle of Jupiter</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty</p>
+        <h3 class="canto-title">Trajan and Ripheus — The Width of Grace</h3>
+        <p class="canto-hook">Two pagans appear in the eye of the Eagle — one who went back from death, one who was saved before Christ — showing that grace has no limits human theology can draw.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The Eagle identifies the six souls that form the eye and brow of the great bird: David is the pupil — the singer who moved the Ark, who suffered for his sin, whose repentance created the Psalms. The brow: Trajan, Hezekiah, Constantine, William II of Sicily, and Ripheus the Trojan. David and William are perhaps expected. Trajan is surprising. Ripheus is extraordinary — he is a character from Virgil's Aeneid, barely mentioned, praised by Virgil as the most just of all the Trojans, who died in the fall of Troy. He is entirely fictional in the historical sense; he never existed. Yet here he is in Heaven.</p>
+      <p>The Eagle, reading Dante's amazement, explains. Trajan, the pagan emperor, was restored to life by Pope Gregory the Great's prayers — brought back briefly so that he could hear the Gospel and convert before a second death. Whether this is literal or symbolic, it represents the conviction that grace can operate outside normal channels when God wills it. As for Ripheus: his natural moral sensitivity was so acute that, centuries before the Incarnation, he received through a kind of anticipatory grace — faith in the Christ to come — the three virtues of Hope, Faith, and Charity, administered to him by the divine goodness he already loved. He was baptized in spirit before baptism existed. The lesson: "The predestination of God, how far removed its root is from those faces that see not the whole of the First Cause!" Human theology cannot map where grace goes. Both souls sit in the Eagle's eye, which is the eye of justice — because in them, justice and mercy coincide perfectly.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, The Eagle; Named Souls: David, Trajan, Hezekiah, Constantine, William II of Sicily, Ripheus of Troy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     SEVENTH HEAVEN · SATURN
+════════════════════════════════ -->
+<section id="saturn">
+  <div class="heaven-section">
+    <p class="heaven-badge">Seventh Heaven</p>
+    <h3 class="heaven-title">Saturn · Sphere of the Contemplatives</h3>
+    <p class="heaven-sub">The great mystics and monastics who withdrew from the world into the life of prayer</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-One</p>
+        <h3 class="canto-title">The Golden Ladder — Peter Damian</h3>
+        <p class="canto-hook">An immense staircase rises from Saturn into the heavens, and a fierce old monk condemns his own degenerate order.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Saturn. Beatrice does not smile here — she explains that her smile in this sphere would be so powerful that it would shatter Dante as Semele was shattered when Jupiter revealed himself in full glory to her mortal eyes. The contemplatives' sphere is too close to the pure divine light for her full expression. There is also no singing in Saturn — the silence is the silence of pure contemplation, the interior life turned so completely inward that outer music becomes unnecessary.</p>
+      <p>A golden ladder rises within the sphere, its top vanishing far above — as far up as the eye can see. Souls descend the ladder like light flooding through clouds, blazing as they come. One stops to speak: Peter Damian, the 11th-century Benedictine reformer and Cardinal, who advocated for clerical celibacy and monastic austerity with tremendous force in his lifetime. He speaks of his monastery at Fonte Avellana — dedicated to the Virgin, on the slopes of the Apennines — with the calm, spare love of a man who found his home in prayer and poverty.</p>
+      <p>Dante asks why he was chosen to speak rather than another. Peter Damian answers: predestination is beyond all human sight, even the sight of the greatest intellects in Heaven. No created intelligence, not even the highest seraphim, can reach its root. Carry that limitation home. Then Peter turns to fury — the most concentrated burst of invective in all of Paradiso. The modern prelates, fat and slow, carried on horseback — it takes two men to hold up one bishop's cloak — are an abomination in the sight of the Church's founders. Peter and Paul went barefoot and lean. These men are devoured by lust for wealth and power. Patience, Peter says. But the judgment is coming. The other souls ring out a cry at his words — so loud and bright that Dante is stunned and cannot comprehend it.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Peter Damian</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Two</p>
+        <h3 class="canto-title">St. Benedict — Dante Looks Back at Earth</h3>
+        <p class="canto-hook">The father of Western monasticism speaks of the Rule's betrayal, and Dante turns to see how small and far below the earth appears.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The great cry fades. Beatrice steadies Dante, who is still shaken. More souls descend the golden ladder — a larger group now. One speaks: Benedict of Nursia, the founder of Western monasticism, author of the Rule that shaped the entire medieval monastic tradition. He identifies himself simply and with enormous dignity. He mentions his hermitage at Cassino, the pagan temple of Apollo he destroyed to found his monastery, the many souls his Rule has guided to Heaven. Macarius and Romualdo of Ravenna, two other great monastic reformers, are here with him.</p>
+      <p>Dante asks to see Benedict's face unveiled — the desire to see the beloved clearly that drives the whole canticle. Benedict answers: this will be satisfied in the Empyrean; here, the process of perfection has not reached its final unveiling. Then Benedict mirrors Peter Damian's lament: the Rule he wrote, the monasteries he founded — look at them now. The walls of the monastery are built of stone but inside there is nothing but emptiness. The monks' cowls are sacks full of rotten meal. Usury is less an offense against God than what they practice. But God has performed greater recoveries than this. Take heart.</p>
+      <p>They ascend past the sphere of the Fixed Stars — a trajectory so swift that Dante looks down and sees, far below, the tiny track of his journey: the earth's globe small as a threshing floor, the seven spheres arranged beneath him. He sees the moon's shadow, the sun blazing at a different angle, the whole of the terrestrial world as a pebble in space. He smiles at how small it is — the "little threshing floor that makes us so fierce."</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, St. Benedict; Macarius, Romualdo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     EIGHTH HEAVEN · FIXED STARS
+════════════════════════════════ -->
+<section id="stars">
+  <div class="heaven-section">
+    <p class="heaven-badge">Eighth Heaven</p>
+    <h3 class="heaven-title">The Fixed Stars · The Church Triumphant</h3>
+    <p class="heaven-sub">The whole company of the blessed, and the examination of Dante's faith, hope, and love</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Three</p>
+        <h3 class="canto-title">The Triumph of Christ and Mary</h3>
+        <p class="canto-hook">The entire company of the saved blazes around a point of light — Christ, then Mary — of a splendor Dante cannot hold.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice stands gazing upward with the intensity of a mother bird watching for the dawn, waiting for the return of light to the nest. Dante watches her face and learns her longing. Then it comes: a great splendor, blazing above, and within it — Christ. A sun of such brightness that nothing Dante has seen could have prepared him. He looks at it and is overwhelmed; only later will he know that he saw what he could not retain. He confesses the defeat openly: no poet has crossed this sea, and if he could render it, he would diminish it. The poem's inadequacy is itself a testimony.</p>
+      <p>From that blazing center falls a smile of light — Beatrice's word for it — and the whole garden of the blessed blooms beneath the radiance of Christ as a meadow blooms under direct sunlight. Mary blazes above all the other souls, the rose of the garden of the Incarnation, the flower around which the angelic hymn circulates. Gabriel comes circling her, singing the Ave Maria, crowning her. She ascends — the Assumption — rising into the empyrean before Dante's eyes, and the souls of the blessed stretch their flames upward after her like children reaching for a mother they cannot follow. But their love, turned back on itself, becomes a hymn: Regina Caeli. The sphere blazes.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, Christ (as light), The Virgin Mary, Gabriel, The Church Triumphant</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Four</p>
+        <h3 class="canto-title">St. Peter Examines Dante on Faith</h3>
+        <p class="canto-hook">The prince of the apostles circles Dante three times and subjects him to a rigorous oral examination on the nature of faith.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Beatrice asks the company of the blessed to grant Dante a taste of their feast. Three souls detach from the group and circle Beatrice like comets of joy; then a larger group circles the inner three. The greatest of the three addresses Dante — Peter, the rock on whom Christ built His Church. His examination of Dante is formal, the structure of a doctoral disputation: what is faith? Dante answers from Hebrews 11:1 — faith is the substance of things hoped for, the evidence of things not seen. Peter probes: why is faith called substance? Because on it the entire superstructure of Christian hope is built; it is the foundation, the substance underlying all that follows. And why evidence? Because without faith, no demonstration of the truth it contains is possible — it is the lens, not merely the conclusion.</p>
+      <p>Peter asks: from where did you receive this faith? From the Scriptures. And why should you trust the Scriptures? This is the hardest question — the circular one that every skeptic raises. Dante's answer is elegant: the miracle of the Church's existence and spread — twelve poor, unlettered men who converted the world without wealth, without weapons, without anything but witness — is itself the greatest of miracles, greater even than the miracle of the Resurrection it proclaims. If the Resurrection were false, an extraordinary miracle would be required to explain how the world came to believe it. No other account of the Church's origin makes sense. Peter circles Dante three times, singing, embracing him like a father who has found a son worthy of trust: "Grace be to God who grants you such favor."</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, St. Peter</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXV</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Five</p>
+        <h3 class="canto-title">St. James Examines Dante on Hope</h3>
+        <p class="canto-hook">The apostle of hope interrogates Dante, and the poem pauses for a personal reflection on exile and the longing to return home.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Before the examination begins, Dante breaks in a remarkable personal aside — speaking as himself, the exile, to Florence. If the sacred poem — this Comedy that has made him lean for many years, the work of both Heaven and earth — if it ever overcomes the cruelty of exile that keeps him locked outside the beautiful sheepfold of Florence where he slept as a lamb, he will return to that font of his baptism and be crowned poet there. It is a dream of return that he knows, perhaps, will never come. The tender vulnerability of the aside is startling after the sustained theological elevation of the preceding cantos.</p>
+      <p>James, the apostle associated with hope, approaches and embraces Peter. Dante is overcome at the sight of the two greatest apostles meeting in his presence. James examines him: what is hope? Dante defers to Peter to certify that he possesses it, then defines it — a certain expectation of future glory, produced by divine grace and preceding merit. James presses: where did this hope come from for you? From the Psalms, from Isaiah, from the apostolic letters — the Bible's consistent promise. What does hope promise? The angels and the blessed souls of Heaven are the first fruits of it; Dante himself, still in the flesh, an early guest at the promised feast.</p>
+      <p>St. John, the beloved disciple, approaches — and Dante stares at him so intently, hoping to see whether John was assumed bodily into Heaven (as popular legend held), that he temporarily blinds himself. John gently corrects him: no, only Christ and Mary were assumed body and soul. John's glorified body awaits the Resurrection like everyone else's. Dante recovers his sight — and finds Beatrice more beautiful than before.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, St. Peter, St. James, St. John</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Six</p>
+        <h3 class="canto-title">St. John Examines Dante on Love — Adam Speaks</h3>
+        <p class="canto-hook">The apostle of love examines Dante on the nature of charity, and Adam — the first man — answers four questions from the dawn of human history.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>John examines Dante on the greatest of the theological virtues: love, charity. Who or what is the highest object of his love? Dante's answer is a philosophical and scriptural cascade: I love God because He is the Good beyond which nothing better can be imagined; because the truth of this is demonstrated by Aristotle, by Scripture, and by the authority of the Church's whole tradition; because the whole world bears the imprint of His love; and because the human mind, by its very nature, desires above all the good that is its cause and end. John is satisfied. The blessed sing to Dante — "Sanctus, Sanctus, Sanctus" — and his sight is restored by Beatrice's gaze, sharper than before.</p>
+      <p>Among the blazing souls, one steps forward — ancient, singular, lit with a quiet, profound joy. It is Adam, the first man, father of the human race. Dante is overcome. Adam, reading Dante's unspoken questions, answers four of them in sequence: how long ago did he live? He was in Eden for little more than six hours before the Fall; he was in Limbo until Christ's Harrowing — 4302 years, which gives Dante a date for Adam's creation. What language did he speak? Not Hebrew, as medieval tradition held — the language Adam spoke died out long before Babel; all human languages change and die, like the leaves of a forest. The name he used for God was not El (Hebrew) but I — a simple sound. And the true cause of his exile from Eden? Not the eating of the fruit in itself, but the transgression of the boundary he had freely accepted — the presumption of crossing what God had bounded.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, St. Peter, St. James, St. John, Adam</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Seven</p>
+        <h3 class="canto-title">Peter's Fury at the Papacy — The Crystal Sphere</h3>
+        <p class="canto-hook">Peter turns scarlet with rage against the corruption of his see, and Dante rises into the last sphere before God.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The whole assembly sings Gloria — Father, Son, and Holy Spirit — and the light and music fill the entire sphere. Then Peter blazes deep red — the color of blood — and the whole heaven takes on his color like a sunset. He speaks in rage and grief. The papacy has been turned into a sewer of blood and filth. Boniface VIII and Clement V use Peter's own tomb and his keys as instruments of faction and personal enrichment. Wolves in shepherds' clothing walk in Peter's pasture. Providence will come — but be patient. Then he and the blessed souls all rise, returning toward the Empyrean.</p>
+      <p>Beatrice tells Dante to look down before they ascend further. He sees the whole arc of the seven spheres below, the earth tiny, all of it familiar and small. She has him turn his eyes upward into the Primum Mobile — the ninth sphere, the outermost, the Crystal Sphere, the source of all motion in the universe below. It is pure light and motion with no surface, no stars, only the speed of love. They enter. Beatrice explains how this sphere contains all the others — not in space, since it has no spatial dimension, but in the love and knowledge that gives them being and motion. Everything begins here. Then she turns to the state of the world: humanity has strayed. Children grow up, only to be corrupted by adult institutions that themselves have forgotten their purpose. Rome and Florence, the two suns of the world, have set. But there is hope — Dante himself, and the poem he is writing, are instruments of that hope.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice, St. Peter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     NINTH HEAVEN · PRIMUM MOBILE
+════════════════════════════════ -->
+<section id="primum">
+  <div class="heaven-section">
+    <p class="heaven-badge">Ninth Heaven</p>
+    <h3 class="heaven-title">The Primum Mobile · The Angelic Orders</h3>
+    <p class="heaven-sub">The source of all motion, where the nine orders of angels circle the point of divine light</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXVIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Eight</p>
+        <h3 class="canto-title">The Point of Light — The Nine Angelic Circles</h3>
+        <p class="canto-hook">Dante looks into Beatrice's eyes and sees reflected there an infinitely small point of blinding light surrounded by nine spinning rings of fire.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Dante looks into Beatrice's eyes and sees in them the reflection of a point of light — so intense, so small, so piercing that the eye must look away. He turns to see the source directly. There: a single point, infinitely bright, surrounded by nine circles of fire spinning around it, each one faster and brighter the closer to the central point. This is the structure of the angelic hierarchy — the nine orders of angels circling God, the speed and brilliance of each order corresponding to its degree of participation in divine love.</p>
+      <p>But wait — in the physical universe, the largest and fastest sphere (the Primum Mobile) is the outermost. Here, in this vision, it is the innermost circle that is largest and fastest. The geometry is inverted. Beatrice explains: in the physical universe, the outer spheres move more because they receive more divine influence distributed across their greater size; here, the inner circles are closest to the divine source and receive it most directly and intensely. The physical universe is a shadow image of this spiritual original, and its dimensions correspond to it inversely. The more divine love a circle carries, the faster it moves, the brighter it blazes — and the innermost circle carries the most. The cosmological inversion is also a moral one: what is great by proximity to God is inwardly small by external measure.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXIX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Twenty-Nine</p>
+        <h3 class="canto-title">The Creation of the Angels — Against False Preaching</h3>
+        <p class="canto-hook">Beatrice explains why and how God created the angels, and delivers a scalding rebuke against preachers who prefer clever fables to truth.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>A pause — Beatrice gazes at the central point of light in total absorption, a smile of complete beatitude on her face. Then she speaks, answering Dante's unasked question about the creation. Before space and time existed, God — who is perfect, subsisting love, needing nothing — created the angels out of pure love. Not to add to His own goodness, since nothing can be added to perfection, but so that the light of His being could radiate and be reflected back in love. The creation was instantaneous: form, pure matter (the capacity to receive form), and the union of both — all three simultaneously. The angels were created and immediately loved; some immediately turned away from that love and fell — became the demons. The rest, standing in their love, received grace that confirmed them permanently in beatitude.</p>
+      <p>Beatrice then rebukes the philosophers who speculate about how many angels exist: Scripture has thousands upon thousands, and more is not said because the number exceeds human numeration. Leave it. Then she turns to preachers. The current state of Christian preaching is abominable: preachers invent fables, play on the crowd's laughter, and consider themselves good preachers if the people leave happy. The Gospel is never mentioned. Indulgences are peddled, which are themselves fraudulent since there is no treasury of the Church's merit — or rather, there is, but it is used to fund wars against Christians. Francis of Assisi would weep. But God's patience is not limitless.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     THE EMPYREAN
+════════════════════════════════ -->
+<section id="empyrean">
+  <div class="part-header">
+    <p class="part-number">Final Part</p>
+    <h2 class="part-title">The Empyrean</h2>
+    <p class="part-cantos">Cantos XXX – XXXIII</p>
+    <p class="part-intro">Beyond space, beyond time, beyond motion — the pure light of God, where all the blessed dwell in the White Rose, and where Dante's vision finally reaches its goal and breaks apart.</p>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXX</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty</p>
+        <h3 class="canto-title">The River of Light — The White Rose</h3>
+        <p class="canto-hook">The nine spheres vanish below, Dante drinks from a river of light, and the Empyrean opens as an infinite white rose.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Six thousand miles away, dawn is breaking over the horizon — and at that distance, the sky's color fades the stars one by one, and the brightest vanish last. So the angelic circles above the Primum Mobile, as Dante draws near to the Empyrean, fade from his sight — not because they disappear but because they are overwhelmed by a light that makes them invisible by excess. The Empyrean is pure light: not the light of the sun or of fire, but intellectual light — the light of the divine intellect, love-filled and joy-filled, the direct radiance of God's being.</p>
+      <p>Dante is blinded and reborn by this light simultaneously. He sees a river of light flowing between two banks of flowers and jewels, and from the river sparks rise like rubies and settle into the flowers, then rise again. These are angels and souls — but he cannot yet read the vision fully. Beatrice tells him to drink from the river — to dip his face into the light. He does. And the river resolves: it was a shadow of the truth, accommodated to his still-developing capacity. Now he sees the full reality. The river becomes a vast lake of light — circular, immense — and all around its banks, in tier upon tier ascending, sit the blessed in their white robes: the White Rose of Paradise, the assembly of all who have been redeemed through all of human history. Around and above and through it all, the light and the angels' wings, countless, in constant motion — bees returning to their flower, bringing the love they have gathered from the divine source and pouring it down into the great petals of the Rose.</p>
+      <p>Dante looks at Beatrice to ask a question — and she is no longer beside him. He looks up and sees her, high in the Rose, in the seat assigned to her, blazing with her own glory. He thanks her — the only proper form of thanks available, which is to praise her beauty and ask her to remain mindful of him. She smiles and turns back to the eternal fountain. An elder in white has taken her place — Bernard of Clairvaux, the last guide.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, Beatrice (departing to her seat), St. Bernard; The White Rose of the Blessed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXI</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-One</p>
+        <h3 class="canto-title">The White Rose — Bernard's Prayer</h3>
+        <p class="canto-hook">Dante surveys the Rose and looks for Beatrice, who shines far above in her assigned seat, and Bernard explains what he is seeing.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>The great Rose. Dante, for the first time in the whole Commedia, is entirely silent — looking, absorbing, unable to speak. The Rose fills a space that is somehow both immense and intimate — thousands upon thousands of souls in tiers, the lower tiers not obscuring the upper because the light that constitutes the Empyrean is not spatial in any ordinary sense. All faces are turned toward the central light; all radiate the reflected light outward. Angels descend as bees to flowers, bearing the love of their ministry between the souls and the divine source, their faces like flames of living fire, their wings of gold, their robes as white as snow.</p>
+      <p>Bernard, the 12th-century mystic and abbot of Clairvaux — the great master of contemplative prayer in the medieval tradition — is the guide chosen for this final stage. He was not a philosopher but a lover: his mystical theology was all experience and devotion, the direct knowledge of the heart. He is perfectly suited to guide Dante through what remains, which is no longer argument or doctrine but vision. Bernard shows Dante where the great figures sit in the Rose: the Virgin Mary enthroned at the very top, beneath her the Patriarchs of the Old Testament on one side and the faithful of the New on the other. He shows Dante John the Baptist opposite Mary, Francis, Benedict, and Augustine below. And he shows Dante the empty seat — set aside, awaiting its occupant — marked by a crown: the seat of the Emperor Henry VII of Luxembourg, whom Dante believed was divinely appointed to restore the empire and who died in 1313 before he could. The papacy itself prevented it, in Dante's view. Even here, even now, Dante cannot let this political grief go entirely.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, St. Bernard, Beatrice (in her seat), The Virgin Mary; The Rose: Old and New Testament souls</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Two</p>
+        <h3 class="canto-title">The Structure of the Rose — Bernard's Teaching on Grace</h3>
+        <p class="canto-hook">Bernard maps the Rose and then teaches Dante the mystery of why some souls are higher than others without any apparent merit of their own.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Bernard, absorbed in contemplation of the Virgin while Dante is absorbed in him — a chain of love — speaks as a guide who knows every detail of the Rose by heart. He traces its divisions: the Rose is divided vertically by the faith in Christ as past (left side) versus faith in Christ as future (right). Those who died before the Incarnation face those who died after it. The horizontal tiers descend by degrees of beatitude.</p>
+      <p>He names the great figures: Rachel and Beatrice (divine wisdom and the specific wisdom that guided Dante) below Mary; Sarah, Rebekah, Judith, and Ruth in the next tier — the great women of the Hebrew Bible. Bernard then raises a question that has troubled theologians: children who died before the age of reason are here, distinguished by degree of beatitude, yet they had no personal merit. How is one higher than another? Bernard's answer: the divine will, operating through the varying excellence of the spiritual preparation of their parents and the original grace distributed before birth — predestination, in the strict sense. The mystery is not resolved but acknowledged: God acts, and the reason for the differentiation of grace is not human merit but divine sovereign love. Bernard closes by telling Dante to prepare himself: he must now look at the Queen of Heaven, for she alone can open his eyes sufficiently for the final vision.</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, St. Bernard</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canto" onclick="toggle(this)">
+    <div class="canto-header">
+      <div class="canto-number">XXXIII</div>
+      <div class="canto-meta">
+        <p class="canto-label">Canto Thirty-Three</p>
+        <h3 class="canto-title">Bernard's Prayer to Mary — The Vision of God</h3>
+        <p class="canto-hook">The last canto of the whole Comedy: a prayer, a vision that breaks language apart, and a final turning of the will.</p>
+      </div>
+      <div class="toggle-icon">+</div>
+    </div>
+    <div class="canto-body">
+      <p>Bernard's prayer to the Virgin is one of the supreme achievements of Latin Christian poetry — a sustained hymn of praise and petition that builds steadily to its request. He addresses her as Virgin Mother, daughter of her Son, humble and exalted above every creature; the fixed point that gave human nature such nobility that its Maker did not disdain to become its making. Her womb was the furnace that ignited the love that has flowered into this Rose. Here below, she is the living noon; in Heaven, the living fountain. Bernard asks her to grant Dante the final grace of vision — that these eyes still mortal may see through to the highest joy; that after he returns to earth, his heart may preserve something of what he has seen; that his will may be guarded from all further temptation. Mary's eyes, turned toward Bernard's prayer, show that she finds it pleasing; then she turns them to the Eternal Light, and Bernard gestures: look now, Dante.</p>
+      <p>The vision. Dante looks into the light and finds, as he penetrates deeper, that all things scattered across the universe — all substance, accident, and their relation — are bound together in one volume, one book, by love. The universe is not a collection of separate objects; it is a single utterance of love, differentiated into apparent multiplicity. In the depth of that light he begins to see three circles — the Trinity: Father, Son, Spirit — each reflecting the others, each distinct, each the same substance of light. In the second circle — the Son — he glimpses, within the divine, the image of the human face: the Incarnation, the mystery that joins divinity and humanity in one Person. He cannot fathom how it fits together. He reaches for it with all the force of his mind and fails — and at that moment of failure, something from outside strikes him like lightning. Not his mind reaching up, but the divine love reaching down. And at that touch — the very last words of the Comedy — his desire and his will are already moving in the direction of love, as a wheel turns evenly, with no friction, in perfect motion: <em>l'amor che move il sole e l'altre stelle</em> — "the Love that moves the sun and all the other stars."</p>
+      <div class="characters">
+        <strong>Characters</strong>
+        <span>Dante, St. Bernard, The Virgin Mary, The Trinity — Father, Son, Holy Spirit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Dante Alighieri · La Divina Commedia · Paradiso · c. 1314–1320 &nbsp;·&nbsp; Commentary prepared for study
+  <a href="index.html" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#b07d10;text-decoration:none;margin-top:10px;display:inline-block;opacity:0.6;">Return to the full Comedy</a>
+</footer>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.canto').forEach(c => {
+    c.classList.toggle('open', allOpen);
+  });
+  document.querySelector('.expand-btn').textContent = allOpen ? 'Collapse All Cantos' : 'Expand All Cantos';
+}
+</script>
+</body>
+</html>
