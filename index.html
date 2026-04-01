@@ -185,12 +185,13 @@
   /* Paradiso card */
   .card-paradiso {
     background:
-      radial-gradient(ellipse at 50% 100%, rgba(176,125,16,0.35) 0%, transparent 70%),
-      linear-gradient(180deg, #110f08 0%, #1e1a08 100%);
+      radial-gradient(ellipse at 50% 0%, rgba(245,200,66,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(200,148,26,0.45) 0%, transparent 65%),
+      linear-gradient(180deg, #0e0c05 0%, #1c1706 100%);
   }
 
   .card-paradiso::before {
-    background: radial-gradient(ellipse at 50% 80%, rgba(224,170,40,0.12) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 50% 60%, rgba(245,200,66,0.18) 0%, transparent 65%);
   }
 
   /* Roman numeral background */
@@ -222,10 +223,10 @@
   }
 
   .card-paradiso .canticle-numeral {
-    color: rgba(224,170,40,0.07);
+    color: rgba(245,200,66,0.10);
   }
   .card-paradiso:hover .canticle-numeral {
-    color: rgba(224,170,40,0.13);
+    color: rgba(245,200,66,0.20);
   }
 
   .canticle-content {
@@ -258,9 +259,9 @@
   }
 
   .card-paradiso .canticle-badge {
-    color: #d4a843;
-    border-color: rgba(184,134,11,0.4);
-    background: rgba(100,80,10,0.15);
+    color: #f0c030;
+    border-color: rgba(224,170,40,0.5);
+    background: rgba(140,110,10,0.18);
   }
 
   .canticle-title {
@@ -273,7 +274,7 @@
 
   .card-inferno .canticle-title { color: #c0392b; text-shadow: 0 0 30px rgba(180,40,20,0.35); }
   .card-purgatorio .canticle-title { color: #e8c060; text-shadow: 0 0 24px rgba(184,134,11,0.3); }
-  .card-paradiso .canticle-title { color: #f5c842; text-shadow: 0 0 24px rgba(224,170,40,0.3); }
+  .card-paradiso .canticle-title { color: #ffd050; text-shadow: 0 0 30px rgba(245,200,66,0.5), 0 0 60px rgba(200,148,26,0.2); }
 
   .canticle-meta {
     font-family: 'Cinzel', serif;
@@ -284,8 +285,8 @@
     text-transform: uppercase;
   }
 
-  .card-purgatorio .canticle-meta,
-  .card-paradiso .canticle-meta { color: #6a5820; }
+  .card-purgatorio .canticle-meta { color: #6a5820; }
+  .card-paradiso .canticle-meta { color: #8a7020; }
 
   .canticle-desc {
     font-size: 1rem;
@@ -295,7 +296,7 @@
 
   .card-inferno .canticle-desc { color: #8a7070; }
   .card-purgatorio .canticle-desc { color: #8a7a50; }
-  .card-paradiso .canticle-desc { color: #8a7a50; }
+  .card-paradiso .canticle-desc { color: #9a8a40; }
 
   .canticle-link {
     font-family: 'Cinzel', serif;
@@ -312,7 +313,7 @@
 
   .card-inferno .canticle-link { color: #8b1a1a; }
   .card-purgatorio .canticle-link { color: #b8860b; }
-  .card-paradiso .canticle-link { color: #b8860b; }
+  .card-paradiso .canticle-link { color: #d4a020; }
 
   .canticle-link::after {
     content: '→';

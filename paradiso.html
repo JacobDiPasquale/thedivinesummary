@@ -7,35 +7,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #2a1f0a;
-    --cream: #fdf8ee;
-    --cream-mid: #f9f1d8;
-    --cream-dark: #f3e8c0;
-    --cream-deep: #ecdba0;
-    --gold: #b07d10;
-    --gold-mid: #c8941a;
-    --gold-bright: #e0aa28;
-    --gold-glow: #f5c842;
+    --void: #080604;
+    --ink: #0f0b05;
+    --ink-mid: #181208;
+    --ink-light: #241a08;
+    --gold: #c8941a;
+    --gold-mid: #e0aa28;
+    --gold-bright: #f5c842;
+    --gold-glow: #ffd050;
     --amber: #d4820a;
     --amber-light: #e8a030;
     --rose-gold: #c47030;
-    --white-light: #fffdf5;
-    --shadow: rgba(42,31,10,0.12);
-    --text-body: #3a2a0e;
-    --text-mid: #5c4418;
-    --text-faint: #8a6828;
-    --text-fainter: #b08840;
-    --blue-heaven: #3a5a8c;
+    --white-light: #fff8d0;
+    --shadow: rgba(8,6,4,0.6);
+    --text-body: #c8a458;
+    --text-mid: #ddb660;
+    --text-faint: #a07828;
+    --text-fainter: #7a5c20;
+    --blue-heaven: #4a72a8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background-color: var(--cream);
+    background-color: var(--ink);
     background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(240,200,80,0.18) 0%, transparent 55%),
-      radial-gradient(ellipse at 100% 50%, rgba(220,160,60,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse at 0% 100%, rgba(200,150,40,0.08) 0%, transparent 50%);
+      radial-gradient(ellipse at 50% 0%, rgba(245,200,66,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 50%, rgba(200,148,26,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, rgba(180,130,20,0.05) 0%, transparent 50%);
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--text-body);
     min-height: 100vh;
@@ -43,7 +42,7 @@
 
   /* ── SITE NAV ── */
   .site-nav {
-    background: rgba(253,248,238,0.98);
+    background: rgba(12,9,4,0.98);
     border-bottom: 1px solid rgba(176,125,16,0.18);
     padding: 0 24px;
     display: flex;
@@ -90,7 +89,7 @@
     border-bottom: 1px solid rgba(176,125,16,0.25);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, rgba(255,245,210,0.9) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(20,15,5,0.85) 0%, transparent 100%);
   }
 
   header::before {
@@ -122,12 +121,12 @@
   h1 {
     font-family: 'Cinzel Decorative', serif;
     font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-    color: var(--gold);
+    color: var(--gold-bright);
     line-height: 1.12;
     margin-bottom: 12px;
     text-shadow:
-      0 1px 0 rgba(255,255,255,0.9),
-      0 3px 24px rgba(200,148,26,0.28);
+      0 0 40px rgba(245,200,66,0.35),
+      0 2px 12px rgba(0,0,0,0.6);
     letter-spacing: 0.05em;
   }
 
@@ -157,10 +156,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(253,248,238,0.95);
+    background: rgba(10,8,3,0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(176,125,16,0.2);
-    box-shadow: 0 2px 12px rgba(176,125,16,0.08);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
     padding: 0 24px;
     display: flex;
     gap: 0;
@@ -221,9 +220,9 @@
   .part-title {
     font-family: 'Cinzel Decorative', serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
-    color: var(--gold);
+    color: var(--gold-mid);
     margin-bottom: 8px;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    text-shadow: 0 0 20px rgba(200,148,26,0.3);
   }
 
   .part-cantos {
@@ -284,13 +283,13 @@
     border-radius: 5px;
     overflow: hidden;
     border: 1px solid rgba(176,125,16,0.14);
-    background: rgba(255,251,240,0.7);
+    background: rgba(20,15,5,0.75);
     transition: border-color 0.25s, box-shadow 0.25s;
   }
 
   .canto:hover {
-    border-color: rgba(176,125,16,0.32);
-    box-shadow: 0 2px 16px rgba(176,125,16,0.09);
+    border-color: rgba(200,148,26,0.35);
+    box-shadow: 0 2px 18px rgba(200,148,26,0.12);
   }
 
   .canto-header {
@@ -331,10 +330,10 @@
   .canto-title {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
-    color: var(--gold);
+    color: var(--gold-mid);
     margin-bottom: 6px;
     letter-spacing: 0.03em;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    text-shadow: 0 0 16px rgba(200,148,26,0.25);
   }
 
   .canto-hook {
