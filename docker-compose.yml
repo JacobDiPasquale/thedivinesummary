@@ -1,0 +1,15 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Bind-mount source for hot reload; node_modules stays in container
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true   # needed for file watching inside Docker on macOS

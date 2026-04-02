@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base reset ─────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-garamond antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* ── Canticle theme tokens ──────────────────────────────────────────────────── */
+/*
+ * Each canticle layout wraps its children in a div with data-canticle="...".
+ * Components use var(--c-*) for theme-aware styling, written once and applied
+ * contextually. All color values mirror the originals from the HTML files.
+ */
+
+[data-canticle="inferno"] {
+  --c-background:      #0d0a09;
+  --c-primary:         #8b1a1a;
+  --c-primary-bright:  #c0392b;
+  --c-accent:          #c44a1a;
+  --c-text-body:       #c0aeaa;
+  --c-text-mid:        #a09090;
+  --c-text-faint:      #7a6868;
+  --c-card-bg:         #151010;
+  --c-card-hover:      #1e1614;
+  --c-border:          rgba(139,26,26,0.2);
+  --c-border-faint:    rgba(139,26,26,0.08);
+  --c-body-gradient:
+    radial-gradient(ellipse at 50% 0%, #1a0808 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 100%, #1a0d08 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, #110808 0%, transparent 45%);
+}
+
+[data-canticle="purgatorio"] {
+  --c-background:      #070d06;
+  --c-primary:         #5a9038;
+  --c-primary-bright:  #76aa50;
+  --c-accent:          #6aaa45;
+  --c-text-body:       #a8c870;
+  --c-text-mid:        #88a055;
+  --c-text-faint:      #607040;
+  --c-card-bg:         #0d1309;
+  --c-card-hover:      #121a0f;
+  --c-border:          rgba(90,144,56,0.2);
+  --c-border-faint:    rgba(90,144,56,0.08);
+  --c-body-gradient:
+    radial-gradient(ellipse at 50% 0%, rgba(20,50,10,0.6) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 100%, rgba(10,30,5,0.4) 0%, transparent 55%);
+}
+
+[data-canticle="paradiso"] {
+  --c-background:      #170e04;
+  --c-primary:         #d4a820;
+  --c-primary-bright:  #f8d048;
+  --c-accent:          #e0b830;
+  --c-text-body:       #dcc270;
+  --c-text-mid:        #c0a050;
+  --c-text-faint:      #906830;
+  --c-card-bg:         #1f1408;
+  --c-card-hover:      #2a1c0c;
+  --c-border:          rgba(212,168,32,0.2);
+  --c-border-faint:    rgba(212,168,32,0.08);
+  --c-body-gradient:
+    radial-gradient(ellipse at 50% 0%, rgba(120,80,10,0.2) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(80,50,5,0.15) 0%, transparent 55%);
+}
+
+/* ── QuickNav scrollbar hiding ──────────────────────────────────────────────── */
+.quick-nav-scroll { scrollbar-width: none; }
+.quick-nav-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Section scroll offset (accounts for SiteNav + QuickNav height) ───────── */
+[data-canticle] section[id],
+[data-canticle] div[id] {
+  scroll-margin-top: 88px;
+}
+
+/* ── Canticle page body styles ──────────────────────────────────────────────── */
+[data-canticle] {
+  background-color: var(--c-background);
+  background-image: var(--c-body-gradient);
+  color: var(--c-text-body);
+  min-height: 100vh;
+}
+
+/* ── Typography utilities ───────────────────────────────────────────────────── */
+@layer components {
+  .text-theme-body  { color: var(--c-text-body); }
+  .text-theme-mid   { color: var(--c-text-mid); }
+  .text-theme-faint { color: var(--c-text-faint); }
+  .text-theme-primary       { color: var(--c-primary); }
+  .text-theme-primary-bright { color: var(--c-primary-bright); }
+  .bg-theme-card    { background-color: var(--c-card-bg); }
+  .bg-theme-hover   { background-color: var(--c-card-hover); }
+  .border-theme     { border-color: var(--c-border); }
+  .border-theme-faint { border-color: var(--c-border-faint); }
+
+  /* Landing page gradient title */
+  .gradient-title {
+    background: linear-gradient(
+      135deg,
+      #c0392b 0%,
+      #e0aa28 45%,
+      #f5c842 55%,
+      #e0aa28 65%,
+      #fdf8ee 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 24px rgba(180,100,20,0.3));
+  }
+}
